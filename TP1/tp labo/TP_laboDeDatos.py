@@ -10,7 +10,7 @@ import duckdb as dd
 
 ArchivoEP = pd.read_csv("Datos_por_departamento_actividad_y_sexo.csv")
 ArchivoEE = pd.read_csv("2022_padron_oficial_establecimientos_educativos.csv", header =6)
-ArchivoPoblacion = pd.read_csv("padron_poblacion.csv")
+ArchivoPoblacion = pd.read_csv("padron_poblacion.csv", header= 11)
 
 Departamento = """
                 SELECT DISTINCT in_departamentos AS departamento_id,departamento,provincia_id,provincia
@@ -74,3 +74,27 @@ EE = """
         ON dfEEconDepartamentoPorNombre.departamento = dfDepartamento.Departamento
       """
 dfEE = dd.query(EE).df()
+
+#corregir población
+ArchivoPoblacionAC = """
+                       SELECT "  de Edad" AS departamento_id, "Unnamed: 1" AS Edad, "Unnamed: 2" AS Casos,"Unnamed: 3" AS "%"
+                        FROM ArchivoPoblacion
+                        """
+                        
+                        
+dfArchivoPoblacionAC=dd.query(ArchivoPoblacionAC).df()
+
+dfArchivoPoblacionAC.iloc[56585]['Casos'] = "Nacional"
+
+dfArchivoPoblacionAC.dropna(subset=['Edad'], inplace=True)
+dfArchivoPoblacionAC.reset_index(drop=True, inplace=True)
+departamento_id = 0
+for i, row in dfArchivoPoblacionAC.iterrows():
+    dfArchivoPoblacionAC.loc[i, 'departamento_id'] = departamento_id
+    if row['Casos'] == 'Casos':
+        departamento_id= dfArchivoPoblacionAC.iloc[i-1]['Casos']
+for i, row in dfArchivoPoblacionAC.iterrows():
+    if row['Casos'] == "Casos":
+        dfArchivoPoblacionAC.drop(i,inplace=True)
+        dfArchivoPoblacionAC.drop(i-1,inplace=True)
+dfArchivoPoblacionAC.reset_index(drop=True, inplace=True)
