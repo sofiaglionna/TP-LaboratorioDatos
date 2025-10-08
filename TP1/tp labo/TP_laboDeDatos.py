@@ -9,9 +9,7 @@ import pandas as pd
 import duckdb as dd
 
 ArchivoEP = pd.read_csv("Datos_por_departamento_actividad_y_sexo.csv")
-texto2 = pd.read_csv("2022_padron_oficial_establecimientos_educativos.csv", header =6)
-ArchivoEE = texto2.drop(index=63662)
-ArchivoEE = ArchivoEE.drop(["Unnamed: 44","Unnamed: 45","Unnamed: 46","Unnamed: 47","Unnamed: 48","Unnamed: 49"],axis=1)
+ArchivoEE = pd.read_csv("2022_padron_oficial_establecimientos_educativos.csv", header =6)
 ArchivoPoblacion = pd.read_csv("padron_poblacion.csv")
 
 Departamento = """
