@@ -11,6 +11,7 @@ import duckdb as dd
 ArchivoEP = pd.read_csv("Datos_por_departamento_actividad_y_sexo.csv")
 ArchivoEE = pd.read_csv("2022_padron_oficial_establecimientos_educativos.csv", header =6)
 ArchivoPoblacion = pd.read_csv("padron_poblacion.csv", header= 11)
+ArchivoActividadesEstablecimientos = pd.read_csv("actividades_establecimientos")
 
 Departamento = """
                 SELECT DISTINCT in_departamentos AS departamento_id,departamento,provincia_id,provincia
@@ -98,3 +99,18 @@ for i, row in dfArchivoPoblacionAC.iterrows():
         dfArchivoPoblacionAC.drop(i,inplace=True)
         dfArchivoPoblacionAC.drop(i-1,inplace=True)
 dfArchivoPoblacionAC.reset_index(drop=True, inplace=True)
+
+"""
+OBTENGO LA TABLA DE ACTIVIDADES ESTABLECIMIENTO 
+"""
+
+EP_con_desc = """
+                SELECT 
+                    ArchivoEP.clae6,
+                    ArchivoActividadesEstablecimientos.clae6_desc
+                FROM ArchivoEP
+                LEFT JOIN ArchivoActividadesEstablecimientos
+                ON ArchivoEP.clae6 = ArchivoActividadesEstablecimientos.clae6
+              """
+dfEP_con_desc = dd.query(EP_con_desc).df()
+print(dfEP_con_desc)
