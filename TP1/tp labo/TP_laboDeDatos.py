@@ -1,10 +1,10 @@
 import pandas as pd
 import duckdb as dd
 
-ArchivoEP = pd.read_csv("Datos_por_departamento_actividad_y_sexo.csv")
-ArchivoEE = pd.read_csv("2022_padron_oficial_establecimientos_educativos.csv", header =6)
-ArchivoPoblacion = pd.read_csv("padron_poblacion.csv", header= 11)
-ArchivoActividadesEstablecimientos = pd.read_csv("actividades_establecimientos.csv")
+ArchivoEP = pd.read_csv("datasets/Iniciales/Datos_por_departamento_actividad_y_sexo.csv")
+ArchivoEE = pd.read_csv("datasets/Iniciales/2022_padron_oficial_establecimientos_educativos.csv", header=6)
+ArchivoPoblacion = pd.read_csv("datasets/Iniciales/padron_poblacion.csv", header=11)
+ArchivoActividadesEstablecimientos = pd.read_csv("datasets/Iniciales/actividades_establecimientos.csv")
 
 Departamento = """
                 SELECT DISTINCT in_departamentos AS departamento_id,departamento,provincia_id,provincia
@@ -148,5 +148,10 @@ EP_con_desc = """
               """
 dfEP_con_desc = dd.query(EP_con_desc).df()
 
-#dfEP_con_desc.to_csv("D:/Labo de datos/TP1/EP_con_desc.csv", index=False, encoding="utf-8")
+""" Pasamos los nuevos datasets a csv """
 
+"""dfEP_con_desc.to_csv("EP_con_desc.csv", index=False, encoding="utf-8")
+dfDepartamento.to_csv("df_Departamento.csv", index=False,encoding ="utf-8")
+dfPoblacion.to_csv("df_Poblacion.csv", index=False,encoding ="utf-8")
+dfEE.to_csv("df_EE.csv", index=False,encoding ="utf-8")
+dfEP.to_csv("df_EP.csv", index=False,encoding ="utf-8")"""
