@@ -83,6 +83,24 @@ EE = """
       """
 dfEE = dd.query(EE).df()
 
+#Normalizamos tipos numéricos en columnas del padrón educativo 
+cols_a_numericas = [
+    "SNU",
+    "SNU - INET",
+    "Secundario - INET",
+    "Nivel inicial - Jardín maternal",
+    "Nivel inicial - Jardín de infantes",
+    "Primario",
+    "Secundario"
+]
+
+for col in cols_a_numericas:
+    dfEE[col] = pd.to_numeric(dfEE[col], errors="coerce").fillna(0).astype("int64")
+
+# Aseguramos que departamento_id quede como entero
+dfEE["departamento_id"] = pd.to_numeric(dfEE["departamento_id"], errors="coerce").astype("Int64")
+dfEE.dtypes
+
 #%%
 #corregir población
 Poblacion_con_nombre = """
@@ -132,6 +150,23 @@ dfPoblacion.loc[12185:12287,'departamento_id'] = 6651
 dfPoblacion.loc[26525:26623,'departamento_id'] = 22126
 dfPoblacion.dropna(subset=['departamento_id'], inplace=True)
 dfPoblacion.reset_index(drop=True, inplace=True)
+
+# Conversión segura de tipos en dfPoblacion
+dfPoblacion["departamento_id"] = pd.to_numeric(dfPoblacion["departamento_id"], errors="coerce")
+dfPoblacion["Edad"]            = pd.to_numeric(dfPoblacion["Edad"],            errors="coerce")
+dfPoblacion["Casos"]           = pd.to_numeric(dfPoblacion["Casos"],           errors="coerce")
+dfPoblacion["%"]               = pd.to_numeric(dfPoblacion["%"],               errors="coerce")
+
+# Quitá solo las filas que no se pudieron convertir (ej.: 'Total')
+dfPoblacion = dfPoblacion.dropna(subset=["departamento_id", "Edad", "Casos"])
+
+# Tipos finales
+dfPoblacion["departamento_id"] = dfPoblacion["departamento_id"].astype("int64")
+dfPoblacion["Edad"]            = dfPoblacion["Edad"].astype("int64")
+dfPoblacion["Casos"]           = dfPoblacion["Casos"].astype("int64")
+dfPoblacion["%"]               = dfPoblacion["%"].astype("float64")
+
+
 #%%
 
 """
@@ -150,8 +185,8 @@ dfEP_con_desc = dd.query(EP_con_desc).df()
 
 """ Pasamos los nuevos datasets a csv """
 
-"""dfEP_con_desc.to_csv("EP_con_desc.csv", index=False, encoding="utf-8")
+dfEP_con_desc.to_csv("EP_con_desc.csv", index=False, encoding="utf-8")
 dfDepartamento.to_csv("df_Departamento.csv", index=False,encoding ="utf-8")
 dfPoblacion.to_csv("df_Poblacion.csv", index=False,encoding ="utf-8")
 dfEE.to_csv("df_EE.csv", index=False,encoding ="utf-8")
-dfEP.to_csv("df_EP.csv", index=False,encoding ="utf-8")"""
+dfEP.to_csv("df_EP.csv", index=False,encoding ="utf-8")

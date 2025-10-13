@@ -1,572 +1,4 @@
 clae6,clae6_desc
-433040,Pintura y trabajos de decoración
-451110,"Venta de autos, camionetas y utilitarios nuevos (Incluye taxis, jeeps, 4x4 y vehículos similares)"
-461012,Venta al por mayor en comisión o consignación de semillas
-461094,"Venta al por mayor en comisión o consignación de  maquinaria, equipo profesional industrial y comercial, embarcaciones y aeronaves"
-501200,Servicio de transporte marítimo de carga
-502101,Servicio de transporte fluvial y lacustre de pasajeros
-502200,Servicio de transporte fluvial y lacustre de carga
-521010,Servicios de manipulación de carga en el ámbito terrestre
-561014,"Servicios de expendio de bebidas en bares (Incluye: bares, cervecerías, pubs, cafeterías)"
-681098,"Servicios inmobiliarios realizados por cuenta propia, con bienes urbanos propios o arrendados n.c.p."
-731001,Servicios de comercialización de tiempo y espacio publicitario
-931010,"Servicios de organización, dirección y gestión de prácticas deportivas en clubes (Incluye clubes de fútbol, golf, tiro, boxeo, etc.)"
-931042,"Servicios prestados por profesionales y técnicos para la realización de prácticas deportivas (Incluye la actividad realizada por entrenadores, instructores, jueces árbitros, cronometradores, etc.)"
-931090,Servicios para la práctica deportiva n.c.p.
-949100,Servicios de organizaciones religiosas
-952200,Reparación de calzado y artículos de marroquinería
-16113,"Servicios de pulverización, desinfección y fumigación aérea "
-16120,"Servicios de cosecha mecánica (Incluye la cosecha mecánica de granos, caña de azúcar, algodón, forrajes, el enfardado, enrollado, etc.) "
-170202,Fabricación de cartón ondulado y envases de cartón
-360010,"Captación, depuración y distribución de agua de fuentes subterráneas"
-464502,"Venta al por mayor de equipos de audio, video y televisión"
-161001,Aserrado y cepillado de madera  nativa
-464340,Venta al por mayor de productos veterinarios
-611010,Servicios de locutorios
-13012,"Producción de semillas varietales o autofecundadas de cereales, oleaginosas, y forrajeras "
-222010,Fabricación de envases plásticos
-14820,Producción de huevos
-31110,"Pesca de organismos marinos, excepto cuando es realizada en buques procesadores"
-107309,"Elaboración de productos de confitería n.c.p. (Incluye alfajores, caramelos, frutas confitadas, pastillas, gomas de mascar, etc.)"
-210010,Fabricación de medicamentos de uso humano y productos farmacéuticos
-267001,Fabricación de equipamiento e instrumentos ópticos y sus accesorios
-101013,Saladero y peladero de cueros de ganado bovino
-152031,Fabricación de calzado deportivo
-275091,"Fabricación de ventiladores, extractores de aire, aspiradoras y similares"
-432110,"Instalación de sistemas de iluminación, control y señalización eléctrica para el transporte "
-581900,Edición n.c.p.
-89110,"Extracción de minerales para la fabricación de abonos excepto turba (Incluye guano, silvita, silvinita y otras sales de potasio naturales, etc.)"
-202906,Fabricación de explosivos y productos de pirotecnia
-14410,Cría de ganado ovino -excepto en cabañas y para la  producción de lana y leche-
-107301,Elaboración de cacao y chocolate
-131139,"Fabricación de hilados textiles n.c.p., excepto de lana  y de algodón"
-51000,"Extracción y aglomeración de carbón (Incluye la producción de hulla no aglomerada, antracita, carbón bituminoso no aglomerado, ovoides y combustibles sólidos análogos a base de hulla, etc.)"
-242090,Fabricación de productos primarios de metales preciosos y metales no ferrosos n.c.p. y sus semielaborados
-259910,Fabricación de envases metálicos
-301200,Construcción y reparación de embarcaciones de recreo y deporte
-462209,Venta al por mayor de materias primas pecuarias n.c.p. incluso animales vivos (Incluye pieles y cueros en bruto)
-464121,Venta al por mayor de prendas de vestir de cuero
-464910,Venta al por mayor de CD's y DVD's de audio y video grabados.
-652000,Reaseguros
-842100,Servicios de asuntos exteriores
-900040,Servicios de agencias de ventas de entradas
-239391,Fabricación de objetos cerámicos para uso doméstico excepto artefactos sanitarios
-351120,Generación de energía térmica nuclear (Incluye la producción de energía eléctrica mediante combustible nuclear)
-12800,Cultivo de especias y de plantas aromáticas y medicinales
-453220,Venta al por menor de baterías
-461019,Venta al por mayor en comisión o consignación de productos agrícolas n.c.p.
-463170,Venta al por mayor de alimentos balanceados para animales
-471120,Venta al por menor en supermercados
-475300,"Venta al por menor  de electrodomésticos, artefactos para el hogar y equipos de audio y video"
-477140,Venta al por menor de indumentaria deportiva
-477310,Venta al por menor de productos farmacéuticos y de herboristería
-477410,Venta al por menor de artículos de óptica y fotografía
-477430,Venta al por menor de bijouterie y fantasía
-524120,Servicios  de playas de estacionamiento y garajes
-561011,Servicios de restaurantes y cantinas sin espectáculo
-813000,Servicios de jardinería y mantenimiento de espacios verdes
-841100,"Servicios generales de la Administración Pública (Incluye el desempeño de funciones ejecutivas y legislativas de administración por parte de las entidades de la administración central, regional y local, la administración y supervisión de asuntos fiscales, la aplicación del presupuesto y la gestión de los fondos públicos y la deuda pública, la gestión administrativa de servicios estadísticos y sociológicos y de planificación social y económica a distintos niveles de la administración)"
-841900,"Servicios auxiliares para los servicios generales de la Administración Pública (Incluye las actividades de servicios generales y de personal, la administración, dirección y apoyo de servicios generales, compras y suministros, etc. )"
-920009,Servicios relacionados con juegos de azar y apuestas n.c.p.
-931020,"Explotación de instalaciones deportivas, excepto clubes"
-960201,Servicios de peluquería
-105090,"Elaboración de productos lácteos n.c.p. (Incluye la producción de caseínas, manteca, postres, etc., cuando no son obtenidos e forma integrada con la producción de leche)"
-259999,Fabricación de productos elaborados de metal n.c.p.
-271010,"Fabricación de motores, generadores y transformadores eléctricos"
-292000,"Fabricación de carrocerías para vehículos automotores, fabricación de remolques y semirremolques"
-410021,"Construcción, reforma y reparación de edificios no residenciales (Incluye construcción, reforma y reparación de restaurantes, bares, campamentos, bancos, oficinas, galerías comerciales, estaciones de servicio, edificios para tráfico y comunicaciones, garajes, edificios industriales y depósitos, escuelas, etc.)"
-429090,"Construcción de obras de ingeniería civil n.c.p. (Incluye los trabajos generales de construcción para la minería y la industria,  de centrales eléctricas y nucleares, excavaciones de sepulturas, etc.)"
-12510,Cultivo de caña de azúcar
-22010,"Extracción de productos forestales de bosques cultivados (Incluye tala de árboles, desbaste de troncos y producción de madera en bruto, leña, postes)"
-89900,"Explotación de minas y canteras n.c.p. (Incluye amianto, cuarzo, diatomita, piedra pómez, ágata, agua marina, amatista, cristal de roca, rodocrosita, topacio, corindón, feldespato, mica, zeolita, perlita, granulado volcánico, puzolana, toba, talco, vermiculita, tosca, grafito, etc.)"
-106131,Elaboración de alimentos a base de cereales
-21010,Plantación de bosques
-329030,"Fabricación de carteles, señales e indicadores  -eléctricos o no-"
-464149,"Venta al por mayor de artículos de marroquinería,  paraguas y productos similares n.c.p."
-477820,"Venta al por menor de libros, revistas y similares usados"
-561012,Servicios de restaurantes y cantinas con espectáculo
-841200,"Servicios para la regulación de las actividades sanitarias, educativas, culturales, y restantes servicios sociales, excepto seguridad social obligatoria (Incluye  la gestión administrativa de programas destinados a mejorar el bienestar de los ciudadanos) "
-960102,"Lavado y limpieza de artículos de tela, cuero y/o de piel, incluso la limpieza en seco"
-854930,"Enseñanza para adultos, excepto discapacitados"
-141130,Confección de prendas de vestir para bebés y niños
-89300,Extracción de sal
-661910,Servicios bursátiles de mediación o por cuenta de terceros (Incluye la actividad de agentes y sociedades de bolsa)
-162300,Fabricación de recipientes de madera
-811000,Servicio combinado de apoyo a edificios
-89200,Extracción y aglomeración de turba (Incluye la producción de turba utilizada como corrector de suelos)
-120099,Elaboración de productos de tabaco n.c.p.
-201401,Fabricación de resinas y cauchos sintéticos
-239100,Fabricación de productos de cerámica refractaria
-522091,Servicios de usuarios directos de zona franca
-642000,Servicios de sociedades de cartera
-32000,"Explotación de criaderos de peces, granjas piscícolas y otros frutos acuáticos  (acuicultura)"
-221110,Fabricación de cubiertas y cámaras
-466910,"Venta al por mayor de productos intermedios n.c.p., desperdicios y desechos textiles"
-281100,"Fabricación  de  motores  y  turbinas,  excepto  motores  para aeronaves, vehículos automotores   y motocicletas"
-464142,"Venta al por mayor de suelas y afines (Incluye talabarterías, artículos regionales de cuero, almacenes de suelas, etc.)"
-281400,"Fabricación de cojinetes, engranajes, trenes de engranaje y piezas de transmisión"
-162903,Fabricación de productos de corcho
-651320,Servicios de cajas de previsión social pertenecientes a asociaciones profesionales
-353001,Suministro de vapor y aire acondicionado
-463111,Venta al por mayor de productos lácteos
-464999,"Venta al por mayor de artículos de uso doméstico o personal n.c.p (Incluye artículos de platería excepto los incluidos en talabartería, cuadros y marcos que no sean obra de arte o de colección, sahumerios y artículos de santería, parrillas y hogares, etc.)"
-466920,"Venta al por mayor de productos intermedios n.c.p., desperdicios y desechos de papel y cartón"
-477110,"Venta al por menor de ropa interior, medias, prendas para dormir y para la playa (Incluye corsetería, lencería, camisetas, medias excepto ortopédicas, pijamas, camisones y saltos de cama, salidas de baño, trajes de baño, etc.)"
-477450,Venta al por menor de materiales y productos de limpieza
-523090,"Servicios de gestión y logística para el transporte de mercaderías n.c.p. (Incluye las actividades de empresas empaquetadoras para comercio exterior, alquiler de contenedores, etc.)"
-641930,Servicios de la banca minorista
-801090,Servicios de seguridad e investigación n.c.p.
-823000,"Servicios de organización de convenciones y exposiciones comerciales, excepto culturales y deportivos"
-920001,"Servicios de recepción de apuestas de quiniela, lotería y similares  "
-949920,Servicios de consorcios de edificios
-11299,"Cultivo de oleaginosas n.c.p. excepto soja y girasol (Incluye los cultivos de oleaginosas para aceites comestibles y/o uso industrial: cártamo, colza, jojoba, lino oleaginoso, maní, ricino, sésamo, tung, etc.)"
-14113,"Cría de ganado bovino, excepto la realizada en cabañas y para la producción de leche (Incluye: ganado bubalino)"
-16111,"Servicios de labranza, siembra, transplante  y  cuidados culturales"
-16119,"Servicios de maquinaria agrícola n.c.p., excepto los de cosecha mecánica (Incluye clasificado y/o tamañado, rastrillado, roturación de terreno, etc.)"
-110300,"Elaboración de cerveza, bebidas malteadas y malta"
-202908,"Fabricación de productos químicos n.c.p. (Incluye la producción de aceites esenciales, tintas excepto para imprenta, etc.)"
-239592,Fabricación de premoldeadas para la construcción
-241009,Fabricación en industrias básicas de productos de hierro y acero n.c.p. (Incluye la producción de hojalata)
-243200,Fundición de metales no ferrosos
-251102,Fabricación de productos metálicos para uso estructural
-282130,Fabricación de implementos de uso agropecuario
-352020,Distribución de combustibles gaseosos por tuberías (No incluye el transporte por gasoductos)
-432200,"Instalaciones de gas, agua, sanitarios y de climatización, con sus artefactos conexos (Incluye la instalación de compactadores, calderas, sistemas de calefacción central, etc.)"
-462120,Venta al por mayor de semillas y granos para forrajes
-475110,"Venta al por menor de hilados, tejidos y artículos de mercería (Incluye mercerías, sederías, comercios de venta de lanas y otros hilados, etc.) "
-960910,"Servicios de centros de estética, spa y similares (Incluye baños turcos, saunas, solarios, centros de masajes y adelgazamiento, etc.)"
-11912,Cultivo de plantas ornamentales
-829100,Servicios de agencias de cobro y calificación crediticia
-433090,"Terminación de edificios n.c.p. (Incluye trabajos de ornamentación, limpieza exterior de edificios recién construídos, etc.)"
-11342,"Cultivo de legumbres secas (Incluye garbanzo, lenteja, poroto, etc.)"
-139900,Fabricación de productos textiles n.c.p.
-464119,Venta al por mayor de productos textiles n.c.p.
-465210,Venta al por mayor de equipos de telefonía y comunicaciones
-16291,"Servicios para el control de plagas, baños parasiticidas, etc."
-107911,"Tostado, torrado y molienda de café"
-432910,"Instalaciones de ascensores, montacargas y  escaleras mecánicas"
-649210,Actividades de crédito para financiar otras actividades económicas
-663000,Servicios de gestión de fondos a cambio de una retribución o por contrata
-16210,Inseminación artificial y servicios n.c.p. para mejorar la reproducción de los animales y el rendimiento de sus productos
-332000,Instalación de maquinaria y equipos industriales
-14430,Cría de ganado caprino -excepto la realizada en cabañas y para producción de pelos y de leche-
-131132,Fabricación de hilados textiles de algodón y sus mezclas
-524390,Servicios complementarios para el transporte aéreo n.c.p. (Incluye servicios de prevención y extinción de incendios)
-472300,Venta al por menor de tabaco en comercios especializados
-162202,Fabricación de viviendas prefabricadas de madera
-464212,Venta al por mayor de diarios y revistas
-464420,"Venta al por mayor de artículos de relojería, joyería y fantasías"
-631200,Portales web
-952300,Reparación de tapizados y muebles (Incluye la restauración de muebles)
-131300,Acabado de productos textiles
-201300,Fabricación de abonos y compuestos de nitrógeno
-107920,Preparación de hojas de té
-241001,"Laminación y estirado. Producción de lingotes, planchas o barras fabricadas por operadores independientes"
-261000,Fabricación de componentes electrónicos
-273110,Fabricación de cables de fibra óptica
-524110,"Servicios de explotación de infraestructura para el transporte terrestre, peajes y otros derechos"
-870920,Servicios de atención a mujeres con alojamiento
-203000,Fabricación de fibras manufacturadas
-843000,"Servicios de la seguridad social obligatoria, excepto obras sociales (Incluye PAMI y ANSES)"
-772010,Alquiler de videos y video juegos (Incluye la actividad de los videoclubes)
-16150,Servicios de procesamiento de semillas para su siembra (Incluye la selección de semillas)
-432990,Instalaciones para edificios y obras de ingeniería civil n.c.p. (Incluye instalación de puertas automáticas o giratorias)
-452220,"Reparación de amortiguadores,  alineación de dirección y balanceo de ruedas "
-463160,"Venta al por mayor de chocolates, golosinas y productos para kioscos y polirrubros n.c.p., excepto cigarrillos"
-464150,Venta al por mayor de uniformes y ropa de trabajo
-464940,"Venta al por mayor de bicicletas y rodados similares (Incluye cochecitos y sillas de paseo para bebés, andadores, triciclos, etc.)"
-466200,Venta al por mayor de metales y minerales metalíferos
-466350,Venta al por mayor de cristales y espejos
-466360,"Venta al por mayor de artículos para plomería, instalación de gas y calefacción"
-466931,Venta al por mayor de artículos de plástico
-473000,Venta al por menor de combustible para vehículos automotores y motocicletas (Incluye la venta al por menor de productos lubricantes y refrigerantes)
-477440,"Venta al por menor de flores, plantas, semillas, abonos, fertilizantes y otros productos de vivero "
-492190,Servicio de transporte automotor de pasajeros n.c.p.
-522099,Servicios de almacenamiento y depósito n.c.p.
-771210,"Alquiler de equipo de transporte para vía acuática, sin operarios ni tripulación"
-16112,"Servicios de pulverización, desinfección y fumigación terrestre"
-16190,"Servicios de apoyo agrícolas n.c.p (Incluye  explotación de sistemas de riego, injertos de plantas, construcción y plantación de almácigos, alquiler de colmenas, etc.), (No incluye mantenimiento de jardines, parques y cementerios: actividad 813000, planificación y diseño paisajista: actividad 711009)"
-251101,Fabricación de carpintería metálica
-310010,"Fabricación de muebles y partes de muebles, principalmente de madera"
-310020,"Fabricación de muebles y partes de muebles, excepto los que son principalmente de madera (metal, plástico, etc.)"
-310030,Fabricación de somieres y colchones
-139204,Fabricación de bolsas de materiales textiles para productos a granel
-107420,Elaboración de pastas alimentarias secas
-239510,Fabricación de mosaicos
-360020,"Captación, depuración y distribución de agua de fuentes superficiales"
-464222,Venta al por mayor de envases de papel y cartón
-110212,Elaboración de vinos (Incluye el fraccionamiento)
-202312,Fabricación de jabones y detergentes
-452700,Instalación y reparación de caños de escape y radiadores
-465340,"Venta al por mayor de máquinas, equipos e implementos de uso en imprentas, artes gráficas y actividades conexas (Incluye venta de máquinas fotocopiadoras - excepto las de uso personal-, copiadoras de planos, máquinas para imprimir, guillotinar, troquelar, encuadernar, etc.)"
-477810,Venta al por menor de muebles usados
-492210,Servicios de mudanza (Incluye servicios de guardamuebles)
-101091,Fabricación de aceites y grasas de origen animal
-170990,Fabricación de artículos de papel y cartón n.c.p. (No incluye el papel de lija:  239900)
-259200,Tratamiento y revestimiento de metales y trabajos de metales en general
-106200,"Elaboración de almidones y productos derivados del almidón, molienda húmeda de maíz (Incluye la elaboración de glucosa y gluten)"
-102001,"Elaboración de pescados de mar, crustáceos y  productos marinos "
-152011,"Fabricación de calzado de cuero, excepto calzado deportivo y ortopédico "
-282901,Fabricación de maquinaria para la industria del papel y las artes gráficas
-331290,Reparación y mantenimiento de maquinaria de uso especial n.c.p.
-12121,Cultivo de uva de mesa
-107991,"Elaboración de extractos, jarabes y concentrados"
-139300,Fabricación de tapices y alfombras
-210020,Fabricación de medicamentos de uso veterinario
-275010,"Fabricación de cocinas, calefones, estufas y calefactores no eléctricos"
-291000,Fabricación de vehículos automotores (Incluye la fabricación de motores para automotores)
-465330,"Venta al por mayor de máquinas, equipos e implementos de uso en la fabricación de textiles, prendas y accesorios de vestir, calzado, artículos de cuero y marroquinería (Incluye venta de máquinas de coser, de cortar tejidos, de tejer, extender telas, robots de corte y otros equipos para la industria textil y confeccionista, etc.)"
-591200,Distribución de filmes y videocintas
-661121,Servicios de mercados a término
-661991,Servicios de envio y recepción de fondos desde y hacia el exterior
-749003,Servicios de representación e intermediación de deportistas profesionales
-900021,"Composición y representación de obras teatrales, musicales y artísticas (Incluye a compositores, actores, músicos, conferencistas, pintores, artistas plásticos etc.) "
-910300,"Servicios de jardines botánicos, zoológicos y de parques nacionales"
-949200,Servicios de organizaciones políticas
-952920,Reparación de relojes y joyas. Relojerías
-282600,"Fabricación de maquinaria para la elaboración de productos textiles, prendas de vestir y cueros"
-120091,Elaboración de cigarrillos
-439100,Alquiler de equipo de construcción o demolición dotado de operarios
-439910,"Hincado de pilotes, cimentación y otros trabajos de hormigón armado"
-464930,Venta al por mayor de juguetes (Incluye artículos de cotillón)
-465930,Venta al por mayor de equipo profesional y científico e instrumentos de medida y de control n.c.p.
-466340,Venta al por mayor de pinturas y productos conexos
-466399,Venta al por mayor de artículos para la construcción n.c.p. (No incluye artículos y materiales de demolición: 466990 )
-475490,"Venta al por menor de artículos para el hogar n.c.p. (Incluye perchas, marcos, cuadros, etc.)"
-477120,Venta al por menor de uniformes escolares y guardapolvos
-492290,Servicio de transporte automotor de cargas n.c.p. (Incluye  servicios de transporte de carga refrigerada y transporte pesado)
-561019,Servicios de expendio de comidas y bebidas en establecimientos con servicio de mesa y/o en mostrador n.c.p.
-581300,"Edición de periódicos, revistas y publicaciones periódicas"
-649220,Servicios de entidades de tarjeta de compra y/o crédito
-651220,Servicios de seguros patrimoniales excepto los de las aseguradoras de riesgo de trabajo (ART)
-662020,Servicios de productores  y asesores de seguros
-863190,Servicios de prácticas de diagnóstico n.c.p.
-863200,"Servicios de tratamiento (Incluye hemodiálisis, cobaltoterapia, etc) "
-863300,"Servicio médico integrado de consulta, diagnóstico y tratamiento"
-870990,Servicios sociales con alojamiento n.c.p.
-910100,Servicios de bibliotecas y archivos
-14910,"Apicultura (Incluye la producción de miel, jalea real, polen, propóleo, etc.)"
-14990,"Cría de animales y obtención de productos de origen animal, n.c.p. (Incluye ciervo, gato, gusano de seda, lombriz, pájaro, perro, rana, animales para experimentación, caracoles vivos, frescos, congelados y secos -excepto marinos-, cera de insectos excepto la de abeja, etc.)"
-101011,Matanza de ganado bovino (Incluye búfalos)
-107121,"Elaboración industrial de productos de panadería, excepto galletitas y bizcochos (Incluye la elaboración de productos de panadería frescos, congelados y secos)"
-107129,"Elaboración de productos de panadería n.c.p. (Incluye la elaboración de pan, facturas, churros, pre-pizzas, masas de hojaldre, masas fritas, tortas, tartas, etc), (No incluye la fabricación de sándwich 561040)"
-108000,Elaboración de alimentos preparados para animales
-110411,Embotellado de aguas naturales y minerales
-110412,Fabricación de sodas
-410011,"Construcción, reforma y reparación de edificios residenciales (Incluye la construcción, reforma y reparación  de viviendas unifamiliares y multifamiliares, bungaloes, cabañas, casas de campo, departamentos, albergues para ancianos, niños, estudiantes, etc.)"
-461021,Venta al por mayor en comisión o consignación de ganado bovino en pie (Incluye consignatarios de hacienda y ferieros)
-614090,Servicios de telecomunicación vía internet n.c.p.
-192000,Fabricación de productos de la refinación del petróleo
-471900,"Venta al por menor en comercios no especializados, sin predominio de productos alimenticios y bebidas"
-475190,"Venta al por menor de artículos textiles n.c.p. excepto prendas de vestir (Incluye la venta al por menor de tapices, alfombras,  etc.)"
-478090,Venta al por menor de productos n.c.p. en puestos móviles y mercados
-492110,Servicio de transporte automotor urbano y suburbano regular de pasajeros
-649999,"Servicios de financiación y actividades financieras n.c.p. (Incluye actividades de inversión en acciones, títulos, la actividad de corredores de bolsa, securitización, mutuales financieras, etc.), (No incluye actividades financieras relacionadas con el otorgamiento de créditos)"
-721090,Investigación y desarrollo experimental en el campo de las ciencias exactas y naturales n.c.p.
-11130,Cultivo de pastos de uso forrajero
-452910,Instalación y reparación de equipos de GNC
-454020,Mantenimiento y reparación de motocicletas
-259100,"Forjado, prensado, estampado y laminado de metales, pulvimetalurgia"
-351190,"Generación de energía n.c.p. (Incluye la producción de energía eléctrica mediante fuentes de energía solar, biomasa, eólica, geotérmica, mareomotriz, etc.)"
-492170,Servicio de transporte automotor internacional de pasajeros
-170910,Fabricación de artículos de papel y cartón de uso doméstico e higiénico sanitario
-139100,Fabricación de tejidos de punto
-14930,"Cría de animales pelíferos, pilíferos y plumíferos, excepto de las especies ganaderas (Incluye cría de visón, nutria, chinchilla, reptiles, etc.)"
-72910,Extracción de metales preciosos
-102003,"Fabricación de aceites, grasas, harinas y productos a base de pescados "
-259309,"Fabricación de cerraduras, herrajes y artículos de ferretería n.c.p."
-351130,Generación de energía hidráulica (Incluye la producción de energía eléctrica mediante centrales de bombeo)
-591120,Postproducción de filmes y videocintas
-641943,Servicios de intermediación financiera realizada por cajas de crédito
-649100,"Arrendamiento financiero, leasing"
-661111,Servicios de mercados y cajas de valores
-21020,Repoblación y conservación de bosques nativos y zonas forestadas
-141140,Confección de prendas deportivas
-149000,"Servicios industriales para la industria confeccionista (Incluye procesos de planchado y acondicionamiento de prendas: teñido, gastado a la piedra (stone wash), impermeabilizado, lavaderos y secaderos industriales, etc.) "
-267002,"Fabricación de aparatos y accesorios para fotografía excepto películas, placas y papeles sensibles"
-432920,"Aislamiento térmico, acústico, hídrico y antivibratorio"
-433010,"Instalaciones de carpintería, herrería de obra y artística (Incluye instalación de puertas y ventanas, carpintería metálica y no metálica, etc.)"
-464130,"Venta al por mayor de calzado excepto el ortopédico (Incluye venta de calzado de cuero, tela, plástico, goma, etc.)"
-465990,"Venta al por mayor de máquinas, equipo y materiales conexos n.c.p."
-477150,Venta al por menor de prendas de cuero
-477330,"Venta al por menor de instrumental médico y odontológico y artículos ortopédicos (Incluye venta de vaporizadores, nebulizadores, masajeadores, termómetros, prótesis, muletas, plantillas, calzado ortopédico y otros artículos similares de uso personal o doméstico)"
-602100,Emisión y retransmisión  de televisión abierta
-602200,Operadores de televisión por suscripción.
-620100,Servicios de consultores en informática y suministros de programas de informática
-731009,Servicios de publicidad n.c.p.
-773030,"Alquiler de maquinaria y equipo de construcción e ingeniería civil, sin operarios (Incluye el alquiler de andamios sin montaje ni desmantelamiento)"
-780000,"Obtención y dotación de personal (Incluye las actividades vinculadas con la búsqueda, selección y colocación de personal, la actividad de casting de actores, etc.)"
-842400,Servicios de justicia
-870910,Servicios de atención a niños y adolescentes carenciados con alojamiento
-941100,Servicios de organizaciones empresariales y de empleadores
-14114,Invernada  de ganado bovino excepto el engorde en corrales (Feed-Lot)
-104011,Elaboración de aceites y grasas vegetales  sin refinar
-239593,"Fabricación de artículos de cemento, fibrocemento y yeso excepto hormigón y mosaicos"
-492230,Servicio de transporte automotor de animales
-110420,"Elaboración de bebidas gaseosas, excepto soda"
-131110,"Preparación de fibras textiles vegetales, desmotado de algodón (Incluye la preparación de fibras de yute, ramio, cáñamo y lino)"
-282400,"Fabricación de maquinaria para la explotación de minas y canteras y para obras de construcción (Incluye la fabricación de máquinas y equipos viales, equipos para la extracción de petróleo y gas, etc.)"
-351110,"Generación de energía térmica convencional (Incluye la producción de energía eléctrica mediante máquinas turbo-gas, turbo vapor, ciclo combinado y turbo diesel)"
-390000,Descontaminación y otros servicios de gestión de residuos
-239600,"Corte, tallado y acabado de la piedra (Incluye mármoles y granitos, etc.)"
-452300,"Instalación y reparación de parabrisas, lunetas y ventanillas, cerraduras no eléctricas y grabado de cristales (Incluye instalación y reparación de aletas, burletes y colisas)"
-521030,Servicios de manipulación de carga en el ámbito aéreo
-662010,Servicios de evaluación de riesgos y daños
-801010,Servicios de transporte de caudales y objetos de valor
-855000,Servicios de apoyo a la educación
-12200,"Cultivo de frutas cítricas (Incluye bergamota, lima, limón, mandarina, naranja, pomelo, kinoto, etc.)"
-202200,"Fabricación de pinturas, barnices y productos de revestimiento similares, tintas de imprenta y masillas"
-13013,"Producción de semillas de hortalizas y legumbres, flores y plantas ornamentales y árboles frutales "
-12701,Cultivo de yerba mate
-479101,Venta al por menor por internet
-641942,Servicios de intermediación financiera realizada por sociedades de ahorro y préstamo para la vivienda y otros inmuebles
-721020,Investigación  y desarrollo experimental en el campo de las ciencias médicas
-106120,Preparación de arroz
-191000,Fabricación de productos de hornos de coque
-259302,Fabricación de artículos de cuchillería y utensillos de mesa y de cocina
-282200,Fabricación de máquinas herramienta
-329040,"Fabricación de equipo de protección y seguridad, excepto calzado"
-110290,Elaboración de sidra y otras bebidas alcohólicas fermentadas
-239310,Fabricación de artículos sanitarios de cerámica
-31200,Pesca continental: fluvial y lacustre
-453291,"Venta al por menor de partes, piezas y accesorios nuevos n.c.p."
-463199,"Venta al por mayor de productos alimenticios n.c.p. (Incluye la venta de miel y derivados, productos congelados,  etc.)"
-465310,"Venta al por mayor de máquinas, equipos e implementos de uso en los sectores agropecuario, jardinería, silvicultura, pesca y caza (Incluye venta de tractores, cosechadoras, enfardadoras, remolques de carga y descarga automática, motosierras, cortadoras de césped autopropulsadas, etc.)"
-466391,"Venta al por mayor de artículos de loza, cerámica y porcelana de uso en construcción"
-466939,"Venta al por mayor de productos intermedios, desperdicios y desechos de vidrio, caucho, goma y químicos n.c.p."
-471190,"Venta al por menor en kioscos, polirrubros y comercios no especializados n.c.p."
-475250,Venta al por menor de artículos para plomería e instalación de gas
-476130,"Venta al por menor de papel, cartón, materiales de embalaje y artículos de librería "
-492221,Servicio de transporte automotor de cereales
-522092,Servicios de gestión de depósitos fiscales
-524230,"Servicios para la navegación (Incluye servicios de practicaje y pilotaje, atraque y salvamento)"
-561030,Servicio de expendio de helados
-581100,"Edición de libros, folletos, y otras publicaciones"
-651310,Obras Sociales
-682099,"Servicios inmobiliarios realizados a cambio de una retribución o por contrata n.c.p. (Incluye compra, venta, alquiler, remate, tasación, administración de bienes, etc., realizados a cambio de una retribución o por contrata, y la actividad de administradores, martilleros, rematadores, comisionistas, etc.)"
-692000,"Servicios de contabilidad, auditoría y asesoría fiscal"
-711009,Servicios de arquitectura e ingeniería y servicios conexos de asesoramiento técnico n.c.p.
-822000,Servicios de call center
-870210,Servicios de atención a ancianos con alojamiento
-960990,"Servicios personales n.c.p. (Incluye actividades de astrología y espiritismo, las realizadas con fines sociales como agencias matrimoniales, de investigaciones genealógicas, de contratación de acompañantes, la actividad de lustrabotas, acomodadores de autos, etc.)"
-11119,"Cultivo de cereales n.c.p., excepto los de uso forrajero (Incluye alforfón, cebada cervecera, etc.)"
-14610,Producción de leche bovina (Incluye la cría para la producción de leche de vaca y la producción de leche bubalina)
-181200,Servicios relacionados con la impresión
-251200,"Fabricación de tanques, depósitos y recipientes de metal (Incluye la fabricación de silos)"
-331400,Reparación y mantenimiento de maquinaria y aparatos eléctricos
-432190,"Instalación, ejecución y mantenimiento de instalaciones eléctricas, electromecánicas y electrónicas n.c.p. (Incluye la instalación de antenas, pararrayos, sistemas de alarmas contra incendios y robos, sistemas de telecomunicación, etc.)"
-464111,Venta al por mayor de tejidos (telas)
-476120,Venta al por menor de diarios y revistas
-131202,"Fabricación de tejidos (telas) planos de algodón y sus mezclas, incluye hilanderías y tejedurías integradas"
-170102,Fabricación de papel y cartón excepto envases
-201409,Fabricación de materias plásticas en formas primarias n.c.p.
-351201,Transporte de energía eléctrica
-952990,"Reparación de efectos personales y enseres domésticos n.c.p. (Incluye la actividad de arreglos de prendas realizadas por modistas), (No incluye la actividad de sastres y modistas que confeccionan prendas: grupo 141)      "
-11329,"Cultivo de bulbos, brotes, raíces y hortalizas de fruto n.c.p. (Incluye ají, ajo, alcaparra, berenjena, cebolla, calabaza, espárrago, frutilla, melón, pepino, pimiento, sandía, zanahoria, zapallo, zapallito, etc.)"
-551090,"Servicios de hospedaje temporal n.c.p. (Incluye hospedaje en estancias, residencias para estudiantes y albergues juveniles, apartamentos turísticos, etc.)"
-81200,"Extracción de piedra caliza y yeso (Incluye caliza, castina, conchilla, riolita, yeso natural, anhidrita, etc.)"
-101020,Producción y procesamiento de carne de aves
-107110,Elaboración de galletitas y bizcochos
-452101,Lavado automático y manual de vehículos automotores
-639100,Agencias de noticias
-749001,Servicios de traducción e interpretación
-771290,"Alquiler de equipo de transporte n.c.p. sin conductor ni operarios (Incluye: equipo ferroviario, motocicletas)"
-791901,Servicios de turismo aventura
-791909,Servicios complementarios de apoyo turístico n.c.p.
-952910,"Reforma y reparación de cerraduras, duplicación de llaves. Cerrajerías"
-231020,Fabricación y elaboración de vidrio plano
-602320,Producción de programas de televisión
-201190,"Fabricación de materias químicas orgánicas básicas n.c.p. (Incluye la fabricación de alcoholes excepto el etílico,  sustancias químicas para la elaboración de sustancias plásticas, carbón vegetal, etc.)"
-12320,"Cultivo de frutas de carozo (Incluye cereza, ciruela, damasco, durazno, pelón, etc.)"
-281600,"Fabricación de maquinaria y equipo de elevación y manipulación (Incluye la fabricación de ascensores, escaleras mecánicas, montacargas, etc.)"
-109000,Servicios industriales para la elaboración de alimentos y bebidas
-262000,Fabricación de equipos y productos informáticos
-551021,Servicios de alojamiento en pensiones
-870100,"Servicios de atención a personas con problemas de salud mental o de adicciones, con alojamiento"
-466370,"Venta al por mayor de papeles para pared, revestimiento para pisos de goma, plástico y textiles,  y artículos similares para la decoración"
-613000,"Servicios de telecomunicaciones vía satélite, excepto servicios de transmisión de televisión"
-210030,Fabricación de sustancias químicas para la elaboración de medicamentos
-239209,Fabricación de productos de arcilla y cerámica no refractaria para uso estructural n.c.p.
-329020,"Fabricación de escobas, cepillos y pinceles "
-465500,"Venta  al  por  mayor  de  vehículos,  equipos  y  máquinas  para  el transporte ferroviario, aéreo y de navegación"
-477840,"Venta al por menor de oro, monedas, sellos y similares (Incluye la  venta de monedas de colección, estampillas, etc.) "
-772091,Alquiler de prendas de vestir
-841300,"Servicios para la regulación de la actividad económica (Incluye la administración pública y la regulación de varios sectores económicos, la gestión administrativa de actividades de carácter laboral, la aplicación de políticas de desarrollo regional)"
-202907,"Fabricación de colas, adhesivos, aprestos y cementos excepto los odontológicos obtenidos de sustancias minerales y vegetales"
-275092,"Fabricación de planchas, calefactores, hornos eléctricos, tostadoras y otros aparatos generadores de calor"
-170101,Fabricación de pasta de madera
-452600,"Reparación y pintura de carrocerías, colocación y reparación de guardabarros y protecciones exteriores"
-453100,"Venta al por mayor de partes, piezas y accesorios de vehículos automotores"
-463300,Venta al por mayor de cigarrillos y productos de tabaco
-466121,Fraccionamiento y distribución de gas licuado
-471130,"Venta al por menor en minimercados (Incluye mercaditos, autoservicios y establecimientos similares que vendan carnes, verduras y demás productos alimenticios en forma conjunta)"
-472171,Venta al por menor de pan y productos de panadería
-472200,Venta al por menor de bebidas en comercios especializados
-475120,"Venta al por menor de confecciones para el hogar (Incluye la venta al por menor de sábanas, toallas, mantelería, cortinas confeccionadas, colchas, cubrecamas, etc.)"
-475420,Venta al por menor de colchones y somieres
-475430,Venta al por menor de artículos de iluminación
-477190,Venta al por menor de prendas y accesorios de vestir n.c.p.
-477470,"Venta al por menor de productos veterinarios, animales domésticos y alimento balanceado para mascotas"
-492229,Servicio de transporte automotor de mercaderías a granel n.c.p.
-492280,Servicio de transporte automotor urbano de carga n.c.p. (Incluye el transporte realizado por fleteros y distribuidores dentro del égido urbano)
-561020,"Servicios de preparación de comidas para llevar (Incluye rotiserías, casas de empanadas, pizzerías sin consumo en el local) "
-611090,"Servicios de telefonía fija, excepto locutorios"
-619000,Servicios de telecomunicaciones n.c.p. (Incluye el servicio de pagers)
-691001,Servicios jurídicos
-791100,Servicios minoristas de agencias de viajes
-862110,"Servicios de  consulta médica (Incluye las actividades de establecimientos sin internación o cuyos servicios se desarrollen en unidades independientes a las de internación: consultorios médicos, servicios de medicina laboral)"
-869010,"Servicios de rehabilitación física (Incluye actividades de profesionales excepto médicos: kinesiólogos, fisiatras, etc.)"
-107999,"Elaboración de productos alimenticios n.c.p. (Incluye la elaboración de polvos para preparar postres y gelatinas, levadura, productos para copetín, sopas, sal de mesa, mayonesa, mostaza, etc.)"
-201220,Fabricación de biocombustibles excepto alcohol
-281301,"Fabricación de compresores, grifos y válvulas"
-282500,"Fabricación de maquinaria para la elaboración de alimentos, bebidas y tabaco"
-331210,Reparación y mantenimiento de maquinaria de uso general
-431210,"Movimiento de suelos y preparación de terrenos para obras (Incluye el drenaje, excavación de zanjas para construcciones diversas, el despeje de capas superficiales no contaminadas, movimientos de tierras para hacer terraplenes o desmontes previos a la construcción de vías, carreteras, autopistas, FFCC, etc.)"
-591300,Exhibición de filmes y videocintas
-103012,"Elaboración y envasado de dulces, mermeladas y jaleas"
-151100,Curtido y terminación de cueros
-162909,"Fabricación de productos de madera n.c.p, fabricación de artículos de paja y materiales trenzables (Incluye enmarcado de cuadros, carpintería cuando no explicita especialidad)"
-453292,"Venta al por menor de partes, piezas y accesorios usados n.c.p."
-464920,Venta al por mayor de materiales y productos de limpieza
-11111,Cultivo de arroz
-107500,"Elaboración de comidas preparadas para reventa (Incluye la elaboración de comidas preparadas para reventa en supermercados, kioscos, cafeterías, etc.)"
-370000,"Servicios de depuración de aguas residuales, alcantarillado y cloacas"
-381200,"Recolección, transporte, tratamiento y disposición final de residuos peligrosos"
-466310,"Venta al por mayor de aberturas (Incluye puertas, ventanas, cortinas de enrollar, madera, aluminio, puertas corredizas, frentes de placard, etc.)"
-853201,Enseñanza universitaria excepto formación de posgrado
-101040,"Matanza de ganado excepto el bovino y procesamiento de su carne (Incluye ganado ovino, porcino, equino, etc.) "
-791200,Servicios mayoristas de agencias de viajes
-11990,Cultivos temporales ncp
-12490,"Cultivo de frutas n.c.p. (Incluye kiwi, arándanos, mora, grosella, etc.)"
-271020,Fabricación de aparatos de distribución y control de la energía eléctrica
-162901,Fabricación de ataúdes
-266010,"Fabricación de equipo médico y quirúrgico y de aparatos ortopédicos principalmente electrónicos y/o eléctricos (Incluye equipos de laboratorio, esterilizadores, paneles para observación de radiografías, tornos, etc.)"
-274000,Fabricación de lámparas eléctricas y equipo de iluminación
-275020,"Fabricación de heladeras, freezers, lavarropas y secarropas"
-324000,Fabricación de juegos y juguetes
-492130,Servicio de transporte escolar (Incluye el servicio de transporte para colonias de vacaciones y clubes)
-842500,Servicios de protección civil
-281500,"Fabricación de hornos, hogares y quemadores"
-501100,Servicio de transporte marítimo de pasajeros
-141110,"Confección de ropa interior, prendas para dormir y para la playa"
-231010,Fabricación de envases de vidrio
-352010,Fabricación de gas y procesamiento de gas natural
-479109,"Venta al por menor por correo, televisión y otros medios de comunicación n.c.p."
-530090,"Servicios de mensajerías (Incluye servicios puerta a puerta de correo y mensajería, comisionistas de encomiendas, transporte de documentos  realizados por empresas no sujetas a la obligación de servicio universal)"
-639900,Servicios de información n.c.p.
-643001,Servicios de fideicomisos
-653000,"Administración de fondos de pensiones, excepto la seguridad social obligatoria"
-774000,Arrendamiento y gestión de bienes intangibles no financieros
-107992,Elaboración de vinagres
-12600,"Cultivo de frutos oleaginosos (Incluye el cultivo de olivo, coco, palma, etc.)"
-14720,Producción de pelos de ganado n.c.p.
-461014,"Acopio y acondicionamiento en comisión o consignación de cereales (incluye arroz), oleaginosas y forrajeras excepto semillas"
-464310,"Venta al por mayor de productos farmacéuticos (Incluye venta de medicamentos y kits de diagnóstico como test de embarazo, hemoglucotest, vacunas, etc.)"
-464620,Venta al por mayor de artículos de iluminación
-464950,"Venta al por mayor de artículos de esparcimiento y deportes (Incluye embarcaciones deportivas, armas y municiones, equipos de pesca, piletas de natación de lona o plástico, etc.)"
-466320,"Venta al por mayor de productos de madera excepto muebles (Incluye placas, varillas, parqué, machimbre, etc.)"
-475260,"Venta al por menor de cristales, espejos, mamparas y cerramientos"
-475410,"Venta al por menor de muebles para el hogar, artículos de mimbre y corcho"
-492120,"Servicios de transporte automotor de pasajeros mediante taxis y remises, alquiler de autos con chofer (Incluye los radiotaxis)"
-523011,Servicios de gestión aduanera realizados por despachantes de aduana
-524210,"Servicios de explotación de infraestructura para el transporte marítimo, derechos de puerto"
-524220,Servicios de guarderías náuticas
-551023,"Servicios de alojamiento en hoteles, hosterías y residenciales similares, excepto por hora, que no incluyen servicio de restaurante al público"
-651110,Servicios de seguros de salud (Incluye medicina prepaga y mutuales de salud)
-712000,"Ensayos y análisis técnicos (Incluye inspección técnica de vehículos, laboratorios de control de calidad, servicios de peritos calígrafos, servicios de bromatología)"
-741000,"Servicios de diseño especializado (Incluye diseño de indumentaria, diseño gráfico, actividades de decoradores, etc.)"
-829900,Servicios empresariales n.c.p.
-941200,Servicios de organizaciones profesionales
-11121,Cultivo de maíz
-107410,Elaboración de pastas alimentarias frescas
-243100,Fundición de hierro y acero
-259301,Fabricación de herramientas manuales y sus accesorios
-272000,"Fabricación de acumuladores, pilas y baterías primarias"
-466932,"Venta al por mayor de abonos, fertilizantes y plaguicidas"
-293011,Rectificación de motores
-309200,Fabricación de bicicletas y de sillones de ruedas ortopédicos
-475270,"Venta al por menor de papeles para pared, revestimientos para pisos y artículos similares para la decoración"
-562099,Servicios de comidas n.c.p.
-162201,Fabricación de aberturas y estructuras de madera para la construcción
-259991,Fabricación de tejidos de alambre
-331101,"Reparación y mantenimiento de productos de metal, excepto maquinaria y equipo"
-464410,"Venta al por mayor de artículos de óptica y de fotografía (Incluye venta de lentes de contacto, líquidos oftalmológicos, armazones, cristales ópticos, películas fotográficas, cámaras y accesorios para fotografía, etc.)"
-464632,Venta al por mayor de artículos de bazar y menaje excepto de vidrio
-524130,Servicios de estaciones terminales de ómnibus y ferroviárias
-801020,Servicios de sistemas de seguridad
-900011,Producción de espectáculos teatrales y musicales
-11321,Cultivo de tomate
-17020,Servicios de apoyo para la caza
-16140,"Servicios de post cosecha (Incluye servicios de lavado de papas,  acondicionamiento, limpieza, etc, de granos antes de ir a los mercados primarios), (Excluye los servicios de procesamiento de semillas para su siembra)"
-14520,Cría de ganado porcino realizado en cabañas
-152021,"Fabricación de calzado de materiales n.c.p., excepto calzado deportivo y ortopédico "
-461013,Venta al por mayor en comisión o consignación de frutas (Incluye acopiadores y receptoras)
-476200,Venta al por menor de CD's y DVD's de audio y video grabados (Incluye CD's y DVD's vírgenes)
-939010,Servicios de parques de diversiones y parques temáticos
-910200,Servicios de museos y preservación de lugares y edificios históricos
-14211,"Cría de ganado equino, excepto la realizada en haras (Incluye equinos de trabajo, asnos, mulas, burdéganos)"
-16220,"Servicios de contratistas de mano de obra pecuaria (Incluye arreo, castración de aves, pasturaje,  etc.)"
-62000,Extracción de gas natural (Incluye gas natural licuado y gaseoso)
-221901,Fabricación de  autopartes de caucho excepto cámaras y cubiertas
-321011,Fabricación de joyas finas y artículos conexos
-491120,Servicio de transporte ferroviario interurbano de pasajeros
-749002,Servicios de representación e intermediación de artistas y modelos
-910900,"Servicios culturales n.c.p. (Incluye actividades sociales, culturales, recreativas y de interés local desarrollado por centros vecinales, barriales, sociedades de fomento, clubes no deportivos, etc.)"
-16292,Albergue y cuidado de  animales de terceros
-268000,"Fabricación de soportes ópticos y magnéticos (Incluye CD, disquetes, cintas magnéticas, tarjetas magnetizadas, etc.)"
-464631,Venta al por mayor de artículos de vidrio
-204000,Servicios industriales para la fabricación de sustancias y productos químicos
-14440,Cría de ganado caprino realizada en cabañas
-110211,Elaboración de mosto
-439990,"Actividades especializadas de construcción n.c.p. (Incluye el alquiler, montaje y desmantelamiento de andamios,  la construcción de chimeneas y hornos industriales, el acorazamiento de cajas fuertes y cámaras frigoríficas, el armado e instalación de compuertas para diques, etc.)"
-462131,"Venta al por mayor de cereales (incluye arroz), oleaginosas y forrajeras excepto semillas"
-463211,Venta al por mayor de vino
-464223,Venta al por mayor de artículos de librería y papelería
-476310,"Venta al por menor de equipos  y artículos deportivos (Incluye la venta y reparación  de bicicletas, la venta  de aparatos de gimnasia y de equipos de camping, etc.)  "
-521020,Servicios de manipulación de carga en el ámbito portuario
-523031,Servicios de gestión de agentes de transporte aduanero excepto agencias marítimas
-620900,Servicios de informática n.c.p.
-641910,Servicios de la banca mayorista
-661131,Servicios de bolsas de comercio
-681010,"Servicios de alquiler y explotación de inmuebles para fiestas, convenciones y otros eventos similares "
-681099,"Servicios inmobiliarios realizados por cuenta propia, con bienes rurales propios o arrendados n.c.p."
-711003,Servicios relacionados con la electrónica y las comunicaciones
-851010,Guarderías y jardines maternales
-854940,Enseñanza especial y para discapacitados
-949910,"Servicios de mutuales, excepto mutuales de salud y financieras"
-952100,"Reparación de artículos eléctricos y electrónicos de uso doméstico (Incluye  TV, radios, reproductores cd's y dvd's, cámaras de video de uso familiar, heladeras, lavarropas, secarropas, aire acondicionado de menos de 6000 frigorías)"
-14121,Cría de ganado bovino realizada en cabañas (Incluye: ganado bubalino y la producción de semen)
-105030,Elaboración industrial de helados
-239410,Elaboración de cemento
-329090,"Industrias manufactureras n.c.p. (Incluye fabricación de paraguas, termos, pelucas, etc.)"
-382020,Recuperación de materiales y desechos no metálicos
-591110,Producción de filmes y videocintas
-601000,Emisión y retransmisión de radio
-11331,"Cultivo de hortalizas de hoja y de otras hortalizas frescas (Incluye acelga, apio, coles, espinaca, lechuga, perejil, radicheta, repollo, etc.)"
-139209,"Fabricación de artículos confeccionados de materiales textiles n.c.p., excepto prendas de vestir "
-265102,Fabricación de equipo de control de procesos industriales
-464114,Venta al por mayor de tapices y alfombras de materiales textiles
-721010,Investigación  y desarrollo experimental en el campo de la ingeniería y la tecnología
-512000,Servicio de transporte aéreo de cargas
-12110,Cultivo de vid para vinificar
-552000,Servicios de alojamiento en campings (Incluye refugios de montaña)
-11400,Cultivo de tabaco
-452500,Tapizado y retapizado de automotores
-201180,Fabricación de materias químicas inorgánicas básicas n.c.p.
-239422,Elaboración de cal
-282300,Fabricación de maquinaria metalúrgica
-431220,"Perforación y sondeo, excepto perforación de pozos de petróleo, de gas, de minas e hidráulicos  y prospección de yacimientos de petróleo (Incluye los trabajos de perforación, sondeo y muestreo con fines de construcción o para estudios geofísicos, geológicos u otros similares, las perforaciones horizontales para el paso de cables o cañerías de drenaje, etc.), (No incluye los servicios de perforación relacionados con la extracción de petróleo y gas, activ.091000, ni la perforación de pozos hidráulicos, activ.422100)"
-463130,Venta al por mayor de pescado
-16230,Servicios de esquila de animales
-772099,Alquiler de efectos personales y enseres domésticos n.c.p. (Incluye alquiler de artículos deportivos)
-201120,Fabricación de curtientes naturales y sintéticos
-210090,Fabricación de productos de laboratorio y productos botánicos de uso farmaceútico n.c.p.
-259992,Fabricación de cajas de seguridad
-321020,Fabricación de bijouterie (Incluye la fabricación de joyas de fantasía y accesorios similares)
-461022,Venta al por mayor en comisión o consignación de ganado en pie excepto bovino
-463212,Venta al por mayor de bebidas espiritosas
-11911,Cultivo de flores
-773020,"Alquiler de maquinaria y equipo para la minería, sin operarios"
 452210,Reparación de cámaras y cubiertas (Incluye reparación de llantas)
 461032,"Operaciones de intermediación de carne excepto consignatario directo (Incluye matarifes abastecedores de carne, etc.)"
 462190,"Venta al por mayor de materias primas agrícolas y de la silvicultura n.c.p. (Incluye el acopio y venta al por mayor de materiles, desperdicios, subproductos agrícola usados como alimentos para animales)"
@@ -636,61 +68,64 @@ clae6,clae6_desc
 661992,Servicios de administradoras de vales y tickets
 970000,Servicios de hogares privados que contratan servicio doméstico
 581200,Edición de directorios y listas de correos
-451190,"Venta de vehículos automotores nuevos n.c.p. (Incluye casas rodantes, trailers, camiones, remolques, ambulancias, ómnibus, microbuses y similares, cabezas tractoras, etc.)"
-461011,"Venta al por mayor en comisión o consignación de cereales (incluye arroz), oleaginosas y forrajeras excepto semillas"
-461092,Venta al por mayor en comisión o consignación de  madera y materiales para la construcción
-463159,Venta al por mayor de productos y subproductos de molinería n.c.p.
-463219,"Venta al por mayor de bebidas alcohólicas n.c.p. (Incluye la venta de aperitivos con alcohol, cerveza, sidra, etc.)"
-466129,"Venta al por mayor de combustibles, lubricantes, leña y carbón, excepto gas licuado y combustibles y lubricantes para automotores"
-469010,Venta al por mayor de insumos agropecuarios diversos
-471110,Venta al por menor en hipermercados
-472140,"Venta al por menor de huevos, carne de aves y  productos de granja y de la caza"
-475290,Venta al por menor de materiales de construcción n.c.p.
-475440,"Venta al por menor de artículos de bazar y menaje (Incluye venta al por menor de vajilla, cubiertos, etc.)"
-477290,"Venta al por menor de artículos de marroquinería, paraguas y similares n.c.p."
-492240,Servicio de transporte por camión cisterna
-702099,"Servicios de asesoramiento, dirección y gestión empresarial n.c.p."
-750000,Servicios veterinarios
-853100,Enseñanza  terciaria
-854910,Enseñanza de idiomas
-942000,Servicios de sindicatos
-949930,Servicios de cooperativas cuando realizan varias actividades
-960202,"Servicios de tratamiento de belleza, excepto los de peluquería"
-101012,Procesamiento de carne de ganado bovino
-101030,Elaboración de fiambres y embutidos
-181109,"Impresión n.c.p., excepto de diarios y revistas"
-281900,"Fabricación de  maquinaria y equipo de uso general n.c.p. (Incluye la fabricación de equipos de aire acondicionado, matafuegos, etc.)"
-331900,Reparación y mantenimiento de máquinas y equipo n.c.p.
-302000,Fabricación y reparación de locomotoras y de material rodante para transporte ferroviario
-16130,"Servicios de contratistas de mano de obra agrícola (Incluye la poda de árboles, transplante, cosecha manual de citrus, algodón, etc.)"
-141120,"Confección de ropa de trabajo, uniformes y guardapolvos "
-465400,Venta al por mayor de máquinas - herramienta de uso general
-511000,Servicio de transporte aéreo de pasajeros
-651120,"Servicios de seguros de vida (Incluye los seguros de vida, retiro y sepelio)"
-651210,Servicios de aseguradoras de riesgo de trabajo (ART)
-773040,"Alquiler de maquinaria y equipo de oficina, incluso computadoras"
-939020,"Servicios de salones de juegos (Incluye salones de billar, pool, bowling, juegos electrónicos, etc.) "
-131131,"Fabricación de hilados textiles de lana, pelos y sus mezclas"
-91000,Servicios de apoyo para la extracción de petróleo y gas natural
-702010,"Servicios de gerenciamiento de empresas e instituciones de salud, servicios de auditoria y medicina legal, servicio de asesoramiento farmacéutico "
-162902,Fabricación de artículos de madera en tornerías
-464211,Venta al por mayor de libros y publicaciones
-722020,Investigación  y desarrollo experimental en el campo de las ciencias humanas
-854920,Enseñanza de cursos relacionados con informática
-631120,Hospedaje de datos
-275099,"Fabricación de aparatos de uso doméstico n.c.p. (Incluye enceradoras, pulidoras, batidoras, licuadoras y similares)"
-524330,"Servicios para la aeronavegación (Incluye remolque de aeronaves y actividades de control de tráfico aéreo, etc.)"
-103099,"Elaboración de frutas deshidratadas o desecadas, preparación n.c.p. de frutas"
-131201,"Fabricación de tejidos (telas) planos de lana y sus mezclas, incluye hilanderías y tejedurías integradas"
-141201,Fabricación de accesorios de vestir de cuero
-142000,"Terminación y teñido de pieles, fabricación de artículos de piel "
-242010,Elaboración de aluminio primario y semielaborados de aluminio
-281700,"Fabricación de maquinaria y equipo de oficina, excepto equipo informático"
-351310,Comercio mayorista de energía eléctrica
-464122,Venta al por mayor de medias y prendas de punto
-493110,Servicio de transporte por oleoductos (Incluye estaciones de bombeo y compresión)
-722010,Investigación  y desarrollo experimental en el campo de las ciencias sociales
-329010,"Fabricación de lápices, lapiceras,  bolígrafos, sellos y artículos similares para oficinas y artistas"
+439100,Alquiler de equipo de construcción o demolición dotado de operarios
+439910,"Hincado de pilotes, cimentación y otros trabajos de hormigón armado"
+464930,Venta al por mayor de juguetes (Incluye artículos de cotillón)
+465930,Venta al por mayor de equipo profesional y científico e instrumentos de medida y de control n.c.p.
+466340,Venta al por mayor de pinturas y productos conexos
+466399,Venta al por mayor de artículos para la construcción n.c.p. (No incluye artículos y materiales de demolición: 466990 )
+475490,"Venta al por menor de artículos para el hogar n.c.p. (Incluye perchas, marcos, cuadros, etc.)"
+477120,Venta al por menor de uniformes escolares y guardapolvos
+492290,Servicio de transporte automotor de cargas n.c.p. (Incluye  servicios de transporte de carga refrigerada y transporte pesado)
+561019,Servicios de expendio de comidas y bebidas en establecimientos con servicio de mesa y/o en mostrador n.c.p.
+581300,"Edición de periódicos, revistas y publicaciones periódicas"
+649220,Servicios de entidades de tarjeta de compra y/o crédito
+651220,Servicios de seguros patrimoniales excepto los de las aseguradoras de riesgo de trabajo (ART)
+662020,Servicios de productores  y asesores de seguros
+863190,Servicios de prácticas de diagnóstico n.c.p.
+863200,"Servicios de tratamiento (Incluye hemodiálisis, cobaltoterapia, etc) "
+863300,"Servicio médico integrado de consulta, diagnóstico y tratamiento"
+870990,Servicios sociales con alojamiento n.c.p.
+910100,Servicios de bibliotecas y archivos
+14910,"Apicultura (Incluye la producción de miel, jalea real, polen, propóleo, etc.)"
+14990,"Cría de animales y obtención de productos de origen animal, n.c.p. (Incluye ciervo, gato, gusano de seda, lombriz, pájaro, perro, rana, animales para experimentación, caracoles vivos, frescos, congelados y secos -excepto marinos-, cera de insectos excepto la de abeja, etc.)"
+101011,Matanza de ganado bovino (Incluye búfalos)
+107121,"Elaboración industrial de productos de panadería, excepto galletitas y bizcochos (Incluye la elaboración de productos de panadería frescos, congelados y secos)"
+107129,"Elaboración de productos de panadería n.c.p. (Incluye la elaboración de pan, facturas, churros, pre-pizzas, masas de hojaldre, masas fritas, tortas, tartas, etc), (No incluye la fabricación de sándwich 561040)"
+108000,Elaboración de alimentos preparados para animales
+110411,Embotellado de aguas naturales y minerales
+110412,Fabricación de sodas
+410011,"Construcción, reforma y reparación de edificios residenciales (Incluye la construcción, reforma y reparación  de viviendas unifamiliares y multifamiliares, bungaloes, cabañas, casas de campo, departamentos, albergues para ancianos, niños, estudiantes, etc.)"
+461021,Venta al por mayor en comisión o consignación de ganado bovino en pie (Incluye consignatarios de hacienda y ferieros)
+614090,Servicios de telecomunicación vía internet n.c.p.
+192000,Fabricación de productos de la refinación del petróleo
+471900,"Venta al por menor en comercios no especializados, sin predominio de productos alimenticios y bebidas"
+475190,"Venta al por menor de artículos textiles n.c.p. excepto prendas de vestir (Incluye la venta al por menor de tapices, alfombras,  etc.)"
+478090,Venta al por menor de productos n.c.p. en puestos móviles y mercados
+492110,Servicio de transporte automotor urbano y suburbano regular de pasajeros
+649999,"Servicios de financiación y actividades financieras n.c.p. (Incluye actividades de inversión en acciones, títulos, la actividad de corredores de bolsa, securitización, mutuales financieras, etc.), (No incluye actividades financieras relacionadas con el otorgamiento de créditos)"
+721090,Investigación y desarrollo experimental en el campo de las ciencias exactas y naturales n.c.p.
+11130,Cultivo de pastos de uso forrajero
+452910,Instalación y reparación de equipos de GNC
+454020,Mantenimiento y reparación de motocicletas
+259100,"Forjado, prensado, estampado y laminado de metales, pulvimetalurgia"
+351190,"Generación de energía n.c.p. (Incluye la producción de energía eléctrica mediante fuentes de energía solar, biomasa, eólica, geotérmica, mareomotriz, etc.)"
+492170,Servicio de transporte automotor internacional de pasajeros
+170910,Fabricación de artículos de papel y cartón de uso doméstico e higiénico sanitario
+139100,Fabricación de tejidos de punto
+14930,"Cría de animales pelíferos, pilíferos y plumíferos, excepto de las especies ganaderas (Incluye cría de visón, nutria, chinchilla, reptiles, etc.)"
+72910,Extracción de metales preciosos
+102003,"Fabricación de aceites, grasas, harinas y productos a base de pescados "
+259309,"Fabricación de cerraduras, herrajes y artículos de ferretería n.c.p."
+351130,Generación de energía hidráulica (Incluye la producción de energía eléctrica mediante centrales de bombeo)
+591120,Postproducción de filmes y videocintas
+641943,Servicios de intermediación financiera realizada por cajas de crédito
+649100,"Arrendamiento financiero, leasing"
+661111,Servicios de mercados y cajas de valores
+21020,Repoblación y conservación de bosques nativos y zonas forestadas
+141140,Confección de prendas deportivas
+149000,"Servicios industriales para la industria confeccionista (Incluye procesos de planchado y acondicionamiento de prendas: teñido, gastado a la piedra (stone wash), impermeabilizado, lavaderos y secaderos industriales, etc.) "
+267002,"Fabricación de aparatos y accesorios para fotografía excepto películas, placas y papeles sensibles"
 451210,"Venta de autos, camionetas y utilitarios, usados (Incluye taxis, jeeps, 4x4 y vehículos similares)"
 452401,"Reparaciones eléctricas del tablero e instrumental, reparación y recarga de baterías, instalación de alarmas, radios, sistemas de climatización"
 463140,"Venta al por mayor y empaque de frutas, de legumbres y hortalizas frescas"
@@ -752,71 +187,228 @@ clae6,clae6_desc
 842200,Servicios de defensa
 12590,"Cultivo de plantas sacaríferas n.c.p. (Incluye remolacha azucarera, etc.)"
 14620,Producción de leche de oveja y de cabra
-453210,Venta al por menor de cámaras y cubiertas
-454010,"Venta de motocicletas y de sus partes, piezas y accesorios"
-463112,Venta al por mayor de fiambres y quesos
-464112,"Venta al por mayor de artículos de mercería (Incluye la venta de puntillas, galones, hombreras, agujas, botones, etc.)"
-466330,"Venta al por mayor de artículos de ferretería y materiales eléctricos (Incluye la venta  de clavos, cerraduras, cable coaxil. etc)"
-472111,Venta al por menor de productos lácteos
-472112,Venta al por menor de fiambres y embutidos
-472150,Venta al por menor de pescados y  productos de la pesca
-475220,"Venta al por menor de maderas y artículos de madera  y corcho, excepto muebles"
-477230,Venta al por menor de calzado deportivo
-477320,"Venta al por menor de productos cosméticos, de tocador y de perfumería"
-477460,"Venta al por menor de fuel oil, gas en garrafas, carbón y leña (No incluye las estaciones de servicios que se clasifican en 473000)"
-612000,Servicios de telefonía móvil
-682010,Servicios de administración de consorcios de edificios
-702092,"Servicios de asesoramiento, dirección y gestión empresarial realizados por integrantes de cuerpos de dirección en sociedades excepto las anónimas"
-749009,"Actividades profesionales, científicas y técnicas n.c.p."
-771190,"Alquiler de vehículos automotores n.c.p., sin conductor ni operarios (Incluye: camiones, remolques, etc.)"
-851020,"Enseñanza inicial, jardín de infantes y primaria"
-863110,"Servicios de prácticas de diagnóstico en laboratorios (Incluye análisis clínicos, bioquímica, anatomía patológica, laboratorio hematológico, etc.)"
-870220,Servicios de atención a personas minusválidas con alojamiento
-960101,Servicios de limpieza de prendas prestado por tintorerías rápidas
-11211,Cultivo de soja
-101099,"Matanza de animales n.c.p. y procesamiento de su carne, elaboración de subproductos cárnicos n.c.p. (Incluye producción de carne fresca, refrigerada o congelada de liebre, conejo, animales de caza, etc.)"
-105010,"Elaboración de leches y productos lácteos deshidratados (Incluye la obtención de quesos, helados, manteca, postres lácteos, yogur y otros productos lácteos fermentados o coagulados cuando son obtenidos en forma integrada con la producción de leche)"
-105020,Elaboración de quesos (Incluye la producción de suero)
-259993,Fabricación de productos metálicos de tornería y/o matricería
-281201,Fabricación de bombas
-282120,Fabricación de maquinaria y equipo de uso agropecuario y forestal
-821100,Servicios combinados de gestión administrativa de oficinas
-900030,"Servicios conexos a la producción de espectáculos teatrales y musicales  (Incluye diseño y manejo de escenografía, montaje de iluminación y sonido, etc.)"
-11501,Cultivo de algodón
-24020,"Servicios forestales excepto los servicios para la extracción de madera (Incluye protección contra incendios, evaluación de masas forestales en pie, estimación del valor de la madera, etc.)"
-990000,Servicios de organizaciones y órganos extraterritoriales
-22020,"Extracción de productos forestales de bosques nativos (Incluye tala de árboles, desbaste de troncos y producción de madera en bruto, leña, postes, la extracción de rodrigones, varas, varillas y la recolección de  gomas naturales, líquenes, musgos, resinas y de rosa mosqueta,etc)"
-422100,Perforación de pozos de agua
-463180,Venta al por mayor en supermercados mayoristas de alimentos
-463191,"Venta al por mayor de frutas, legumbres y cereales secos y en conserva"
-842300,Servicios para el orden público y la seguridad
-13019,Producción de semillas de cultivos agrícolas n.c.p.
-151200,"Fabricación de maletas, bolsos de mano y similares, artículos de talabartería y artículos de cuero n.c.p."
-202311,"Fabricación de preparados para limpieza, pulido y saneamiento "
-524310,"Servicios de explotación de infraestructura para el transporte aéreo, derechos de aeropuerto"
-773010,"Alquiler de maquinaria y equipo agropecuario y forestal, sin operarios"
-880000,Servicios sociales sin alojamiento
-239421,Elaboración de  yeso
-107200,Elaboración de azúcar
-202320,"Fabricación de cosméticos, perfumes y  productos de higiene y tocador"
-12410,"Cultivo de frutas tropicales y subtropicales (Incluye banana, ananá, mamón, palta, etc.)"
-303000,Fabricación y reparación de aeronaves
-309100,Fabricación de motocicletas
-465320,"Venta al por mayor de máquinas, equipos e implementos de uso en la elaboración de alimentos, bebidas y tabaco (Incluye máquinas para moler, picar y cocer alimentos, fabricadora de pastas, bateas, enfriadoras y envasadoras de bebidas, etc.)"
-620200,Servicios de consultores en equipo de informática
-931030,Promoción y producción de espectáculos deportivos
-107930,Elaboración de yerba mate
-264000,"Fabricación de receptores de radio y televisión, aparatos de grabación y reproducción de sonido y video, y productos conexos"
-81100,"Extracción de rocas ornamentales (Incluye areniscas, cuarcita, dolomita, granito, mármol, piedra laja, pizarra, serpentina, etc.)"
-131120,Preparación de fibras animales de uso textil
-201130,"Fabricación de materias colorantes básicas, excepto pigmentos preparados"
-201140,"Fabricación de combustible nuclear, sustancias y materiales radiactivos"
-321012,Fabricación de objetos de platería
-561040,Servicios de preparación de comidas realizadas por/para vendedores ambulantes.
-649910,"Servicios de agentes de mercado abierto """"puros"""" (Incluye las transacciones extrabursátiles - por cuenta propia -)"
-465360,"Venta al por mayor de máquinas, equipos e implementos de uso en la industria del plástico y del caucho (Incluye sopladora de envases, laminadora de plásticos, máquinas extrusoras y moldeadoras, etc.)"
-102002,Elaboración de pescados de ríos y lagunas y otros productos fluviales y lacustres
-71000,"Extracción de minerales de hierro (Incluye hematitas, limonitas, magnetitas, siderita, etc.)"
+461099,Venta al por mayor en comisión o consignación de  mercaderías n.c.p.
+462132,"Acopio y acondicionamiento de cereales y semillas, excepto de algodón y semillas y granos para forrajes"
+463129,"Venta al por mayor de aves, huevos y productos de granja y de la caza n.c.p. (Incluye la venta al por mayor  de carne de ave fresca, congelada o refrigerada)"
+464221,Venta al por mayor de papel y productos de papel y cartón excepto envases
+472172,"Venta al por menor de bombones, golosinas y demás productos de confitería"
+474010,"Venta al por menor de equipos, periféricos,  accesorios y programas informáticos"
+476400,"Venta al por menor de juguetes, artículos de cotillón y juegos de mesa"
+491110,Servicio de transporte ferroviario urbano y suburbano de pasajeros (Incluye el servicio de subterráneo y de premetro)
+492140,"Servicio de transporte automotor urbano y suburbano no regular de pasajeros de oferta libre,  excepto mediante taxis y remises, alquiler de autos con chofer y transporte escolar (Incluye servicios urbanos especiales como charters, servicios contratados, servicios para ámbito portuario o aeroportuario, servicio de hipódromos y espectáculos deportivos y culturales)"
+492160,Servicio de transporte automotor interurbano no regular de pasajeros
+523020,Servicios de agencias marítimas para el transporte de mercaderías
+551010,Servicios de alojamiento por hora
+561013,"Servicios de """"fast food"""" y locales de venta de comidas y bebidas al paso (Incluye el expendio de hamburguesas, productos lácteos excepto helados, etc.) "
+602310,Emisión de señales de televisión por suscripción
+682091,Servicios prestados por inmobiliarias
+773090,"Alquiler de maquinaria y equipo n.c.p., sin personal"
+812010,Servicios de limpieza general de edificios
+854990,"Servicios de enseñanza n.c.p. (Incluye instrucción impartida mediante programas de radio, televisión, correspondencia y otros medios de comunicación, escuelas de manejo, actividades de enseñanza a domicilio y/o particulares, etc.)"
+862130,"Servicios de atención médica en dispensarios, salitas, vacunatorios y otros locales de atención primaria de la salud"
+14115,Engorde en corrales (Feed-Lot)
+14510,"Cría de ganado porcino, excepto la realizada en cabañas"
+331220,Reparación y mantenimiento de maquinaria y equipo de uso agropecuario y forestal
+662090,Servicios auxiliares a los servicios de seguros n.c.p.
+711002,Servicios geológicos y de prospección
+862120,"Servicios de proveedores de atención médica domiciliaria (Incluye las actividades llevadas a cabo en domicilios de pacientes con alta precoz, y que ofrecen atención por módulo) "
+24010,"Servicios forestales para la extracción de madera (Incluye tala de árboles, acarreo y transporte en el interior del bosque, servicios realizados por terceros, etc.)"
+99000,"Servicios de apoyo para la minería, excepto para la extracción de petróleo y gas natual"
+11129,Cultivo de cereales de uso forrajero n.c.p.
+81300,"Extracción de arenas, canto rodado y triturados pétreos (Incluye arena para construcción, arena silícea, otras arenas naturales, canto rodado, dolomita triturada, salto triturado, piedra partida  y  otros triturados pétreos, etc.)"
+461029,Venta al por mayor en comisión o consignación de productos pecuarios n.c.p.
+465220,Venta al por mayor de componentes electrónicos
+951200,Reparación y mantenimiento de equipos de telefonía y de comunicación
+821900,"Servicios de fotocopiado, preparación de documentos y otros servicios de apoyo de oficina"
+104012,Elaboración de aceite de oliva
+110491,Elaboración de hielo
+161002,Aserrado y cepillado de madera implantada
+461091,"Venta al por mayor en comisión o consignación de productos textiles, prendas de vestir, calzado excepto el ortopédico,  artículos de marroquinería, paraguas y similares y productos de cuero n.c.p."
+465100,"Venta al por mayor de equipos, periféricos, accesorios y programas informáticos"
+476320,"Venta al por menor de armas, artículos para la caza y pesca"
+479900,"Venta al por menor no realizada en establecimientos  n.c.p. (Incluye venta mediante máquinas expendedoras, vendedores ambulantes y vendedores a domicilio)"
+201110,Fabricación de gases industriales y medicinales comprimidos o licuados
+273190,Fabricación de hilos y cables aislados n.c.p.
+431100,"Demolición y voladura de edificios y de sus partes (Incluye los trabajos de limpieza de escombros asociada a la demolición, los derribos y demolición de edificios y obras de ingeniería civil,.los trabajos de voladura y remoción de rocas) "
+854960,Enseñanza artística
+265200,Fabricación de relojes
+523032,Servicios de operadores logísticos seguros (OLS) en el ámbito aduanero
+162100,"Fabricación de hojas de madera para enchapado, fabricación de tableros contrachapados, tableros laminados, tableros de partículas y tableros y paneles n.c.p. (Incluye la fabricación de madera terciada y  machimbre)"
+31120,Pesca y elaboración de productos marinos realizada a bordo de buques procesadores
+81400,"Extracción de arcilla y caolín (Incluye andalucita, arcillas, bentonita, caolín, pirofilita, silimanita, mullita, tierra de chamota o de dinas, etc.)"
+141191,Fabricación de accesorios de vestir excepto de cuero
+143020,Fabricación de prendas de vestir y artículos similares de punto
+251300,Fabricación de generadores de vapor
+265101,"Fabricación de instrumentos y aparatos para medir, verificar, ensayar, navegar y otros fines, excepto el equipo de control de procesos industriales "
+477480,Venta al por menor de obras de arte
+477830,Venta al por menor de antigüedades (Incluye venta de antigüedades en remates)
+322001,Fabricación de instrumentos de música
+12709,Cultivo de té y otras plantas cuyas hojas se utilizan para preparar infusiones
+433040,Pintura y trabajos de decoración
+451110,"Venta de autos, camionetas y utilitarios nuevos (Incluye taxis, jeeps, 4x4 y vehículos similares)"
+461012,Venta al por mayor en comisión o consignación de semillas
+461094,"Venta al por mayor en comisión o consignación de  maquinaria, equipo profesional industrial y comercial, embarcaciones y aeronaves"
+501200,Servicio de transporte marítimo de carga
+502101,Servicio de transporte fluvial y lacustre de pasajeros
+502200,Servicio de transporte fluvial y lacustre de carga
+521010,Servicios de manipulación de carga en el ámbito terrestre
+561014,"Servicios de expendio de bebidas en bares (Incluye: bares, cervecerías, pubs, cafeterías)"
+681098,"Servicios inmobiliarios realizados por cuenta propia, con bienes urbanos propios o arrendados n.c.p."
+731001,Servicios de comercialización de tiempo y espacio publicitario
+931010,"Servicios de organización, dirección y gestión de prácticas deportivas en clubes (Incluye clubes de fútbol, golf, tiro, boxeo, etc.)"
+931042,"Servicios prestados por profesionales y técnicos para la realización de prácticas deportivas (Incluye la actividad realizada por entrenadores, instructores, jueces árbitros, cronometradores, etc.)"
+931090,Servicios para la práctica deportiva n.c.p.
+949100,Servicios de organizaciones religiosas
+952200,Reparación de calzado y artículos de marroquinería
+16113,"Servicios de pulverización, desinfección y fumigación aérea "
+16120,"Servicios de cosecha mecánica (Incluye la cosecha mecánica de granos, caña de azúcar, algodón, forrajes, el enfardado, enrollado, etc.) "
+170202,Fabricación de cartón ondulado y envases de cartón
+360010,"Captación, depuración y distribución de agua de fuentes subterráneas"
+464502,"Venta al por mayor de equipos de audio, video y televisión"
+161001,Aserrado y cepillado de madera  nativa
+464340,Venta al por mayor de productos veterinarios
+611010,Servicios de locutorios
+13012,"Producción de semillas varietales o autofecundadas de cereales, oleaginosas, y forrajeras "
+222010,Fabricación de envases plásticos
+14820,Producción de huevos
+31110,"Pesca de organismos marinos, excepto cuando es realizada en buques procesadores"
+107309,"Elaboración de productos de confitería n.c.p. (Incluye alfajores, caramelos, frutas confitadas, pastillas, gomas de mascar, etc.)"
+210010,Fabricación de medicamentos de uso humano y productos farmacéuticos
+267001,Fabricación de equipamiento e instrumentos ópticos y sus accesorios
+101013,Saladero y peladero de cueros de ganado bovino
+152031,Fabricación de calzado deportivo
+275091,"Fabricación de ventiladores, extractores de aire, aspiradoras y similares"
+432110,"Instalación de sistemas de iluminación, control y señalización eléctrica para el transporte "
+581900,Edición n.c.p.
+89110,"Extracción de minerales para la fabricación de abonos excepto turba (Incluye guano, silvita, silvinita y otras sales de potasio naturales, etc.)"
+202906,Fabricación de explosivos y productos de pirotecnia
+14410,Cría de ganado ovino -excepto en cabañas y para la  producción de lana y leche-
+107301,Elaboración de cacao y chocolate
+131139,"Fabricación de hilados textiles n.c.p., excepto de lana  y de algodón"
+51000,"Extracción y aglomeración de carbón (Incluye la producción de hulla no aglomerada, antracita, carbón bituminoso no aglomerado, ovoides y combustibles sólidos análogos a base de hulla, etc.)"
+242090,Fabricación de productos primarios de metales preciosos y metales no ferrosos n.c.p. y sus semielaborados
+259910,Fabricación de envases metálicos
+301200,Construcción y reparación de embarcaciones de recreo y deporte
+462209,Venta al por mayor de materias primas pecuarias n.c.p. incluso animales vivos (Incluye pieles y cueros en bruto)
+464121,Venta al por mayor de prendas de vestir de cuero
+464910,Venta al por mayor de CD's y DVD's de audio y video grabados.
+652000,Reaseguros
+842100,Servicios de asuntos exteriores
+900040,Servicios de agencias de ventas de entradas
+239391,Fabricación de objetos cerámicos para uso doméstico excepto artefactos sanitarios
+351120,Generación de energía térmica nuclear (Incluye la producción de energía eléctrica mediante combustible nuclear)
+12800,Cultivo de especias y de plantas aromáticas y medicinales
+432990,Instalaciones para edificios y obras de ingeniería civil n.c.p. (Incluye instalación de puertas automáticas o giratorias)
+452220,"Reparación de amortiguadores,  alineación de dirección y balanceo de ruedas "
+463160,"Venta al por mayor de chocolates, golosinas y productos para kioscos y polirrubros n.c.p., excepto cigarrillos"
+464150,Venta al por mayor de uniformes y ropa de trabajo
+464940,"Venta al por mayor de bicicletas y rodados similares (Incluye cochecitos y sillas de paseo para bebés, andadores, triciclos, etc.)"
+466200,Venta al por mayor de metales y minerales metalíferos
+466350,Venta al por mayor de cristales y espejos
+466360,"Venta al por mayor de artículos para plomería, instalación de gas y calefacción"
+466931,Venta al por mayor de artículos de plástico
+473000,Venta al por menor de combustible para vehículos automotores y motocicletas (Incluye la venta al por menor de productos lubricantes y refrigerantes)
+477440,"Venta al por menor de flores, plantas, semillas, abonos, fertilizantes y otros productos de vivero "
+492190,Servicio de transporte automotor de pasajeros n.c.p.
+522099,Servicios de almacenamiento y depósito n.c.p.
+771210,"Alquiler de equipo de transporte para vía acuática, sin operarios ni tripulación"
+16112,"Servicios de pulverización, desinfección y fumigación terrestre"
+16190,"Servicios de apoyo agrícolas n.c.p (Incluye  explotación de sistemas de riego, injertos de plantas, construcción y plantación de almácigos, alquiler de colmenas, etc.), (No incluye mantenimiento de jardines, parques y cementerios: actividad 813000, planificación y diseño paisajista: actividad 711009)"
+251101,Fabricación de carpintería metálica
+310010,"Fabricación de muebles y partes de muebles, principalmente de madera"
+310020,"Fabricación de muebles y partes de muebles, excepto los que son principalmente de madera (metal, plástico, etc.)"
+310030,Fabricación de somieres y colchones
+139204,Fabricación de bolsas de materiales textiles para productos a granel
+107420,Elaboración de pastas alimentarias secas
+239510,Fabricación de mosaicos
+360020,"Captación, depuración y distribución de agua de fuentes superficiales"
+464222,Venta al por mayor de envases de papel y cartón
+110212,Elaboración de vinos (Incluye el fraccionamiento)
+202312,Fabricación de jabones y detergentes
+452700,Instalación y reparación de caños de escape y radiadores
+465340,"Venta al por mayor de máquinas, equipos e implementos de uso en imprentas, artes gráficas y actividades conexas (Incluye venta de máquinas fotocopiadoras - excepto las de uso personal-, copiadoras de planos, máquinas para imprimir, guillotinar, troquelar, encuadernar, etc.)"
+477810,Venta al por menor de muebles usados
+492210,Servicios de mudanza (Incluye servicios de guardamuebles)
+101091,Fabricación de aceites y grasas de origen animal
+170990,Fabricación de artículos de papel y cartón n.c.p. (No incluye el papel de lija:  239900)
+259200,Tratamiento y revestimiento de metales y trabajos de metales en general
+106200,"Elaboración de almidones y productos derivados del almidón, molienda húmeda de maíz (Incluye la elaboración de glucosa y gluten)"
+102001,"Elaboración de pescados de mar, crustáceos y  productos marinos "
+152011,"Fabricación de calzado de cuero, excepto calzado deportivo y ortopédico "
+282901,Fabricación de maquinaria para la industria del papel y las artes gráficas
+331290,Reparación y mantenimiento de maquinaria de uso especial n.c.p.
+12121,Cultivo de uva de mesa
+107991,"Elaboración de extractos, jarabes y concentrados"
+139300,Fabricación de tapices y alfombras
+210020,Fabricación de medicamentos de uso veterinario
+275010,"Fabricación de cocinas, calefones, estufas y calefactores no eléctricos"
+291000,Fabricación de vehículos automotores (Incluye la fabricación de motores para automotores)
+465330,"Venta al por mayor de máquinas, equipos e implementos de uso en la fabricación de textiles, prendas y accesorios de vestir, calzado, artículos de cuero y marroquinería (Incluye venta de máquinas de coser, de cortar tejidos, de tejer, extender telas, robots de corte y otros equipos para la industria textil y confeccionista, etc.)"
+591200,Distribución de filmes y videocintas
+661121,Servicios de mercados a término
+661991,Servicios de envio y recepción de fondos desde y hacia el exterior
+749003,Servicios de representación e intermediación de deportistas profesionales
+900021,"Composición y representación de obras teatrales, musicales y artísticas (Incluye a compositores, actores, músicos, conferencistas, pintores, artistas plásticos etc.) "
+910300,"Servicios de jardines botánicos, zoológicos y de parques nacionales"
+949200,Servicios de organizaciones políticas
+952920,Reparación de relojes y joyas. Relojerías
+282600,"Fabricación de maquinaria para la elaboración de productos textiles, prendas de vestir y cueros"
+120091,Elaboración de cigarrillos
+451190,"Venta de vehículos automotores nuevos n.c.p. (Incluye casas rodantes, trailers, camiones, remolques, ambulancias, ómnibus, microbuses y similares, cabezas tractoras, etc.)"
+461011,"Venta al por mayor en comisión o consignación de cereales (incluye arroz), oleaginosas y forrajeras excepto semillas"
+461092,Venta al por mayor en comisión o consignación de  madera y materiales para la construcción
+463159,Venta al por mayor de productos y subproductos de molinería n.c.p.
+463219,"Venta al por mayor de bebidas alcohólicas n.c.p. (Incluye la venta de aperitivos con alcohol, cerveza, sidra, etc.)"
+466129,"Venta al por mayor de combustibles, lubricantes, leña y carbón, excepto gas licuado y combustibles y lubricantes para automotores"
+469010,Venta al por mayor de insumos agropecuarios diversos
+471110,Venta al por menor en hipermercados
+472140,"Venta al por menor de huevos, carne de aves y  productos de granja y de la caza"
+475290,Venta al por menor de materiales de construcción n.c.p.
+475440,"Venta al por menor de artículos de bazar y menaje (Incluye venta al por menor de vajilla, cubiertos, etc.)"
+477290,"Venta al por menor de artículos de marroquinería, paraguas y similares n.c.p."
+492240,Servicio de transporte por camión cisterna
+702099,"Servicios de asesoramiento, dirección y gestión empresarial n.c.p."
+750000,Servicios veterinarios
+853100,Enseñanza  terciaria
+854910,Enseñanza de idiomas
+942000,Servicios de sindicatos
+949930,Servicios de cooperativas cuando realizan varias actividades
+960202,"Servicios de tratamiento de belleza, excepto los de peluquería"
+101012,Procesamiento de carne de ganado bovino
+101030,Elaboración de fiambres y embutidos
+181109,"Impresión n.c.p., excepto de diarios y revistas"
+281900,"Fabricación de  maquinaria y equipo de uso general n.c.p. (Incluye la fabricación de equipos de aire acondicionado, matafuegos, etc.)"
+331900,Reparación y mantenimiento de máquinas y equipo n.c.p.
+302000,Fabricación y reparación de locomotoras y de material rodante para transporte ferroviario
+16130,"Servicios de contratistas de mano de obra agrícola (Incluye la poda de árboles, transplante, cosecha manual de citrus, algodón, etc.)"
+141120,"Confección de ropa de trabajo, uniformes y guardapolvos "
+465400,Venta al por mayor de máquinas - herramienta de uso general
+511000,Servicio de transporte aéreo de pasajeros
+651120,"Servicios de seguros de vida (Incluye los seguros de vida, retiro y sepelio)"
+651210,Servicios de aseguradoras de riesgo de trabajo (ART)
+773040,"Alquiler de maquinaria y equipo de oficina, incluso computadoras"
+939020,"Servicios de salones de juegos (Incluye salones de billar, pool, bowling, juegos electrónicos, etc.) "
+131131,"Fabricación de hilados textiles de lana, pelos y sus mezclas"
+91000,Servicios de apoyo para la extracción de petróleo y gas natural
+702010,"Servicios de gerenciamiento de empresas e instituciones de salud, servicios de auditoria y medicina legal, servicio de asesoramiento farmacéutico "
+162902,Fabricación de artículos de madera en tornerías
+464211,Venta al por mayor de libros y publicaciones
+722020,Investigación  y desarrollo experimental en el campo de las ciencias humanas
+854920,Enseñanza de cursos relacionados con informática
+631120,Hospedaje de datos
+275099,"Fabricación de aparatos de uso doméstico n.c.p. (Incluye enceradoras, pulidoras, batidoras, licuadoras y similares)"
+524330,"Servicios para la aeronavegación (Incluye remolque de aeronaves y actividades de control de tráfico aéreo, etc.)"
+103099,"Elaboración de frutas deshidratadas o desecadas, preparación n.c.p. de frutas"
+131201,"Fabricación de tejidos (telas) planos de lana y sus mezclas, incluye hilanderías y tejedurías integradas"
+141201,Fabricación de accesorios de vestir de cuero
+142000,"Terminación y teñido de pieles, fabricación de artículos de piel "
+242010,Elaboración de aluminio primario y semielaborados de aluminio
+281700,"Fabricación de maquinaria y equipo de oficina, excepto equipo informático"
+351310,Comercio mayorista de energía eléctrica
+464122,Venta al por mayor de medias y prendas de punto
+493110,Servicio de transporte por oleoductos (Incluye estaciones de bombeo y compresión)
+722010,Investigación  y desarrollo experimental en el campo de las ciencias sociales
+329010,"Fabricación de lápices, lapiceras,  bolígrafos, sellos y artículos similares para oficinas y artistas"
 452800,Mantenimiento y reparación de frenos y embragues
 452990,"Mantenimiento y reparación del motor n.c.p., mecánica integral (Incluye auxilio y servicios de grúa para automotores) "
 461040,Venta al por mayor en comisión o consignación de combustibles (No incluye electricidad)
@@ -887,60 +479,468 @@ clae6,clae6_desc
 14920,Cunicultura
 282110,Fabricación de tractores
 72100,Extracción de minerales y concentrados de uranio y torio
-461099,Venta al por mayor en comisión o consignación de  mercaderías n.c.p.
-462132,"Acopio y acondicionamiento de cereales y semillas, excepto de algodón y semillas y granos para forrajes"
-463129,"Venta al por mayor de aves, huevos y productos de granja y de la caza n.c.p. (Incluye la venta al por mayor  de carne de ave fresca, congelada o refrigerada)"
-464221,Venta al por mayor de papel y productos de papel y cartón excepto envases
-472172,"Venta al por menor de bombones, golosinas y demás productos de confitería"
-474010,"Venta al por menor de equipos, periféricos,  accesorios y programas informáticos"
-476400,"Venta al por menor de juguetes, artículos de cotillón y juegos de mesa"
-491110,Servicio de transporte ferroviario urbano y suburbano de pasajeros (Incluye el servicio de subterráneo y de premetro)
-492140,"Servicio de transporte automotor urbano y suburbano no regular de pasajeros de oferta libre,  excepto mediante taxis y remises, alquiler de autos con chofer y transporte escolar (Incluye servicios urbanos especiales como charters, servicios contratados, servicios para ámbito portuario o aeroportuario, servicio de hipódromos y espectáculos deportivos y culturales)"
-492160,Servicio de transporte automotor interurbano no regular de pasajeros
-523020,Servicios de agencias marítimas para el transporte de mercaderías
-551010,Servicios de alojamiento por hora
-561013,"Servicios de """"fast food"""" y locales de venta de comidas y bebidas al paso (Incluye el expendio de hamburguesas, productos lácteos excepto helados, etc.) "
-602310,Emisión de señales de televisión por suscripción
-682091,Servicios prestados por inmobiliarias
-773090,"Alquiler de maquinaria y equipo n.c.p., sin personal"
-812010,Servicios de limpieza general de edificios
-854990,"Servicios de enseñanza n.c.p. (Incluye instrucción impartida mediante programas de radio, televisión, correspondencia y otros medios de comunicación, escuelas de manejo, actividades de enseñanza a domicilio y/o particulares, etc.)"
-862130,"Servicios de atención médica en dispensarios, salitas, vacunatorios y otros locales de atención primaria de la salud"
-14115,Engorde en corrales (Feed-Lot)
-14510,"Cría de ganado porcino, excepto la realizada en cabañas"
-331220,Reparación y mantenimiento de maquinaria y equipo de uso agropecuario y forestal
-662090,Servicios auxiliares a los servicios de seguros n.c.p.
-711002,Servicios geológicos y de prospección
-862120,"Servicios de proveedores de atención médica domiciliaria (Incluye las actividades llevadas a cabo en domicilios de pacientes con alta precoz, y que ofrecen atención por módulo) "
-24010,"Servicios forestales para la extracción de madera (Incluye tala de árboles, acarreo y transporte en el interior del bosque, servicios realizados por terceros, etc.)"
-99000,"Servicios de apoyo para la minería, excepto para la extracción de petróleo y gas natual"
-11129,Cultivo de cereales de uso forrajero n.c.p.
-81300,"Extracción de arenas, canto rodado y triturados pétreos (Incluye arena para construcción, arena silícea, otras arenas naturales, canto rodado, dolomita triturada, salto triturado, piedra partida  y  otros triturados pétreos, etc.)"
-461029,Venta al por mayor en comisión o consignación de productos pecuarios n.c.p.
-465220,Venta al por mayor de componentes electrónicos
-951200,Reparación y mantenimiento de equipos de telefonía y de comunicación
-821900,"Servicios de fotocopiado, preparación de documentos y otros servicios de apoyo de oficina"
-104012,Elaboración de aceite de oliva
-110491,Elaboración de hielo
-161002,Aserrado y cepillado de madera implantada
-461091,"Venta al por mayor en comisión o consignación de productos textiles, prendas de vestir, calzado excepto el ortopédico,  artículos de marroquinería, paraguas y similares y productos de cuero n.c.p."
-465100,"Venta al por mayor de equipos, periféricos, accesorios y programas informáticos"
-476320,"Venta al por menor de armas, artículos para la caza y pesca"
-479900,"Venta al por menor no realizada en establecimientos  n.c.p. (Incluye venta mediante máquinas expendedoras, vendedores ambulantes y vendedores a domicilio)"
-201110,Fabricación de gases industriales y medicinales comprimidos o licuados
-273190,Fabricación de hilos y cables aislados n.c.p.
-431100,"Demolición y voladura de edificios y de sus partes (Incluye los trabajos de limpieza de escombros asociada a la demolición, los derribos y demolición de edificios y obras de ingeniería civil,.los trabajos de voladura y remoción de rocas) "
-854960,Enseñanza artística
-265200,Fabricación de relojes
-523032,Servicios de operadores logísticos seguros (OLS) en el ámbito aduanero
-162100,"Fabricación de hojas de madera para enchapado, fabricación de tableros contrachapados, tableros laminados, tableros de partículas y tableros y paneles n.c.p. (Incluye la fabricación de madera terciada y  machimbre)"
-31120,Pesca y elaboración de productos marinos realizada a bordo de buques procesadores
-81400,"Extracción de arcilla y caolín (Incluye andalucita, arcillas, bentonita, caolín, pirofilita, silimanita, mullita, tierra de chamota o de dinas, etc.)"
-141191,Fabricación de accesorios de vestir excepto de cuero
-143020,Fabricación de prendas de vestir y artículos similares de punto
-251300,Fabricación de generadores de vapor
-265101,"Fabricación de instrumentos y aparatos para medir, verificar, ensayar, navegar y otros fines, excepto el equipo de control de procesos industriales "
-477480,Venta al por menor de obras de arte
-477830,Venta al por menor de antigüedades (Incluye venta de antigüedades en remates)
-322001,Fabricación de instrumentos de música
-12709,Cultivo de té y otras plantas cuyas hojas se utilizan para preparar infusiones
+463111,Venta al por mayor de productos lácteos
+464999,"Venta al por mayor de artículos de uso doméstico o personal n.c.p (Incluye artículos de platería excepto los incluidos en talabartería, cuadros y marcos que no sean obra de arte o de colección, sahumerios y artículos de santería, parrillas y hogares, etc.)"
+466920,"Venta al por mayor de productos intermedios n.c.p., desperdicios y desechos de papel y cartón"
+477110,"Venta al por menor de ropa interior, medias, prendas para dormir y para la playa (Incluye corsetería, lencería, camisetas, medias excepto ortopédicas, pijamas, camisones y saltos de cama, salidas de baño, trajes de baño, etc.)"
+477450,Venta al por menor de materiales y productos de limpieza
+523090,"Servicios de gestión y logística para el transporte de mercaderías n.c.p. (Incluye las actividades de empresas empaquetadoras para comercio exterior, alquiler de contenedores, etc.)"
+641930,Servicios de la banca minorista
+801090,Servicios de seguridad e investigación n.c.p.
+823000,"Servicios de organización de convenciones y exposiciones comerciales, excepto culturales y deportivos"
+920001,"Servicios de recepción de apuestas de quiniela, lotería y similares  "
+949920,Servicios de consorcios de edificios
+11299,"Cultivo de oleaginosas n.c.p. excepto soja y girasol (Incluye los cultivos de oleaginosas para aceites comestibles y/o uso industrial: cártamo, colza, jojoba, lino oleaginoso, maní, ricino, sésamo, tung, etc.)"
+14113,"Cría de ganado bovino, excepto la realizada en cabañas y para la producción de leche (Incluye: ganado bubalino)"
+16111,"Servicios de labranza, siembra, transplante  y  cuidados culturales"
+16119,"Servicios de maquinaria agrícola n.c.p., excepto los de cosecha mecánica (Incluye clasificado y/o tamañado, rastrillado, roturación de terreno, etc.)"
+110300,"Elaboración de cerveza, bebidas malteadas y malta"
+202908,"Fabricación de productos químicos n.c.p. (Incluye la producción de aceites esenciales, tintas excepto para imprenta, etc.)"
+239592,Fabricación de premoldeadas para la construcción
+241009,Fabricación en industrias básicas de productos de hierro y acero n.c.p. (Incluye la producción de hojalata)
+243200,Fundición de metales no ferrosos
+251102,Fabricación de productos metálicos para uso estructural
+282130,Fabricación de implementos de uso agropecuario
+352020,Distribución de combustibles gaseosos por tuberías (No incluye el transporte por gasoductos)
+432200,"Instalaciones de gas, agua, sanitarios y de climatización, con sus artefactos conexos (Incluye la instalación de compactadores, calderas, sistemas de calefacción central, etc.)"
+462120,Venta al por mayor de semillas y granos para forrajes
+475110,"Venta al por menor de hilados, tejidos y artículos de mercería (Incluye mercerías, sederías, comercios de venta de lanas y otros hilados, etc.) "
+960910,"Servicios de centros de estética, spa y similares (Incluye baños turcos, saunas, solarios, centros de masajes y adelgazamiento, etc.)"
+11912,Cultivo de plantas ornamentales
+829100,Servicios de agencias de cobro y calificación crediticia
+433090,"Terminación de edificios n.c.p. (Incluye trabajos de ornamentación, limpieza exterior de edificios recién construídos, etc.)"
+11342,"Cultivo de legumbres secas (Incluye garbanzo, lenteja, poroto, etc.)"
+139900,Fabricación de productos textiles n.c.p.
+464119,Venta al por mayor de productos textiles n.c.p.
+465210,Venta al por mayor de equipos de telefonía y comunicaciones
+16291,"Servicios para el control de plagas, baños parasiticidas, etc."
+107911,"Tostado, torrado y molienda de café"
+432910,"Instalaciones de ascensores, montacargas y  escaleras mecánicas"
+649210,Actividades de crédito para financiar otras actividades económicas
+663000,Servicios de gestión de fondos a cambio de una retribución o por contrata
+16210,Inseminación artificial y servicios n.c.p. para mejorar la reproducción de los animales y el rendimiento de sus productos
+332000,Instalación de maquinaria y equipos industriales
+14430,Cría de ganado caprino -excepto la realizada en cabañas y para producción de pelos y de leche-
+131132,Fabricación de hilados textiles de algodón y sus mezclas
+524390,Servicios complementarios para el transporte aéreo n.c.p. (Incluye servicios de prevención y extinción de incendios)
+472300,Venta al por menor de tabaco en comercios especializados
+162202,Fabricación de viviendas prefabricadas de madera
+464212,Venta al por mayor de diarios y revistas
+464420,"Venta al por mayor de artículos de relojería, joyería y fantasías"
+631200,Portales web
+952300,Reparación de tapizados y muebles (Incluye la restauración de muebles)
+131300,Acabado de productos textiles
+201300,Fabricación de abonos y compuestos de nitrógeno
+107920,Preparación de hojas de té
+241001,"Laminación y estirado. Producción de lingotes, planchas o barras fabricadas por operadores independientes"
+261000,Fabricación de componentes electrónicos
+273110,Fabricación de cables de fibra óptica
+524110,"Servicios de explotación de infraestructura para el transporte terrestre, peajes y otros derechos"
+870920,Servicios de atención a mujeres con alojamiento
+203000,Fabricación de fibras manufacturadas
+843000,"Servicios de la seguridad social obligatoria, excepto obras sociales (Incluye PAMI y ANSES)"
+772010,Alquiler de videos y video juegos (Incluye la actividad de los videoclubes)
+16150,Servicios de procesamiento de semillas para su siembra (Incluye la selección de semillas)
+432920,"Aislamiento térmico, acústico, hídrico y antivibratorio"
+433010,"Instalaciones de carpintería, herrería de obra y artística (Incluye instalación de puertas y ventanas, carpintería metálica y no metálica, etc.)"
+464130,"Venta al por mayor de calzado excepto el ortopédico (Incluye venta de calzado de cuero, tela, plástico, goma, etc.)"
+465990,"Venta al por mayor de máquinas, equipo y materiales conexos n.c.p."
+477150,Venta al por menor de prendas de cuero
+477330,"Venta al por menor de instrumental médico y odontológico y artículos ortopédicos (Incluye venta de vaporizadores, nebulizadores, masajeadores, termómetros, prótesis, muletas, plantillas, calzado ortopédico y otros artículos similares de uso personal o doméstico)"
+602100,Emisión y retransmisión  de televisión abierta
+602200,Operadores de televisión por suscripción.
+620100,Servicios de consultores en informática y suministros de programas de informática
+731009,Servicios de publicidad n.c.p.
+773030,"Alquiler de maquinaria y equipo de construcción e ingeniería civil, sin operarios (Incluye el alquiler de andamios sin montaje ni desmantelamiento)"
+780000,"Obtención y dotación de personal (Incluye las actividades vinculadas con la búsqueda, selección y colocación de personal, la actividad de casting de actores, etc.)"
+842400,Servicios de justicia
+870910,Servicios de atención a niños y adolescentes carenciados con alojamiento
+941100,Servicios de organizaciones empresariales y de empleadores
+14114,Invernada  de ganado bovino excepto el engorde en corrales (Feed-Lot)
+104011,Elaboración de aceites y grasas vegetales  sin refinar
+239593,"Fabricación de artículos de cemento, fibrocemento y yeso excepto hormigón y mosaicos"
+492230,Servicio de transporte automotor de animales
+110420,"Elaboración de bebidas gaseosas, excepto soda"
+131110,"Preparación de fibras textiles vegetales, desmotado de algodón (Incluye la preparación de fibras de yute, ramio, cáñamo y lino)"
+282400,"Fabricación de maquinaria para la explotación de minas y canteras y para obras de construcción (Incluye la fabricación de máquinas y equipos viales, equipos para la extracción de petróleo y gas, etc.)"
+351110,"Generación de energía térmica convencional (Incluye la producción de energía eléctrica mediante máquinas turbo-gas, turbo vapor, ciclo combinado y turbo diesel)"
+390000,Descontaminación y otros servicios de gestión de residuos
+239600,"Corte, tallado y acabado de la piedra (Incluye mármoles y granitos, etc.)"
+452300,"Instalación y reparación de parabrisas, lunetas y ventanillas, cerraduras no eléctricas y grabado de cristales (Incluye instalación y reparación de aletas, burletes y colisas)"
+521030,Servicios de manipulación de carga en el ámbito aéreo
+662010,Servicios de evaluación de riesgos y daños
+801010,Servicios de transporte de caudales y objetos de valor
+855000,Servicios de apoyo a la educación
+12200,"Cultivo de frutas cítricas (Incluye bergamota, lima, limón, mandarina, naranja, pomelo, kinoto, etc.)"
+202200,"Fabricación de pinturas, barnices y productos de revestimiento similares, tintas de imprenta y masillas"
+13013,"Producción de semillas de hortalizas y legumbres, flores y plantas ornamentales y árboles frutales "
+12701,Cultivo de yerba mate
+479101,Venta al por menor por internet
+641942,Servicios de intermediación financiera realizada por sociedades de ahorro y préstamo para la vivienda y otros inmuebles
+721020,Investigación  y desarrollo experimental en el campo de las ciencias médicas
+106120,Preparación de arroz
+191000,Fabricación de productos de hornos de coque
+259302,Fabricación de artículos de cuchillería y utensillos de mesa y de cocina
+282200,Fabricación de máquinas herramienta
+329040,"Fabricación de equipo de protección y seguridad, excepto calzado"
+110290,Elaboración de sidra y otras bebidas alcohólicas fermentadas
+239310,Fabricación de artículos sanitarios de cerámica
+31200,Pesca continental: fluvial y lacustre
+453220,Venta al por menor de baterías
+461019,Venta al por mayor en comisión o consignación de productos agrícolas n.c.p.
+463170,Venta al por mayor de alimentos balanceados para animales
+471120,Venta al por menor en supermercados
+475300,"Venta al por menor  de electrodomésticos, artefactos para el hogar y equipos de audio y video"
+477140,Venta al por menor de indumentaria deportiva
+477310,Venta al por menor de productos farmacéuticos y de herboristería
+477410,Venta al por menor de artículos de óptica y fotografía
+477430,Venta al por menor de bijouterie y fantasía
+524120,Servicios  de playas de estacionamiento y garajes
+561011,Servicios de restaurantes y cantinas sin espectáculo
+813000,Servicios de jardinería y mantenimiento de espacios verdes
+841100,"Servicios generales de la Administración Pública (Incluye el desempeño de funciones ejecutivas y legislativas de administración por parte de las entidades de la administración central, regional y local, la administración y supervisión de asuntos fiscales, la aplicación del presupuesto y la gestión de los fondos públicos y la deuda pública, la gestión administrativa de servicios estadísticos y sociológicos y de planificación social y económica a distintos niveles de la administración)"
+841900,"Servicios auxiliares para los servicios generales de la Administración Pública (Incluye las actividades de servicios generales y de personal, la administración, dirección y apoyo de servicios generales, compras y suministros, etc. )"
+920009,Servicios relacionados con juegos de azar y apuestas n.c.p.
+931020,"Explotación de instalaciones deportivas, excepto clubes"
+960201,Servicios de peluquería
+105090,"Elaboración de productos lácteos n.c.p. (Incluye la producción de caseínas, manteca, postres, etc., cuando no son obtenidos e forma integrada con la producción de leche)"
+259999,Fabricación de productos elaborados de metal n.c.p.
+271010,"Fabricación de motores, generadores y transformadores eléctricos"
+292000,"Fabricación de carrocerías para vehículos automotores, fabricación de remolques y semirremolques"
+410021,"Construcción, reforma y reparación de edificios no residenciales (Incluye construcción, reforma y reparación de restaurantes, bares, campamentos, bancos, oficinas, galerías comerciales, estaciones de servicio, edificios para tráfico y comunicaciones, garajes, edificios industriales y depósitos, escuelas, etc.)"
+429090,"Construcción de obras de ingeniería civil n.c.p. (Incluye los trabajos generales de construcción para la minería y la industria,  de centrales eléctricas y nucleares, excavaciones de sepulturas, etc.)"
+12510,Cultivo de caña de azúcar
+22010,"Extracción de productos forestales de bosques cultivados (Incluye tala de árboles, desbaste de troncos y producción de madera en bruto, leña, postes)"
+89900,"Explotación de minas y canteras n.c.p. (Incluye amianto, cuarzo, diatomita, piedra pómez, ágata, agua marina, amatista, cristal de roca, rodocrosita, topacio, corindón, feldespato, mica, zeolita, perlita, granulado volcánico, puzolana, toba, talco, vermiculita, tosca, grafito, etc.)"
+106131,Elaboración de alimentos a base de cereales
+21010,Plantación de bosques
+329030,"Fabricación de carteles, señales e indicadores  -eléctricos o no-"
+464149,"Venta al por mayor de artículos de marroquinería,  paraguas y productos similares n.c.p."
+477820,"Venta al por menor de libros, revistas y similares usados"
+561012,Servicios de restaurantes y cantinas con espectáculo
+841200,"Servicios para la regulación de las actividades sanitarias, educativas, culturales, y restantes servicios sociales, excepto seguridad social obligatoria (Incluye  la gestión administrativa de programas destinados a mejorar el bienestar de los ciudadanos) "
+960102,"Lavado y limpieza de artículos de tela, cuero y/o de piel, incluso la limpieza en seco"
+854930,"Enseñanza para adultos, excepto discapacitados"
+141130,Confección de prendas de vestir para bebés y niños
+89300,Extracción de sal
+661910,Servicios bursátiles de mediación o por cuenta de terceros (Incluye la actividad de agentes y sociedades de bolsa)
+162300,Fabricación de recipientes de madera
+811000,Servicio combinado de apoyo a edificios
+89200,Extracción y aglomeración de turba (Incluye la producción de turba utilizada como corrector de suelos)
+120099,Elaboración de productos de tabaco n.c.p.
+201401,Fabricación de resinas y cauchos sintéticos
+239100,Fabricación de productos de cerámica refractaria
+522091,Servicios de usuarios directos de zona franca
+642000,Servicios de sociedades de cartera
+32000,"Explotación de criaderos de peces, granjas piscícolas y otros frutos acuáticos  (acuicultura)"
+221110,Fabricación de cubiertas y cámaras
+466910,"Venta al por mayor de productos intermedios n.c.p., desperdicios y desechos textiles"
+281100,"Fabricación  de  motores  y  turbinas,  excepto  motores  para aeronaves, vehículos automotores   y motocicletas"
+464142,"Venta al por mayor de suelas y afines (Incluye talabarterías, artículos regionales de cuero, almacenes de suelas, etc.)"
+281400,"Fabricación de cojinetes, engranajes, trenes de engranaje y piezas de transmisión"
+162903,Fabricación de productos de corcho
+651320,Servicios de cajas de previsión social pertenecientes a asociaciones profesionales
+353001,Suministro de vapor y aire acondicionado
+452600,"Reparación y pintura de carrocerías, colocación y reparación de guardabarros y protecciones exteriores"
+453100,"Venta al por mayor de partes, piezas y accesorios de vehículos automotores"
+463300,Venta al por mayor de cigarrillos y productos de tabaco
+466121,Fraccionamiento y distribución de gas licuado
+471130,"Venta al por menor en minimercados (Incluye mercaditos, autoservicios y establecimientos similares que vendan carnes, verduras y demás productos alimenticios en forma conjunta)"
+472171,Venta al por menor de pan y productos de panadería
+472200,Venta al por menor de bebidas en comercios especializados
+475120,"Venta al por menor de confecciones para el hogar (Incluye la venta al por menor de sábanas, toallas, mantelería, cortinas confeccionadas, colchas, cubrecamas, etc.)"
+475420,Venta al por menor de colchones y somieres
+475430,Venta al por menor de artículos de iluminación
+477190,Venta al por menor de prendas y accesorios de vestir n.c.p.
+477470,"Venta al por menor de productos veterinarios, animales domésticos y alimento balanceado para mascotas"
+492229,Servicio de transporte automotor de mercaderías a granel n.c.p.
+492280,Servicio de transporte automotor urbano de carga n.c.p. (Incluye el transporte realizado por fleteros y distribuidores dentro del égido urbano)
+561020,"Servicios de preparación de comidas para llevar (Incluye rotiserías, casas de empanadas, pizzerías sin consumo en el local) "
+611090,"Servicios de telefonía fija, excepto locutorios"
+619000,Servicios de telecomunicaciones n.c.p. (Incluye el servicio de pagers)
+691001,Servicios jurídicos
+791100,Servicios minoristas de agencias de viajes
+862110,"Servicios de  consulta médica (Incluye las actividades de establecimientos sin internación o cuyos servicios se desarrollen en unidades independientes a las de internación: consultorios médicos, servicios de medicina laboral)"
+869010,"Servicios de rehabilitación física (Incluye actividades de profesionales excepto médicos: kinesiólogos, fisiatras, etc.)"
+107999,"Elaboración de productos alimenticios n.c.p. (Incluye la elaboración de polvos para preparar postres y gelatinas, levadura, productos para copetín, sopas, sal de mesa, mayonesa, mostaza, etc.)"
+201220,Fabricación de biocombustibles excepto alcohol
+281301,"Fabricación de compresores, grifos y válvulas"
+282500,"Fabricación de maquinaria para la elaboración de alimentos, bebidas y tabaco"
+331210,Reparación y mantenimiento de maquinaria de uso general
+431210,"Movimiento de suelos y preparación de terrenos para obras (Incluye el drenaje, excavación de zanjas para construcciones diversas, el despeje de capas superficiales no contaminadas, movimientos de tierras para hacer terraplenes o desmontes previos a la construcción de vías, carreteras, autopistas, FFCC, etc.)"
+591300,Exhibición de filmes y videocintas
+103012,"Elaboración y envasado de dulces, mermeladas y jaleas"
+151100,Curtido y terminación de cueros
+162909,"Fabricación de productos de madera n.c.p, fabricación de artículos de paja y materiales trenzables (Incluye enmarcado de cuadros, carpintería cuando no explicita especialidad)"
+453292,"Venta al por menor de partes, piezas y accesorios usados n.c.p."
+464920,Venta al por mayor de materiales y productos de limpieza
+11111,Cultivo de arroz
+107500,"Elaboración de comidas preparadas para reventa (Incluye la elaboración de comidas preparadas para reventa en supermercados, kioscos, cafeterías, etc.)"
+370000,"Servicios de depuración de aguas residuales, alcantarillado y cloacas"
+381200,"Recolección, transporte, tratamiento y disposición final de residuos peligrosos"
+466310,"Venta al por mayor de aberturas (Incluye puertas, ventanas, cortinas de enrollar, madera, aluminio, puertas corredizas, frentes de placard, etc.)"
+853201,Enseñanza universitaria excepto formación de posgrado
+101040,"Matanza de ganado excepto el bovino y procesamiento de su carne (Incluye ganado ovino, porcino, equino, etc.) "
+791200,Servicios mayoristas de agencias de viajes
+11990,Cultivos temporales ncp
+12490,"Cultivo de frutas n.c.p. (Incluye kiwi, arándanos, mora, grosella, etc.)"
+271020,Fabricación de aparatos de distribución y control de la energía eléctrica
+162901,Fabricación de ataúdes
+266010,"Fabricación de equipo médico y quirúrgico y de aparatos ortopédicos principalmente electrónicos y/o eléctricos (Incluye equipos de laboratorio, esterilizadores, paneles para observación de radiografías, tornos, etc.)"
+274000,Fabricación de lámparas eléctricas y equipo de iluminación
+275020,"Fabricación de heladeras, freezers, lavarropas y secarropas"
+324000,Fabricación de juegos y juguetes
+492130,Servicio de transporte escolar (Incluye el servicio de transporte para colonias de vacaciones y clubes)
+842500,Servicios de protección civil
+281500,"Fabricación de hornos, hogares y quemadores"
+501100,Servicio de transporte marítimo de pasajeros
+141110,"Confección de ropa interior, prendas para dormir y para la playa"
+231010,Fabricación de envases de vidrio
+352010,Fabricación de gas y procesamiento de gas natural
+479109,"Venta al por menor por correo, televisión y otros medios de comunicación n.c.p."
+530090,"Servicios de mensajerías (Incluye servicios puerta a puerta de correo y mensajería, comisionistas de encomiendas, transporte de documentos  realizados por empresas no sujetas a la obligación de servicio universal)"
+639900,Servicios de información n.c.p.
+643001,Servicios de fideicomisos
+653000,"Administración de fondos de pensiones, excepto la seguridad social obligatoria"
+774000,Arrendamiento y gestión de bienes intangibles no financieros
+107992,Elaboración de vinagres
+12600,"Cultivo de frutos oleaginosos (Incluye el cultivo de olivo, coco, palma, etc.)"
+14720,Producción de pelos de ganado n.c.p.
+439990,"Actividades especializadas de construcción n.c.p. (Incluye el alquiler, montaje y desmantelamiento de andamios,  la construcción de chimeneas y hornos industriales, el acorazamiento de cajas fuertes y cámaras frigoríficas, el armado e instalación de compuertas para diques, etc.)"
+462131,"Venta al por mayor de cereales (incluye arroz), oleaginosas y forrajeras excepto semillas"
+463211,Venta al por mayor de vino
+464223,Venta al por mayor de artículos de librería y papelería
+476310,"Venta al por menor de equipos  y artículos deportivos (Incluye la venta y reparación  de bicicletas, la venta  de aparatos de gimnasia y de equipos de camping, etc.)  "
+521020,Servicios de manipulación de carga en el ámbito portuario
+523031,Servicios de gestión de agentes de transporte aduanero excepto agencias marítimas
+620900,Servicios de informática n.c.p.
+641910,Servicios de la banca mayorista
+661131,Servicios de bolsas de comercio
+681010,"Servicios de alquiler y explotación de inmuebles para fiestas, convenciones y otros eventos similares "
+681099,"Servicios inmobiliarios realizados por cuenta propia, con bienes rurales propios o arrendados n.c.p."
+711003,Servicios relacionados con la electrónica y las comunicaciones
+851010,Guarderías y jardines maternales
+854940,Enseñanza especial y para discapacitados
+949910,"Servicios de mutuales, excepto mutuales de salud y financieras"
+952100,"Reparación de artículos eléctricos y electrónicos de uso doméstico (Incluye  TV, radios, reproductores cd's y dvd's, cámaras de video de uso familiar, heladeras, lavarropas, secarropas, aire acondicionado de menos de 6000 frigorías)"
+14121,Cría de ganado bovino realizada en cabañas (Incluye: ganado bubalino y la producción de semen)
+105030,Elaboración industrial de helados
+239410,Elaboración de cemento
+329090,"Industrias manufactureras n.c.p. (Incluye fabricación de paraguas, termos, pelucas, etc.)"
+382020,Recuperación de materiales y desechos no metálicos
+591110,Producción de filmes y videocintas
+601000,Emisión y retransmisión de radio
+11331,"Cultivo de hortalizas de hoja y de otras hortalizas frescas (Incluye acelga, apio, coles, espinaca, lechuga, perejil, radicheta, repollo, etc.)"
+139209,"Fabricación de artículos confeccionados de materiales textiles n.c.p., excepto prendas de vestir "
+265102,Fabricación de equipo de control de procesos industriales
+464114,Venta al por mayor de tapices y alfombras de materiales textiles
+721010,Investigación  y desarrollo experimental en el campo de la ingeniería y la tecnología
+512000,Servicio de transporte aéreo de cargas
+12110,Cultivo de vid para vinificar
+552000,Servicios de alojamiento en campings (Incluye refugios de montaña)
+11400,Cultivo de tabaco
+452500,Tapizado y retapizado de automotores
+201180,Fabricación de materias químicas inorgánicas básicas n.c.p.
+239422,Elaboración de cal
+282300,Fabricación de maquinaria metalúrgica
+431220,"Perforación y sondeo, excepto perforación de pozos de petróleo, de gas, de minas e hidráulicos  y prospección de yacimientos de petróleo (Incluye los trabajos de perforación, sondeo y muestreo con fines de construcción o para estudios geofísicos, geológicos u otros similares, las perforaciones horizontales para el paso de cables o cañerías de drenaje, etc.), (No incluye los servicios de perforación relacionados con la extracción de petróleo y gas, activ.091000, ni la perforación de pozos hidráulicos, activ.422100)"
+463130,Venta al por mayor de pescado
+16230,Servicios de esquila de animales
+772099,Alquiler de efectos personales y enseres domésticos n.c.p. (Incluye alquiler de artículos deportivos)
+201120,Fabricación de curtientes naturales y sintéticos
+210090,Fabricación de productos de laboratorio y productos botánicos de uso farmaceútico n.c.p.
+259992,Fabricación de cajas de seguridad
+321020,Fabricación de bijouterie (Incluye la fabricación de joyas de fantasía y accesorios similares)
+461022,Venta al por mayor en comisión o consignación de ganado en pie excepto bovino
+463212,Venta al por mayor de bebidas espiritosas
+11911,Cultivo de flores
+773020,"Alquiler de maquinaria y equipo para la minería, sin operarios"
+461014,"Acopio y acondicionamiento en comisión o consignación de cereales (incluye arroz), oleaginosas y forrajeras excepto semillas"
+464310,"Venta al por mayor de productos farmacéuticos (Incluye venta de medicamentos y kits de diagnóstico como test de embarazo, hemoglucotest, vacunas, etc.)"
+464620,Venta al por mayor de artículos de iluminación
+464950,"Venta al por mayor de artículos de esparcimiento y deportes (Incluye embarcaciones deportivas, armas y municiones, equipos de pesca, piletas de natación de lona o plástico, etc.)"
+466320,"Venta al por mayor de productos de madera excepto muebles (Incluye placas, varillas, parqué, machimbre, etc.)"
+475260,"Venta al por menor de cristales, espejos, mamparas y cerramientos"
+475410,"Venta al por menor de muebles para el hogar, artículos de mimbre y corcho"
+492120,"Servicios de transporte automotor de pasajeros mediante taxis y remises, alquiler de autos con chofer (Incluye los radiotaxis)"
+523011,Servicios de gestión aduanera realizados por despachantes de aduana
+524210,"Servicios de explotación de infraestructura para el transporte marítimo, derechos de puerto"
+524220,Servicios de guarderías náuticas
+551023,"Servicios de alojamiento en hoteles, hosterías y residenciales similares, excepto por hora, que no incluyen servicio de restaurante al público"
+651110,Servicios de seguros de salud (Incluye medicina prepaga y mutuales de salud)
+712000,"Ensayos y análisis técnicos (Incluye inspección técnica de vehículos, laboratorios de control de calidad, servicios de peritos calígrafos, servicios de bromatología)"
+741000,"Servicios de diseño especializado (Incluye diseño de indumentaria, diseño gráfico, actividades de decoradores, etc.)"
+829900,Servicios empresariales n.c.p.
+941200,Servicios de organizaciones profesionales
+11121,Cultivo de maíz
+107410,Elaboración de pastas alimentarias frescas
+243100,Fundición de hierro y acero
+259301,Fabricación de herramientas manuales y sus accesorios
+272000,"Fabricación de acumuladores, pilas y baterías primarias"
+466932,"Venta al por mayor de abonos, fertilizantes y plaguicidas"
+293011,Rectificación de motores
+309200,Fabricación de bicicletas y de sillones de ruedas ortopédicos
+475270,"Venta al por menor de papeles para pared, revestimientos para pisos y artículos similares para la decoración"
+562099,Servicios de comidas n.c.p.
+162201,Fabricación de aberturas y estructuras de madera para la construcción
+259991,Fabricación de tejidos de alambre
+331101,"Reparación y mantenimiento de productos de metal, excepto maquinaria y equipo"
+464410,"Venta al por mayor de artículos de óptica y de fotografía (Incluye venta de lentes de contacto, líquidos oftalmológicos, armazones, cristales ópticos, películas fotográficas, cámaras y accesorios para fotografía, etc.)"
+464632,Venta al por mayor de artículos de bazar y menaje excepto de vidrio
+524130,Servicios de estaciones terminales de ómnibus y ferroviárias
+801020,Servicios de sistemas de seguridad
+900011,Producción de espectáculos teatrales y musicales
+11321,Cultivo de tomate
+17020,Servicios de apoyo para la caza
+16140,"Servicios de post cosecha (Incluye servicios de lavado de papas,  acondicionamiento, limpieza, etc, de granos antes de ir a los mercados primarios), (Excluye los servicios de procesamiento de semillas para su siembra)"
+14520,Cría de ganado porcino realizado en cabañas
+152021,"Fabricación de calzado de materiales n.c.p., excepto calzado deportivo y ortopédico "
+461013,Venta al por mayor en comisión o consignación de frutas (Incluye acopiadores y receptoras)
+476200,Venta al por menor de CD's y DVD's de audio y video grabados (Incluye CD's y DVD's vírgenes)
+939010,Servicios de parques de diversiones y parques temáticos
+910200,Servicios de museos y preservación de lugares y edificios históricos
+14211,"Cría de ganado equino, excepto la realizada en haras (Incluye equinos de trabajo, asnos, mulas, burdéganos)"
+16220,"Servicios de contratistas de mano de obra pecuaria (Incluye arreo, castración de aves, pasturaje,  etc.)"
+62000,Extracción de gas natural (Incluye gas natural licuado y gaseoso)
+221901,Fabricación de  autopartes de caucho excepto cámaras y cubiertas
+321011,Fabricación de joyas finas y artículos conexos
+491120,Servicio de transporte ferroviario interurbano de pasajeros
+749002,Servicios de representación e intermediación de artistas y modelos
+910900,"Servicios culturales n.c.p. (Incluye actividades sociales, culturales, recreativas y de interés local desarrollado por centros vecinales, barriales, sociedades de fomento, clubes no deportivos, etc.)"
+16292,Albergue y cuidado de  animales de terceros
+268000,"Fabricación de soportes ópticos y magnéticos (Incluye CD, disquetes, cintas magnéticas, tarjetas magnetizadas, etc.)"
+464631,Venta al por mayor de artículos de vidrio
+204000,Servicios industriales para la fabricación de sustancias y productos químicos
+14440,Cría de ganado caprino realizada en cabañas
+110211,Elaboración de mosto
+453291,"Venta al por menor de partes, piezas y accesorios nuevos n.c.p."
+463199,"Venta al por mayor de productos alimenticios n.c.p. (Incluye la venta de miel y derivados, productos congelados,  etc.)"
+465310,"Venta al por mayor de máquinas, equipos e implementos de uso en los sectores agropecuario, jardinería, silvicultura, pesca y caza (Incluye venta de tractores, cosechadoras, enfardadoras, remolques de carga y descarga automática, motosierras, cortadoras de césped autopropulsadas, etc.)"
+466391,"Venta al por mayor de artículos de loza, cerámica y porcelana de uso en construcción"
+466939,"Venta al por mayor de productos intermedios, desperdicios y desechos de vidrio, caucho, goma y químicos n.c.p."
+471190,"Venta al por menor en kioscos, polirrubros y comercios no especializados n.c.p."
+475250,Venta al por menor de artículos para plomería e instalación de gas
+476130,"Venta al por menor de papel, cartón, materiales de embalaje y artículos de librería "
+492221,Servicio de transporte automotor de cereales
+522092,Servicios de gestión de depósitos fiscales
+524230,"Servicios para la navegación (Incluye servicios de practicaje y pilotaje, atraque y salvamento)"
+561030,Servicio de expendio de helados
+581100,"Edición de libros, folletos, y otras publicaciones"
+651310,Obras Sociales
+682099,"Servicios inmobiliarios realizados a cambio de una retribución o por contrata n.c.p. (Incluye compra, venta, alquiler, remate, tasación, administración de bienes, etc., realizados a cambio de una retribución o por contrata, y la actividad de administradores, martilleros, rematadores, comisionistas, etc.)"
+692000,"Servicios de contabilidad, auditoría y asesoría fiscal"
+711009,Servicios de arquitectura e ingeniería y servicios conexos de asesoramiento técnico n.c.p.
+822000,Servicios de call center
+870210,Servicios de atención a ancianos con alojamiento
+960990,"Servicios personales n.c.p. (Incluye actividades de astrología y espiritismo, las realizadas con fines sociales como agencias matrimoniales, de investigaciones genealógicas, de contratación de acompañantes, la actividad de lustrabotas, acomodadores de autos, etc.)"
+11119,"Cultivo de cereales n.c.p., excepto los de uso forrajero (Incluye alforfón, cebada cervecera, etc.)"
+14610,Producción de leche bovina (Incluye la cría para la producción de leche de vaca y la producción de leche bubalina)
+181200,Servicios relacionados con la impresión
+251200,"Fabricación de tanques, depósitos y recipientes de metal (Incluye la fabricación de silos)"
+331400,Reparación y mantenimiento de maquinaria y aparatos eléctricos
+432190,"Instalación, ejecución y mantenimiento de instalaciones eléctricas, electromecánicas y electrónicas n.c.p. (Incluye la instalación de antenas, pararrayos, sistemas de alarmas contra incendios y robos, sistemas de telecomunicación, etc.)"
+464111,Venta al por mayor de tejidos (telas)
+476120,Venta al por menor de diarios y revistas
+131202,"Fabricación de tejidos (telas) planos de algodón y sus mezclas, incluye hilanderías y tejedurías integradas"
+170102,Fabricación de papel y cartón excepto envases
+201409,Fabricación de materias plásticas en formas primarias n.c.p.
+351201,Transporte de energía eléctrica
+952990,"Reparación de efectos personales y enseres domésticos n.c.p. (Incluye la actividad de arreglos de prendas realizadas por modistas), (No incluye la actividad de sastres y modistas que confeccionan prendas: grupo 141)      "
+11329,"Cultivo de bulbos, brotes, raíces y hortalizas de fruto n.c.p. (Incluye ají, ajo, alcaparra, berenjena, cebolla, calabaza, espárrago, frutilla, melón, pepino, pimiento, sandía, zanahoria, zapallo, zapallito, etc.)"
+551090,"Servicios de hospedaje temporal n.c.p. (Incluye hospedaje en estancias, residencias para estudiantes y albergues juveniles, apartamentos turísticos, etc.)"
+81200,"Extracción de piedra caliza y yeso (Incluye caliza, castina, conchilla, riolita, yeso natural, anhidrita, etc.)"
+101020,Producción y procesamiento de carne de aves
+107110,Elaboración de galletitas y bizcochos
+452101,Lavado automático y manual de vehículos automotores
+639100,Agencias de noticias
+749001,Servicios de traducción e interpretación
+771290,"Alquiler de equipo de transporte n.c.p. sin conductor ni operarios (Incluye: equipo ferroviario, motocicletas)"
+791901,Servicios de turismo aventura
+791909,Servicios complementarios de apoyo turístico n.c.p.
+952910,"Reforma y reparación de cerraduras, duplicación de llaves. Cerrajerías"
+231020,Fabricación y elaboración de vidrio plano
+602320,Producción de programas de televisión
+201190,"Fabricación de materias químicas orgánicas básicas n.c.p. (Incluye la fabricación de alcoholes excepto el etílico,  sustancias químicas para la elaboración de sustancias plásticas, carbón vegetal, etc.)"
+12320,"Cultivo de frutas de carozo (Incluye cereza, ciruela, damasco, durazno, pelón, etc.)"
+281600,"Fabricación de maquinaria y equipo de elevación y manipulación (Incluye la fabricación de ascensores, escaleras mecánicas, montacargas, etc.)"
+109000,Servicios industriales para la elaboración de alimentos y bebidas
+262000,Fabricación de equipos y productos informáticos
+551021,Servicios de alojamiento en pensiones
+870100,"Servicios de atención a personas con problemas de salud mental o de adicciones, con alojamiento"
+466370,"Venta al por mayor de papeles para pared, revestimiento para pisos de goma, plástico y textiles,  y artículos similares para la decoración"
+613000,"Servicios de telecomunicaciones vía satélite, excepto servicios de transmisión de televisión"
+210030,Fabricación de sustancias químicas para la elaboración de medicamentos
+239209,Fabricación de productos de arcilla y cerámica no refractaria para uso estructural n.c.p.
+329020,"Fabricación de escobas, cepillos y pinceles "
+465500,"Venta  al  por  mayor  de  vehículos,  equipos  y  máquinas  para  el transporte ferroviario, aéreo y de navegación"
+477840,"Venta al por menor de oro, monedas, sellos y similares (Incluye la  venta de monedas de colección, estampillas, etc.) "
+772091,Alquiler de prendas de vestir
+841300,"Servicios para la regulación de la actividad económica (Incluye la administración pública y la regulación de varios sectores económicos, la gestión administrativa de actividades de carácter laboral, la aplicación de políticas de desarrollo regional)"
+202907,"Fabricación de colas, adhesivos, aprestos y cementos excepto los odontológicos obtenidos de sustancias minerales y vegetales"
+275092,"Fabricación de planchas, calefactores, hornos eléctricos, tostadoras y otros aparatos generadores de calor"
+170101,Fabricación de pasta de madera
+453210,Venta al por menor de cámaras y cubiertas
+454010,"Venta de motocicletas y de sus partes, piezas y accesorios"
+463112,Venta al por mayor de fiambres y quesos
+464112,"Venta al por mayor de artículos de mercería (Incluye la venta de puntillas, galones, hombreras, agujas, botones, etc.)"
+466330,"Venta al por mayor de artículos de ferretería y materiales eléctricos (Incluye la venta  de clavos, cerraduras, cable coaxil. etc)"
+472111,Venta al por menor de productos lácteos
+472112,Venta al por menor de fiambres y embutidos
+472150,Venta al por menor de pescados y  productos de la pesca
+475220,"Venta al por menor de maderas y artículos de madera  y corcho, excepto muebles"
+477230,Venta al por menor de calzado deportivo
+477320,"Venta al por menor de productos cosméticos, de tocador y de perfumería"
+477460,"Venta al por menor de fuel oil, gas en garrafas, carbón y leña (No incluye las estaciones de servicios que se clasifican en 473000)"
+612000,Servicios de telefonía móvil
+682010,Servicios de administración de consorcios de edificios
+702092,"Servicios de asesoramiento, dirección y gestión empresarial realizados por integrantes de cuerpos de dirección en sociedades excepto las anónimas"
+749009,"Actividades profesionales, científicas y técnicas n.c.p."
+771190,"Alquiler de vehículos automotores n.c.p., sin conductor ni operarios (Incluye: camiones, remolques, etc.)"
+851020,"Enseñanza inicial, jardín de infantes y primaria"
+863110,"Servicios de prácticas de diagnóstico en laboratorios (Incluye análisis clínicos, bioquímica, anatomía patológica, laboratorio hematológico, etc.)"
+870220,Servicios de atención a personas minusválidas con alojamiento
+960101,Servicios de limpieza de prendas prestado por tintorerías rápidas
+11211,Cultivo de soja
+101099,"Matanza de animales n.c.p. y procesamiento de su carne, elaboración de subproductos cárnicos n.c.p. (Incluye producción de carne fresca, refrigerada o congelada de liebre, conejo, animales de caza, etc.)"
+105010,"Elaboración de leches y productos lácteos deshidratados (Incluye la obtención de quesos, helados, manteca, postres lácteos, yogur y otros productos lácteos fermentados o coagulados cuando son obtenidos en forma integrada con la producción de leche)"
+105020,Elaboración de quesos (Incluye la producción de suero)
+259993,Fabricación de productos metálicos de tornería y/o matricería
+281201,Fabricación de bombas
+282120,Fabricación de maquinaria y equipo de uso agropecuario y forestal
+821100,Servicios combinados de gestión administrativa de oficinas
+900030,"Servicios conexos a la producción de espectáculos teatrales y musicales  (Incluye diseño y manejo de escenografía, montaje de iluminación y sonido, etc.)"
+11501,Cultivo de algodón
+24020,"Servicios forestales excepto los servicios para la extracción de madera (Incluye protección contra incendios, evaluación de masas forestales en pie, estimación del valor de la madera, etc.)"
+990000,Servicios de organizaciones y órganos extraterritoriales
+22020,"Extracción de productos forestales de bosques nativos (Incluye tala de árboles, desbaste de troncos y producción de madera en bruto, leña, postes, la extracción de rodrigones, varas, varillas y la recolección de  gomas naturales, líquenes, musgos, resinas y de rosa mosqueta,etc)"
+422100,Perforación de pozos de agua
+463180,Venta al por mayor en supermercados mayoristas de alimentos
+463191,"Venta al por mayor de frutas, legumbres y cereales secos y en conserva"
+842300,Servicios para el orden público y la seguridad
+13019,Producción de semillas de cultivos agrícolas n.c.p.
+151200,"Fabricación de maletas, bolsos de mano y similares, artículos de talabartería y artículos de cuero n.c.p."
+202311,"Fabricación de preparados para limpieza, pulido y saneamiento "
+524310,"Servicios de explotación de infraestructura para el transporte aéreo, derechos de aeropuerto"
+773010,"Alquiler de maquinaria y equipo agropecuario y forestal, sin operarios"
+880000,Servicios sociales sin alojamiento
+239421,Elaboración de  yeso
+107200,Elaboración de azúcar
+202320,"Fabricación de cosméticos, perfumes y  productos de higiene y tocador"
+12410,"Cultivo de frutas tropicales y subtropicales (Incluye banana, ananá, mamón, palta, etc.)"
+303000,Fabricación y reparación de aeronaves
+309100,Fabricación de motocicletas
+465320,"Venta al por mayor de máquinas, equipos e implementos de uso en la elaboración de alimentos, bebidas y tabaco (Incluye máquinas para moler, picar y cocer alimentos, fabricadora de pastas, bateas, enfriadoras y envasadoras de bebidas, etc.)"
+620200,Servicios de consultores en equipo de informática
+931030,Promoción y producción de espectáculos deportivos
+107930,Elaboración de yerba mate
+264000,"Fabricación de receptores de radio y televisión, aparatos de grabación y reproducción de sonido y video, y productos conexos"
+81100,"Extracción de rocas ornamentales (Incluye areniscas, cuarcita, dolomita, granito, mármol, piedra laja, pizarra, serpentina, etc.)"
+131120,Preparación de fibras animales de uso textil
+201130,"Fabricación de materias colorantes básicas, excepto pigmentos preparados"
+201140,"Fabricación de combustible nuclear, sustancias y materiales radiactivos"
+321012,Fabricación de objetos de platería
+561040,Servicios de preparación de comidas realizadas por/para vendedores ambulantes.
+649910,"Servicios de agentes de mercado abierto """"puros"""" (Incluye las transacciones extrabursátiles - por cuenta propia -)"
+465360,"Venta al por mayor de máquinas, equipos e implementos de uso en la industria del plástico y del caucho (Incluye sopladora de envases, laminadora de plásticos, máquinas extrusoras y moldeadoras, etc.)"
+102002,Elaboración de pescados de ríos y lagunas y otros productos fluviales y lacustres
+71000,"Extracción de minerales de hierro (Incluye hematitas, limonitas, magnetitas, siderita, etc.)"
