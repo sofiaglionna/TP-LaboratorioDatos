@@ -7,7 +7,7 @@ dfEP = pd.read_csv("datasets/Finales/df_EP.csv")
 dfPoblacion = pd.read_csv("datasets/Finales/df_Poblacion.csv")
 dfEP_con_desc = pd.read_csv("datasets/Finales/EP_con_desc.csv")
 
-dfEE.dtypes
+
 
 #Ejercicio 1)
 
