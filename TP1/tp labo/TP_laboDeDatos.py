@@ -136,6 +136,8 @@ for i, row in dfPoblacion_con_nombre.iterrows():
     if row['Casos'] == "Casos":
         dfPoblacion_con_nombre.drop(i,inplace=True)
         dfPoblacion_con_nombre.drop(i-1,inplace=True)
+    if row['Edad'] == "Total":
+        dfPoblacion_con_nombre.drop(i,inplace=True)
 dfPoblacion_con_nombre.reset_index(drop=True, inplace=True)
 #%%
 dfDepartamento['provincia_id'] = dfDepartamento['provincia_id'].astype(str)
@@ -144,6 +146,7 @@ Poblacion = """
             FROM dfPoblacion_con_nombre
             LEFT OUTER JOIN dfDepartamento
             ON departamento = dfPoblacion_con_nombre.departamento_id AND (dfPoblacion_con_nombre.provincia_id = dfDepartamento.provincia_id OR '0'||dfDepartamento.provincia_id = dfPoblacion_con_nombre.provincia_id)
+            ORDER BY dfDepartamento.departamento_id
 """
 dfPoblacion=dd.query(Poblacion).df()
 dfPoblacion.loc[12185:12287,'departamento_id'] = 6651
@@ -151,6 +154,8 @@ dfPoblacion.loc[26525:26623,'departamento_id'] = 22126
 dfPoblacion.dropna(subset=['departamento_id'], inplace=True)
 dfPoblacion.reset_index(drop=True, inplace=True)
 
+#%%
+#ESTO DE ACA ABAJO ROMPE LA TABLA dfpoblacion
 # Conversión segura de tipos en dfPoblacion
 dfPoblacion["departamento_id"] = pd.to_numeric(dfPoblacion["departamento_id"], errors="coerce")
 dfPoblacion["Edad"]            = pd.to_numeric(dfPoblacion["Edad"],            errors="coerce")
