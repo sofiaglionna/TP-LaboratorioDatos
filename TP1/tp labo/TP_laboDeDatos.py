@@ -142,6 +142,17 @@ dfPoblacion_con_nombre.reset_index(drop=True, inplace=True)
 
 dfDepartamento['provincia_id'] = dfDepartamento['provincia_id'].astype(str)
 
+# Limpieza fuerte de 'Casos': borra espacios (incl. NBSP), puntos, comas, etc.
+dfPoblacion_con_nombre["Casos"] = (
+    pd.to_numeric(
+        dfPoblacion_con_nombre["Casos"]
+            .astype(str)
+            .str.replace(r"[^\d]", "", regex=True),  # deja solo 0-9
+        errors="coerce"
+    ).astype("Int64")
+)
+
+
 Poblacion = """
 SELECT 
     dfDepartamento.departamento_id,

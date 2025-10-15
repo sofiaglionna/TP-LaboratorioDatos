@@ -7,6 +7,8 @@ dfEP = pd.read_csv("datasets/Finales/df_EP.csv")
 dfPoblacion = pd.read_csv("datasets/Finales/df_Poblacion.csv")
 dfEP_con_desc = pd.read_csv("datasets/Finales/EP_con_desc.csv")
 
+print(dfPoblacion)
+
 dfEE["departamento_id"] = pd.to_numeric(dfEE["departamento_id"], errors="coerce").astype("Int64")
 
 # Asegurar tipos de Población
@@ -20,7 +22,10 @@ cols_ee = ["SNU","SNU - INET","Secundario - INET","Nivel inicial - Jardín mater
 for c in cols_ee:
     dfEE[c] = pd.to_numeric(dfEE[c], errors="coerce").fillna(0).astype("int64")
 dfEE["departamento_id"] = pd.to_numeric(dfEE["departamento_id"], errors="coerce").astype("Int64")
-dfEE.dtypes
+
+
+
+
 
 #Ejercicio 1)
 
@@ -113,6 +118,7 @@ i = """
     INNER JOIN dfPoblacionXSNUEnDpto AS pa ON d.departamento_id = pa.departamento_id
     """
 dfi = dd.query(i).df()
+print(dfi)
 
 #%%
 
