@@ -107,7 +107,7 @@ Poblacion_con_nombre = """
                        SELECT "  de Edad" AS departamento_id, "Unnamed: 1" AS Edad, "Unnamed: 2" AS Casos,"Unnamed: 3" AS "%"
                         FROM ArchivoPoblacion
                         """
-                        
+
 dfPoblacion_con_nombre=dd.query(Poblacion_con_nombre).df()
 dfPoblacion_con_nombre['provincia_id'] = None
 
@@ -136,48 +136,34 @@ for i, row in dfPoblacion_con_nombre.iterrows():
     if row['Casos'] == "Casos":
         dfPoblacion_con_nombre.drop(i,inplace=True)
         dfPoblacion_con_nombre.drop(i-1,inplace=True)
-    if row['Edad'] == "Total":
-        dfPoblacion_con_nombre.drop(i,inplace=True)
 dfPoblacion_con_nombre.reset_index(drop=True, inplace=True)
-#%%
+
 dfDepartamento['provincia_id'] = dfDepartamento['provincia_id'].astype(str)
+
 Poblacion = """
-            SELECT dfDepartamento.departamento_id,dfPoblacion_con_nombre.Edad,dfPoblacion_con_nombre.Casos,dfPoblacion_con_nombre."%"
-            FROM dfPoblacion_con_nombre
-            LEFT OUTER JOIN dfDepartamento
-            ON departamento = dfPoblacion_con_nombre.departamento_id AND (dfPoblacion_con_nombre.provincia_id = dfDepartamento.provincia_id OR '0'||dfDepartamento.provincia_id = dfPoblacion_con_nombre.provincia_id)
-            ORDER BY dfDepartamento.departamento_id
+SELECT 
+    dfDepartamento.departamento_id,
+    dfPoblacion_con_nombre.Edad,
+    dfPoblacion_con_nombre.Casos,
+    CAST(
+        REPLACE(
+            REPLACE(dfPoblacion_con_nombre."%", '%', ''), 
+        ',', '.') 
+    AS DOUBLE) AS porcentaje_num
+FROM dfPoblacion_con_nombre
+LEFT OUTER JOIN dfDepartamento
+  ON departamento = dfPoblacion_con_nombre.departamento_id
+ AND (dfPoblacion_con_nombre.provincia_id = dfDepartamento.provincia_id 
+      OR '0'||dfDepartamento.provincia_id = dfPoblacion_con_nombre.provincia_id)
 """
-dfPoblacion=dd.query(Poblacion).df()
+dfPoblacion = dd.query(Poblacion).df()
+
 dfPoblacion.loc[12185:12287,'departamento_id'] = 6651
 dfPoblacion.loc[26525:26623,'departamento_id'] = 22126
 dfPoblacion.dropna(subset=['departamento_id'], inplace=True)
 dfPoblacion.reset_index(drop=True, inplace=True)
 
-#%%
-#ESTO DE ACA ABAJO ROMPE LA TABLA dfpoblacion
-# Conversión segura de tipos en dfPoblacion
-dfPoblacion["departamento_id"] = pd.to_numeric(dfPoblacion["departamento_id"], errors="coerce")
-dfPoblacion["Edad"]            = pd.to_numeric(dfPoblacion["Edad"],            errors="coerce")
-dfPoblacion["Casos"]           = pd.to_numeric(dfPoblacion["Casos"],           errors="coerce")
-dfPoblacion["%"]               = pd.to_numeric(dfPoblacion["%"],               errors="coerce")
-
-# Quitá solo las filas que no se pudieron convertir (ej.: 'Total')
-dfPoblacion = dfPoblacion.dropna(subset=["departamento_id", "Edad", "Casos"])
-
-# Tipos finales
-dfPoblacion["departamento_id"] = dfPoblacion["departamento_id"].astype("int64")
-dfPoblacion["Edad"]            = dfPoblacion["Edad"].astype("int64")
-dfPoblacion["Casos"]           = dfPoblacion["Casos"].astype("int64")
-dfPoblacion["%"]               = dfPoblacion["%"].astype("float64")
-
-
-#%%
-
-"""
-OBTENGO LA TABLA DE ACTIVIDADES ESTABLECIMIENTO 
-"""
-
+#%% Actividades establecimiento
 EP_con_desc = """
                 SELECT DISTINCT
                     ArchivoEP.clae6,
@@ -188,8 +174,7 @@ EP_con_desc = """
               """
 dfEP_con_desc = dd.query(EP_con_desc).df()
 
-""" Pasamos los nuevos datasets a csv """
-
+# Export
 dfEP_con_desc.to_csv("EP_con_desc.csv", index=False, encoding="utf-8")
 dfDepartamento.to_csv("df_Departamento.csv", index=False,encoding ="utf-8")
 dfPoblacion.to_csv("df_Poblacion.csv", index=False,encoding ="utf-8")
