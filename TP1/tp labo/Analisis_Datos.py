@@ -9,6 +9,17 @@ dfEP_con_desc = pd.read_csv("datasets/Finales/EP_con_desc.csv")
 
 dfEE["departamento_id"] = pd.to_numeric(dfEE["departamento_id"], errors="coerce").astype("Int64")
 
+# Asegurar tipos de Población
+dfPoblacion["departamento_id"] = pd.to_numeric(dfPoblacion["departamento_id"], errors="coerce").astype("Int64")
+dfPoblacion["Edad"]            = pd.to_numeric(dfPoblacion["Edad"], errors="coerce")
+dfPoblacion["Casos"]           = pd.to_numeric(dfPoblacion["Casos"], errors="coerce")
+
+# Asegurar tipos de EE (por si vinieron como texto)
+cols_ee = ["SNU","SNU - INET","Secundario - INET","Nivel inicial - Jardín maternal",
+           "Nivel inicial - Jardín de infantes","Primario","Secundario"]
+for c in cols_ee:
+    dfEE[c] = pd.to_numeric(dfEE[c], errors="coerce").fillna(0).astype("int64")
+dfEE["departamento_id"] = pd.to_numeric(dfEE["departamento_id"], errors="coerce").astype("Int64")
 dfEE.dtypes
 
 #Ejercicio 1)
