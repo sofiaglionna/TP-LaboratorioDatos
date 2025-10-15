@@ -7,6 +7,8 @@ dfEP = pd.read_csv("datasets/Finales/df_EP.csv")
 dfPoblacion = pd.read_csv("datasets/Finales/df_Poblacion.csv")
 dfEP_con_desc = pd.read_csv("datasets/Finales/EP_con_desc.csv")
 
+dfEE["departamento_id"] = pd.to_numeric(dfEE["departamento_id"], errors="coerce").astype("Int64")
+
 dfEE.dtypes
 
 #Ejercicio 1)
