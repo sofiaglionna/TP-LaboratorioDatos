@@ -1,19 +1,74 @@
 import pandas as pd
 import duckdb as dd
 
+# =====================================================================
+# LECTURA DE ARCHIVOS
+# =====================================================================
+
 ArchivoEP = pd.read_csv("datasets/Iniciales/Datos_por_departamento_actividad_y_sexo.csv")
 ArchivoEE = pd.read_csv("datasets/Iniciales/2022_padron_oficial_establecimientos_educativos.csv", header=6)
 ArchivoPoblacion = pd.read_csv("datasets/Iniciales/padron_poblacion.csv", header=11)
 ArchivoActividadesEstablecimientos = pd.read_csv("datasets/Iniciales/actividades_establecimientos.csv")
 
+# =====================================================================
+# FUNCIONES UTILITARIAS
+# =====================================================================
+
+
+caracteresEspeciales = ['á','é','í','ú','ó','_','-','\'','´', '`',' ']
+tildes = ['á','é','í','ú','ó']
+sinTilde =['a','e','i','u','o']
+
+# Dado un string, lo normaliza pasando todo a mayúscula y eliminando caracteres que no sean letras.
+def normalizar_nombre (txt):
+    res = ""
+    for i in txt:
+        if i in tildes:
+            for j in range(0,len(tildes)):
+                if tildes[j] == i:
+                    res += sinTilde[j]
+        if i not in caracteresEspeciales:
+            res += i
+        res = res.upper()
+    return res
+
+def normalizar_provincia(provincia):
+    # Casos especiales, donde la normalización default no aplica.
+    if (provincia == "CABA" or provincia == "Ciudad de Buenos Aires"): return "CABA"
+    else: return normalizar_nombre(provincia)
+
+# =====================================================================
+# CONSTRUCCIÓN Y NORMALIZACIÓN DE DATAFRAMES
+# =====================================================================
+
+# ======================
+# 1.1 DF de Departamentos
+# ======================
+
 Departamento = """
-                SELECT DISTINCT in_departamentos AS departamento_id,departamento,provincia_id,provincia
+                SELECT DISTINCT in_departamentos AS departamento_id,departamento,provincia_id
                 FROM ArchivoEP
                 """
 dfDepartamento = dd.query(Departamento).df()
+dfDepartamento["departamento_norm"] = dfDepartamento["departamento"].apply(normalizar_nombre)
+
+# ======================
+# 1.2 DF de Provinicias
+# ======================
+
+Provincia = """
+                SELECT DISTINCT provincia_id,provincia
+                FROM ArchivoEP
+                """
+dfProvincia = dd.query(Provincia).df()
+dfProvincia["provincia_norm"] = dfProvincia["provincia"].apply(normalizar_provincia)
 
 
-#cantidad de varones que emplea cada rubro por departamento en 2022
+# ===================================================================
+# 2. DF de Establecimientos Productivos: Empleo (Varones y Mujeres)
+# ===================================================================
+
+# Cantidad de varones que emplea cada rubro por departamento en 2022
 VaronesEmpleados = """
                     SELECT anio, clae6,in_departamentos AS departamento_id, empleo AS varones, empresas_exportadoras
                     FROM ArchivoEP
@@ -21,7 +76,7 @@ VaronesEmpleados = """
                     """
 dfVaronesEmpleados=dd.query(VaronesEmpleados).df()       
 
-#cantidad de mujeres que emplea cada rubro por departamento en 2022
+# Cantidad de mujeres que emplea cada rubro por departamento en 2022
 MujeresEmpleados = """ 
                     SELECT anio, clae6,in_departamentos AS departamento_id, empleo AS mujeres, empresas_exportadoras
                     FROM ArchivoEP
@@ -29,7 +84,12 @@ MujeresEmpleados = """
                     """
 dfMujeresEmpleadas=dd.query(MujeresEmpleados).df()
 
-#junto ambas tablas de varones y mujeres 
+# Junto ambas tablas de varones y mujeres, pero hay una consideración:
+# Lo que sucede es que en el archivo original hombres y mujeres están separados en dos filas
+# y nosotros queremos ponerlos como columnas. El problema es que cuando la cantidad de mujeres es 0
+# en el archivo original, en vez de aparecer un "0" en "empleo" (de "Mujeres"), esa fila no existe.
+# Por lo tanto, creamos un data-frame intermedio, que tendrá todas las columnas creadas, pero en null,
+# aquellas cuya cantidad sea cero.
 EP_con_nulls = """
                     SELECT dfVaronesEmpleados.clae6, dfVaronesEmpleados.departamento_id, dfVaronesEmpleados.varones, dfMujeresEmpleadas.mujeres, dfVaronesEmpleados.empresas_exportadoras
                     FROM dfVaronesEmpleados
@@ -45,6 +105,7 @@ EP_con_nulls = """
                     """
 dfEP_con_nulls = dd.query(EP_con_nulls).df()
 
+# Reemplazamos todos los nulls con "0" como resolución al problema de "EP_con_nulls".
 EP = """
         SELECT clae6, departamento_id, empresas_exportadoras,
         CASE WHEN varones IS NOT NULL THEN varones ELSE 0 END AS varones,
@@ -53,34 +114,35 @@ EP = """
         """
 dfEP = dd.query(EP).df()
 
-
-"""
-EPaux lo usamos para ver que en EP no borraramos filas de 2022. Basicamente vemos cuantos departamentos y clae6 
-(que son la superclave del archivo original si no se tiene en cuenta el año) hay sin repeticiones por varones y mujeres
-y vemos si coincide con lo que nos quedo en EP. Ya que en esta juntamos varones y mujeres en una misma fila por 
-departamento y clae6.
-"""
-EPaux = """
-        SELECT DISTINCT in_departamentos, clae6
-        FROM ArchivoEP
-        WHERE anio = 2022
-        
-    """
-dfEPaux = dd.query(EPaux).df()
-
+# ====================================
+# 3. DF de Establecimientos Educativos
+# ====================================
 
 EEconDepartamentoPorNombre = """
                                 SELECT cueanexo,departamento,SNU,"SNU - INET","Secundario - INET", "Nivel inicial - Jardín maternal","Nivel inicial - Jardín de infantes", Primario,Secundario
                                 FROM ArchivoEE
                                 """
 dfEEconDepartamentoPorNombre = dd.query(EEconDepartamentoPorNombre).df()      
+dfEEconDepartamentoPorNombre["Departamento"] = dfEEconDepartamentoPorNombre["Departamento"].apply(normalizar_nombre)
+dfEEconDepartamentoPorNombre["provincia"] = ArchivoEE["Jurisdicción"].apply(normalizar_provincia)
 
+DepartamentoConProvincia = """
+    SELECT d.departamento_id, d.departamento, d.departamento_norm,
+           d.provincia_id, p.provincia, p.provincia_norm
+    FROM dfDepartamento AS d
+    LEFT JOIN dfProvincia AS p
+    ON d.provincia_id = p.provincia_id
+"""
+dfDepartamentoConProvincia = dd.query(DepartamentoConProvincia).df()
+
+# Hacemos el JOIN contra "departamento_norm" para evitar que no matcheen por diferencias en el string y contra "provincia_norm".
 EE = """
-        SELECT cueanexo,departamento_id,SNU,"SNU - INET","Secundario - INET", "Nivel inicial - Jardín maternal","Nivel inicial - Jardín de infantes", Primario,Secundario     
-        FROM dfEEconDepartamentoPorNombre
-        LEFT OUTER JOIN dfDepartamento
-        ON dfEEconDepartamentoPorNombre.departamento = dfDepartamento.Departamento
-      """
+    SELECT e.cueanexo, d.departamento_id,e.SNU, e.provincia, e."SNU - INET", e."Secundario - INET", 
+           e."Nivel inicial - Jardín maternal", e."Nivel inicial - Jardín de infantes", e.Primario, e.Secundario
+    FROM dfEEconDepartamentoPorNombre AS e
+    LEFT OUTER JOIN dfDepartamentoConProvincia AS d
+    ON e.departamento = d.departamento_norm AND e.provincia = d.provincia_norm
+"""
 dfEE = dd.query(EE).df()
 
 #Normalizamos tipos numéricos en columnas del padrón educativo 
@@ -101,7 +163,11 @@ for col in cols_a_numericas:
 dfEE["departamento_id"] = pd.to_numeric(dfEE["departamento_id"], errors="coerce").astype("Int64")
 dfEE.dtypes
 
-#%%
+
+# ====================================
+# 4. DF de Población
+# ====================================
+
 #corregir población
 Poblacion_con_nombre = """
                        SELECT "  de Edad" AS departamento_id, "Unnamed: 1" AS Edad, "Unnamed: 2" AS Casos,"Unnamed: 3" AS "%"
@@ -111,14 +177,10 @@ Poblacion_con_nombre = """
 dfPoblacion_con_nombre=dd.query(Poblacion_con_nombre).df()
 dfPoblacion_con_nombre['provincia_id'] = None
 
-
-
-
 dfPoblacion_con_nombre.dropna(subset=['Edad'], inplace=True)
 dfPoblacion_con_nombre.reset_index(drop=True, inplace=True)
 dfPoblacion_con_nombre.loc[55530, 'Casos'] = "Nacional"
 
-#%%
 """
 En departamento tengo varios departamentos con mismo nombre por lo que solo el nombre no me distingue entre ellos
 pero dentro de la misma provincia no pueden existir 2 departamentos de igual nombre. Por eso me guardo el provincia_id
@@ -152,7 +214,6 @@ dfPoblacion_con_nombre["Casos"] = (
     ).astype("Int64")
 )
 
-
 Poblacion = """
 SELECT 
     dfDepartamento.departamento_id,
@@ -177,7 +238,7 @@ dfPoblacion.loc[26525:26623,'departamento_id'] = 22126
 dfPoblacion.dropna(subset=['departamento_id'], inplace=True)
 dfPoblacion.reset_index(drop=True, inplace=True)
 
-#%% Actividades establecimiento
+# Actividades establecimiento
 EP_con_desc = """
                 SELECT DISTINCT
                     ArchivoEP.clae6,
@@ -188,9 +249,32 @@ EP_con_desc = """
               """
 dfEP_con_desc = dd.query(EP_con_desc).df()
 
-# Export
-dfEP_con_desc.to_csv("EP_con_desc.csv", index=False, encoding="utf-8")
-dfDepartamento.to_csv("df_Departamento.csv", index=False,encoding ="utf-8")
-dfPoblacion.to_csv("df_Poblacion.csv", index=False,encoding ="utf-8")
-dfEE.to_csv("df_EE.csv", index=False,encoding ="utf-8")
-dfEP.to_csv("df_EP.csv", index=False,encoding ="utf-8")
+# =====================================================================
+# VALIDACIONES
+# =====================================================================
+
+# Usamos este DF para ver que no borraramos filas de 2022. 
+# Basicamente vemos cuantos departamentos y clae6 (que son la superclave del archivo original si no se tiene en cuenta el año)
+# hay sin repeticiones por varones y mujeres y vemos si coincide con lo que nos quedo en EP. Ya que en esta juntamos varones y mujeres en una misma fila por departamento y clae6.
+
+EPaux = """
+        SELECT DISTINCT in_departamentos, clae6
+        FROM ArchivoEP
+        WHERE anio = 2022
+        
+    """
+dfEPaux = dd.query(EPaux).df()
+
+
+# =====================================================================
+# EXPORTAMOS LOS DFs a CSVs para agilizar los tiempos
+# =====================================================================
+
+dfDepartamento.to_csv("datasets/Finales/df_Departamento.csv", index=False,encoding ="utf-8")
+
+dfEP.to_csv("datasets/Finales/df_EP.csv", index=False,encoding ="utf-8")
+dfEP_con_desc.to_csv("datasets/Finales/EP_con_desc.csv", index=False, encoding="utf-8")
+
+dfEE.to_csv("datasets/Finales/df_EE.csv", index=False,encoding ="utf-8")
+
+dfPoblacion.to_csv("datasets/Finales/df_Poblacion.csv", index=False,encoding ="utf-8")
