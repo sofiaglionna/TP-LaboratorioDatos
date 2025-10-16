@@ -11,33 +11,6 @@ ArchivoPoblacion = pd.read_csv("datasets/Iniciales/padron_poblacion.csv", header
 ArchivoActividadesEstablecimientos = pd.read_csv("datasets/Iniciales/actividades_establecimientos.csv")
 
 # =====================================================================
-# FUNCIONES UTILITARIAS
-# =====================================================================
-
-
-caracteresEspeciales = ['á','é','í','ú','ó','_','-','\'','´', '`',' ']
-tildes = ['á','é','í','ú','ó']
-sinTilde =['a','e','i','u','o']
-
-# Dado un string, lo normaliza pasando todo a mayúscula y eliminando caracteres que no sean letras.
-def normalizar_nombre (txt):
-    res = ""
-    for i in txt:
-        if i in tildes:
-            for j in range(0,len(tildes)):
-                if tildes[j] == i:
-                    res += sinTilde[j]
-        if i not in caracteresEspeciales:
-            res += i
-        res = res.upper()
-    return res
-
-def normalizar_provincia(provincia):
-    # Casos especiales, donde la normalización default no aplica.
-    if (provincia == "CABA" or provincia == "Ciudad de Buenos Aires"): return "CABA"
-    else: return normalizar_nombre(provincia)
-
-# =====================================================================
 # CONSTRUCCIÓN Y NORMALIZACIÓN DE DATAFRAMES
 # =====================================================================
 
@@ -50,7 +23,6 @@ Departamento = """
                 FROM ArchivoEP
                 """
 dfDepartamento = dd.query(Departamento).df()
-dfDepartamento["departamento_norm"] = dfDepartamento["departamento"].apply(normalizar_nombre)
 
 # ======================
 # 1.2 DF de Provinicias
@@ -61,7 +33,6 @@ Provincia = """
                 FROM ArchivoEP
                 """
 dfProvincia = dd.query(Provincia).df()
-dfProvincia["provincia_norm"] = dfProvincia["provincia"].apply(normalizar_provincia)
 
 
 # ===================================================================
@@ -117,15 +88,25 @@ dfEP = dd.query(EP).df()
 # ====================================
 # 3. DF de Establecimientos Educativos
 # ====================================
+#establecimientos educativos con codigo de localidad completo
+EE = """
+      SELECT cueanexo,
+      "Código de localidad" AS departamento_id,
+      SNU,"SNU - INET","Secundario - INET", "Nivel inicial - Jardín maternal","Nivel inicial - Jardín de infantes", Primario,Secundario
+      FROM ArchivoEE
+    """
+dfEE = dd.query(EE).df()
 
-EEconDepartamentoPorNombre = """
-                                SELECT cueanexo,departamento,SNU,"SNU - INET","Secundario - INET", "Nivel inicial - Jardín maternal","Nivel inicial - Jardín de infantes", Primario,Secundario
-                                FROM ArchivoEE
-                                """
-dfEEconDepartamentoPorNombre = dd.query(EEconDepartamentoPorNombre).df()      
-dfEEconDepartamentoPorNombre["Departamento"] = dfEEconDepartamentoPorNombre["Departamento"].apply(normalizar_nombre)
-dfEEconDepartamentoPorNombre["provincia"] = ArchivoEE["Jurisdicción"].apply(normalizar_provincia)
-
+for i,row in dfEE['deparamento_id']:
+    nuevoValor=row[0:5]
+    if str(nuevoValor)[0] == '0':
+        temp = str(nuevoValor)[1:5]
+        res = int(temp)
+    else:
+        res = nuevoValor
+    dfEE.iloc(i,res, inplace = True)    
+    
+###################ver si lo usamos
 DepartamentoConProvincia = """
     SELECT d.departamento_id, d.departamento, d.departamento_norm,
            d.provincia_id, p.provincia, p.provincia_norm
@@ -135,15 +116,7 @@ DepartamentoConProvincia = """
 """
 dfDepartamentoConProvincia = dd.query(DepartamentoConProvincia).df()
 
-# Hacemos el JOIN contra "departamento_norm" para evitar que no matcheen por diferencias en el string y contra "provincia_norm".
-EE = """
-    SELECT e.cueanexo, d.departamento_id,e.SNU, e.provincia, e."SNU - INET", e."Secundario - INET", 
-           e."Nivel inicial - Jardín maternal", e."Nivel inicial - Jardín de infantes", e.Primario, e.Secundario
-    FROM dfEEconDepartamentoPorNombre AS e
-    LEFT OUTER JOIN dfDepartamentoConProvincia AS d
-    ON e.departamento = d.departamento_norm AND e.provincia = d.provincia_norm
-"""
-dfEE = dd.query(EE).df()
+
 
 #Normalizamos tipos numéricos en columnas del padrón educativo 
 cols_a_numericas = [
