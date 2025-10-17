@@ -97,27 +97,14 @@ EE = """
     """
 dfEE = dd.query(EE).df()
 
-for i,row in dfEE['deparamento_id']:
-    nuevoValor=row[0:5]
-    if str(nuevoValor)[0] == '0':
-        temp = str(nuevoValor)[1:5]
-        res = int(temp)
+for i,row in dfEE['departamento_id'].items():
+    if len(str(row)) == 7:
+        res = int(str(row)[0:4])
     else:
-        res = nuevoValor
-    dfEE.iloc(i,res, inplace = True)    
-    
-###################ver si lo usamos
-DepartamentoConProvincia = """
-    SELECT d.departamento_id, d.departamento, d.departamento_norm,
-           d.provincia_id, p.provincia, p.provincia_norm
-    FROM dfDepartamento AS d
-    LEFT JOIN dfProvincia AS p
-    ON d.provincia_id = p.provincia_id
-"""
-dfDepartamentoConProvincia = dd.query(DepartamentoConProvincia).df()
+        res = int(str(row)[0:5])
+    dfEE.loc[i,'departamento_id'] = res
 
-
-
+#%%
 #Normalizamos tipos numéricos en columnas del padrón educativo 
 cols_a_numericas = [
     "SNU",
@@ -165,8 +152,8 @@ for i, row in dfPoblacion_con_nombre.iterrows():
     dfPoblacion_con_nombre.loc[i, 'departamento_id'] = departamento_id
     dfPoblacion_con_nombre.loc[i, 'provincia_id'] = AREA
     if row['Casos'] == 'Casos':
-        departamento_id= dfPoblacion_con_nombre.iloc[i-1]['Casos']
-        AREA= dfPoblacion_con_nombre.iloc[i-1]['Edad'][7:9]
+        departamento_id= dfPoblacion_con_nombre.loc[i-1, 'Casos']
+        AREA= dfPoblacion_con_nombre.loc[i-1, 'Edad'][7:9]
 for i, row in dfPoblacion_con_nombre.iterrows():
     if row['Casos'] == "Casos":
         dfPoblacion_con_nombre.drop(i,inplace=True)
@@ -202,7 +189,7 @@ LEFT OUTER JOIN dfDepartamento
   ON departamento = dfPoblacion_con_nombre.departamento_id
  AND (dfPoblacion_con_nombre.provincia_id = dfDepartamento.provincia_id 
       OR '0'||dfDepartamento.provincia_id = dfPoblacion_con_nombre.provincia_id)
-ORDER BY dfDepartamento.departamento_id
+ORDER BY dfDepartamento.departamento_id, dfPoblacion_con_nombre.Edad
 """
 dfPoblacion = dd.query(Poblacion).df()
 
