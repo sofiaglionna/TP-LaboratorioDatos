@@ -130,16 +130,15 @@ dfEE.dtypes
 
 #corregir población
 Poblacion_con_nombre = """
-                       SELECT "  de Edad" AS departamento_id, "Unnamed: 1" AS Edad, "Unnamed: 2" AS Casos,"Unnamed: 3" AS "%"
-                        FROM ArchivoPoblacion
-                        """
+                       SELECT "  de Edad" AS departamento_id, "Unnamed: 1" AS Edad, "Unnamed: 2" AS Casos
+                       FROM ArchivoPoblacion
+                       """
 
 dfPoblacion_con_nombre=dd.query(Poblacion_con_nombre).df()
 dfPoblacion_con_nombre['provincia_id'] = None
 
 dfPoblacion_con_nombre.dropna(subset=['Edad'], inplace=True)
 dfPoblacion_con_nombre.reset_index(drop=True, inplace=True)
-dfPoblacion_con_nombre.loc[55530, 'Casos'] = "Nacional"
 
 """
 En departamento tengo varios departamentos con mismo nombre por lo que solo el nombre no me distingue entre ellos
@@ -160,30 +159,48 @@ for i, row in dfPoblacion_con_nombre.iterrows():
         dfPoblacion_con_nombre.drop(i-1,inplace=True)
     if row['Edad'] == "Total":
         dfPoblacion_con_nombre.drop(i,inplace=True)
+dfPoblacion_con_nombre.dropna(subset=['departamento_id'], inplace=True)
 dfPoblacion_con_nombre.reset_index(drop=True, inplace=True)
 
 dfDepartamento['provincia_id'] = dfDepartamento['provincia_id'].astype(str)
 
-# Limpieza fuerte de 'Casos': borra espacios (incl. NBSP), puntos, comas, etc.
-dfPoblacion_con_nombre["Casos"] = (
-    pd.to_numeric(
-        dfPoblacion_con_nombre["Casos"]
-            .astype(str)
-            .str.replace(r"[^\d]", "", regex=True),  # deja solo 0-9
-        errors="coerce"
-    ).astype("Int64")
-)
+#%%
+print(dfPoblacion_con_nombre['Casos'][0])
+print(type(dfPoblacion_con_nombre['Casos'][0]))
 
-Poblacion = """
+#%%
+numeros = ['1','2','3','4','5','6','7','8','9','0']
+# Limpieza fuerte de 'Casos': borra espacios (incl. NBSP), puntos, comas, etc.
+for i,row in dfPoblacion_con_nombre['Casos'].items():
+    res = ""
+    for j in row:
+        if j in numeros:
+            res+=j
+    dfPoblacion_con_nombre.loc[i,'Casos'] = int(res)
+#%%
+print(dfPoblacion_con_nombre['Casos'][0])
+print(type(dfPoblacion_con_nombre['Casos'][0]))
+
+#%%
+#dfPoblacion_con_nombre["Casos"] = (
+#    pd.to_numeric(
+#        dfPoblacion_con_nombre["Casos"]
+#            .astype(str)
+#            .str.replace(r"[^\d]", "", regex=True),  # deja solo 0-9
+#        errors="coerce"
+#    ).astype("Int64")
+#)
+#%%
+dfPoblacion_con_nombre["Edad"] = dfPoblacion_con_nombre["Edad"].astype(int)
+
+print(type(dfPoblacion_con_nombre['Edad'][0]))
+#%%
+
+PoblacionAux = """
 SELECT 
     dfDepartamento.departamento_id,
     dfPoblacion_con_nombre.Edad,
-    dfPoblacion_con_nombre.Casos,
-    CAST(
-        REPLACE(
-            REPLACE(dfPoblacion_con_nombre."%", '%', ''), 
-        ',', '.') 
-    AS DOUBLE) AS porcentaje_num
+    dfPoblacion_con_nombre.Casos
 FROM dfPoblacion_con_nombre
 LEFT OUTER JOIN dfDepartamento
   ON departamento = dfPoblacion_con_nombre.departamento_id
@@ -191,13 +208,26 @@ LEFT OUTER JOIN dfDepartamento
       OR '0'||dfDepartamento.provincia_id = dfPoblacion_con_nombre.provincia_id)
 ORDER BY dfDepartamento.departamento_id, dfPoblacion_con_nombre.Edad
 """
-dfPoblacion = dd.query(Poblacion).df()
+dfPoblacionAux = dd.query(PoblacionAux).df()
 
-dfPoblacion.loc[12185:12287,'departamento_id'] = 6651
-dfPoblacion.loc[26525:26623,'departamento_id'] = 22126
-dfPoblacion.dropna(subset=['departamento_id'], inplace=True)
-dfPoblacion.reset_index(drop=True, inplace=True)
+print(type(dfPoblacionAux['Edad'][0]))
+dfPoblacionAux.loc[53749:,'departamento_id'] = 6651
+dfPoblacionAux.loc[53750:53943:2,'departamento_id'] = 22126
 
+poblacion ="""
+        SELECT *
+        FROM dfPoblacionAux
+        ORDER BY departamento_id, Edad
+"""
+
+dfPoblacion = dd.query(poblacion).df()
+
+
+#%%
+print(type(ArchivoPoblacion['Unnamed: 1'][5]))
+print(type(dfPoblacion['Edad'][0]))
+print(type(dfPoblacion_con_nombre['Edad'][0]))
+#%%
 # Actividades establecimiento
 EP_con_desc = """
                 SELECT DISTINCT
