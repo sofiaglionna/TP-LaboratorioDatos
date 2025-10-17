@@ -31,6 +31,7 @@ dfDepartamento = dd.query(Departamento).df()
 Provincia = """
                 SELECT DISTINCT provincia_id,provincia
                 FROM ArchivoEP
+                ORDER BY provincia_id ASC
                 """
 dfProvincia = dd.query(Provincia).df()
 
@@ -55,12 +56,13 @@ MujeresEmpleados = """
                     """
 dfMujeresEmpleadas=dd.query(MujeresEmpleados).df()
 
-# Junto ambas tablas de varones y mujeres, pero hay una consideración:
+# Juntamos ambas tablas de varones y mujeres, pero hay una consideración:
 # Lo que sucede es que en el archivo original hombres y mujeres están separados en dos filas
 # y nosotros queremos ponerlos como columnas. El problema es que cuando la cantidad de mujeres es 0
 # en el archivo original, en vez de aparecer un "0" en "empleo" (de "Mujeres"), esa fila no existe.
-# Por lo tanto, creamos un data-frame intermedio, que tendrá todas las columnas creadas, pero en null,
+# Por lo tanto, creamos un dataframe intermedio, que tendrá todas las columnas creadas, pero en null,
 # aquellas cuya cantidad sea cero.
+
 EP_con_nulls = """
                     SELECT dfVaronesEmpleados.clae6, dfVaronesEmpleados.departamento_id, dfVaronesEmpleados.varones, dfMujeresEmpleadas.mujeres, dfVaronesEmpleados.empresas_exportadoras
                     FROM dfVaronesEmpleados
@@ -77,6 +79,7 @@ EP_con_nulls = """
 dfEP_con_nulls = dd.query(EP_con_nulls).df()
 
 # Reemplazamos todos los nulls con "0" como resolución al problema de "EP_con_nulls".
+
 EP = """
         SELECT clae6, departamento_id, empresas_exportadoras,
         CASE WHEN varones IS NOT NULL THEN varones ELSE 0 END AS varones,
@@ -88,7 +91,8 @@ dfEP = dd.query(EP).df()
 # ====================================
 # 3. DF de Establecimientos Educativos
 # ====================================
-#establecimientos educativos con codigo de localidad completo
+
+# Establecimientos educativos con codigo de localidad completo.
 EE = """
       SELECT cueanexo,
       "Código de localidad" AS departamento_id,
@@ -104,7 +108,6 @@ for i,row in dfEE['departamento_id'].items():
         res = int(str(row)[0:5])
     dfEE.loc[i,'departamento_id'] = res
 
-#%%
 #Normalizamos tipos numéricos en columnas del padrón educativo 
 cols_a_numericas = [
     "SNU",
@@ -123,7 +126,6 @@ for col in cols_a_numericas:
 dfEE["departamento_id"] = pd.to_numeric(dfEE["departamento_id"], errors="coerce").astype("Int64")
 dfEE.dtypes
 
-
 # ====================================
 # 4. DF de Población
 # ====================================
@@ -140,11 +142,11 @@ dfPoblacion_con_nombre['provincia_id'] = None
 dfPoblacion_con_nombre.dropna(subset=['Edad'], inplace=True)
 dfPoblacion_con_nombre.reset_index(drop=True, inplace=True)
 
-"""
-En departamento tengo varios departamentos con mismo nombre por lo que solo el nombre no me distingue entre ellos
-pero dentro de la misma provincia no pueden existir 2 departamentos de igual nombre. Por eso me guardo el provincia_id
-formado por los primeros 2 digitos del codigo de Area
-"""
+
+# En departamento tengo varios departamentos con mismo nombre por lo que solo el nombre no me distingue entre ellos
+# pero dentro de la misma provincia no pueden existir 2 departamentos de igual nombre. Por eso me guardo el provincia_id
+# formado por los primeros 2 digitos del codigo de Area.
+
 departamento_id = 0
 AREA = 0
 for i, row in dfPoblacion_con_nombre.iterrows():
@@ -194,7 +196,6 @@ print(type(dfPoblacion_con_nombre['Casos'][0]))
 dfPoblacion_con_nombre["Edad"] = dfPoblacion_con_nombre["Edad"].astype(int)
 
 print(type(dfPoblacion_con_nombre['Edad'][0]))
-#%%
 
 PoblacionAux = """
 SELECT 
@@ -222,12 +223,10 @@ poblacion ="""
 
 dfPoblacion = dd.query(poblacion).df()
 
-
-#%%
 print(type(ArchivoPoblacion['Unnamed: 1'][5]))
 print(type(dfPoblacion['Edad'][0]))
 print(type(dfPoblacion_con_nombre['Edad'][0]))
-#%%
+
 # Actividades establecimiento
 EP_con_desc = """
                 SELECT DISTINCT
@@ -260,6 +259,7 @@ dfEPaux = dd.query(EPaux).df()
 # EXPORTAMOS LOS DFs a CSVs para agilizar los tiempos
 # =====================================================================
 
+dfProvincia.to_csv("datasets/Finales/df_Provincia.csv", index=False,encoding ="utf-8")
 dfDepartamento.to_csv("datasets/Finales/df_Departamento.csv", index=False,encoding ="utf-8")
 
 dfEP.to_csv("datasets/Finales/df_EP.csv", index=False,encoding ="utf-8")

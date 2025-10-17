@@ -26,10 +26,9 @@ dfEE["departamento_id"] = pd.to_numeric(dfEE["departamento_id"], errors="coerce"
 
 
 
-
-#Ejercicio 1)
-
-# i)
+# ======================
+# 1.i
+# ======================
 
 # Contamos los Establecimientos Educativos en cada departamento.
 
@@ -120,10 +119,10 @@ i = """
 dfi = dd.query(i).df()
 
 
-#%%
+# ======================
+# 1.ii
+# ======================
 
-
-# ii)
 trabajadoresXDepartamento = """
     SELECT 
         departamento_id,
@@ -141,8 +140,9 @@ ii = """
 """
 dfii = dd.query(ii).df()
 
-#%%
-#iii)
+# ======================
+# 1.iii
+# ======================
 
 # iv)
 
@@ -293,8 +293,3 @@ ORDER BY d.provincia, ratio DESC;
 df_dep_que_cumplen = dd.query(dep_que_cumplen).df()
 
 
-
-
-
-
-# %%
