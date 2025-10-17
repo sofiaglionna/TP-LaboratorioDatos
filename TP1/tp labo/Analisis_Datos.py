@@ -6,6 +6,8 @@ dfEE = pd.read_csv("datasets/Finales/df_EE.csv")
 dfEP = pd.read_csv("datasets/Finales/df_EP.csv")
 dfPoblacion = pd.read_csv("datasets/Finales/df_Poblacion.csv")
 dfEP_con_desc = pd.read_csv("datasets/Finales/EP_con_desc.csv")
+dfProvincia = pd.read_csv("datasets/Finales/df_Provincia.csv")
+
 
 
 
@@ -99,7 +101,7 @@ dfPoblacionXSNUEnDpto = dd.query(PoblacionXSNUEnDpto).df()
 
 i = """
     SELECT 
-        d.provincia, 
+        p.provincia, 
         d.departamento, 
         ee.Jardines, 
         pj."Poblacion Jardin", 
@@ -110,6 +112,7 @@ i = """
         ee.SNU, 
         pa."Poblacion Adultos"
     FROM dfDepartamento AS d
+    INNER JOIN dfProvincia AS p ON d.provincia_id = p.provincia_id
     INNER JOIN dfCantEE AS ee ON d.departamento_id = ee.departamento_id
     INNER JOIN dfPoblacionXJardinEnDpto AS pj ON d.departamento_id = pj.departamento_id
     INNER JOIN dfPoblacionXPrimarioEnDpto AS pp ON d.departamento_id = pp.departamento_id
@@ -118,7 +121,7 @@ i = """
     """
 dfi = dd.query(i).df()
 
-
+#%%
 # ======================
 # 1.ii
 # ======================
