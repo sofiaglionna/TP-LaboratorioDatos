@@ -103,7 +103,6 @@ dfEE = dd.query(EE).df()
 
 for i,row in dfEE['departamento_id'].items():
     if str(row)[0:2] == "21" and len(str(row)) == 7:
-        print(('Comuna ' + str(row)[2:4]))
         if str(row)[2] == '0':
             res = int(dfDepartamento.loc[dfDepartamento['departamento'] == ('Comuna ' + str(row)[3]), "departamento_id"].iloc[0])
         else:
@@ -113,6 +112,7 @@ for i,row in dfEE['departamento_id'].items():
     else:
         res = int(str(row)[0:5])
     dfEE.loc[i,'departamento_id'] = res
+
 
 #Normalizamos tipos numéricos en columnas del padrón educativo 
 cols_a_numericas = [

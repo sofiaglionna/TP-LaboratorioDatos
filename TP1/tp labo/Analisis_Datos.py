@@ -48,7 +48,7 @@ CantEE = """
 """
 dfCantEE = dd.query(CantEE).df()
 
-# Calculamos las poblaciones de cada rango de edad según nivel educativo por departamento:
+# Calculamos las poblaciones de cada rango de edad según nivel educativo por departamento siguiendo el siguiente criterio:
 # Población Jardín = 0 - 5
 # Población Primaria = 6 - 12
 # Población Secundaria = 13 - 18
@@ -138,8 +138,8 @@ dftrabajadoresXDepartamento = dd.query(trabajadoresXDepartamento).df()
 # Relacionamos todo mediante departamento_id
 ii = """
     SELECT p.provincia, d.departamento, td.total AS Cantidad_total_de_empleados_en_2022
-    FROM dfDepartamento AS d, dfProvincia as p
-    INNER JOIN dftrabajadoresXDepartamento as td ON d.departamento_id = td.departamento_id
+    FROM dfDepartamento AS d, dfProvincia AS p
+    INNER JOIN dftrabajadoresXDepartamento AS td ON d.departamento_id = td.departamento_id
     ORDER BY provincia ASC, total DESC
 """
 dfii = dd.query(ii).df()
@@ -184,177 +184,72 @@ PoblacionXDepto = """
 """
 dfPoblacionXDepto = dd.query(PoblacionXDepto).df()
 
-iii = """
+iiiconNULLS = """
       SELECT 
-          p.provincia,
-          d.departamento,
+          p.provincia AS Provincia,
+          d.departamento AS Departamento,
           em.Cant_Expo_Mujeres,
           dfEEtotalesXDepto."Total Establecimientos Educativos" AS Cant_EE,
           dfPoblacionXDepto.Poblacion
       FROM dfDepartamento AS d
       INNER JOIN dfProvincia AS p ON d.provincia_id = p.provincia_id
-      INNER JOIN dfTotalExportadorasMujeresXDpto AS em ON d.departamento_id = em.departamento_id
+      LEFT JOIN dfTotalExportadorasMujeresXDpto AS em ON d.departamento_id = em.departamento_id
       INNER JOIN dfEEtotalesXDepto ON d.departamento_id = dfEEtotalesXDepto.departamento_id
-      INNER JOIN dfPoblacionXDepto ON d.departamento_id = dfPoblacionXDepto.departamento_id   
+      INNER JOIN dfPoblacionXDepto ON d.departamento_id = dfPoblacionXDepto.departamento_id  
+      ORDER BY Cant_EE DESC, Cant_Expo_Mujeres DESC, Provincia ASC, Departamento ASC
 """
+dfiiiconNULLS = dd.query(iiiconNULLS).df()
+# Hacemos un LEFT JOIN en la tabla de dfTotalExportadorasMujeresXDpt para que sigan apareciendo aquellos departamentos sin exportadoras con empleo femenino.
+# Al hacer esto, nos aparecerán NULLS en aquellos departamentos sin exportadoras con empleo femenino, entonces reemplazamos los NULLS simplemente con ceros:
+iii = """
+      SELECT Provincia, 
+      Departamento, 
+      IFNULL(Cant_Expo_Mujeres, 0) AS Cant_Expo_Mujeres,
+      Cant_EE,
+      Poblacion
+      FROM dfiiiconNULLS
+      """
 dfiii = dd.query(iii).df()
-#%%
-
-
-
-
-
-
-
-
 
 # ======================
 # 1.iv
 # ======================
-iv = """
-SELECT
-  d.provincia,
-  d.departamento,
-  CASE
-    WHEN t.clae3 < 10  THEN '00' || CAST(t.clae3 AS VARCHAR)
-    WHEN t.clae3 < 100 THEN '0'  || CAST(t.clae3 AS VARCHAR)
-    ELSE CAST(t.clae3 AS VARCHAR)
-  END AS clae6_3digitos,
-  t.empleo_clae3 AS empleos_en_rubro
-FROM (
-  -- empleo por depto y por “CLAE3” (primeros 3 dígitos via clae6/1000)
-  SELECT
-    e.departamento_id,
-    CAST(e.clae6 / 1000 AS INTEGER) AS clae3,
-    SUM(e.varones + e.mujeres) AS empleo_clae3
-  FROM dfEP AS e
-  GROUP BY
-    e.departamento_id,
-    CAST(e.clae6 / 1000 AS INTEGER)
-) AS t
-JOIN (
-  -- rubro líder por depto (máximo empleo_clae3)
-  SELECT
-    y.departamento_id,
-    MAX(y.empleo_clae3) AS max_empleo_clae3
-  FROM (
-    SELECT
-      e.departamento_id,
-      CAST(e.clae6 / 1000 AS INTEGER) AS clae3,
-      SUM(e.varones + e.mujeres) AS empleo_clae3
-    FROM dfEP AS e
-    GROUP BY
-      e.departamento_id,
-      CAST(e.clae6 / 1000 AS INTEGER)
-  ) AS y
-  GROUP BY y.departamento_id
-) AS m
-  ON t.departamento_id = m.departamento_id
- AND t.empleo_clae3   = m.max_empleo_clae3
-JOIN dfDepartamento AS d
-  ON d.departamento_id = t.departamento_id
 
--- usar tu subconsulta dep_que_cumplen como filtro por JOIN
-JOIN (
-  SELECT
-    t.departamento_id
-  FROM (
-    SELECT d.provincia_id,
-           e.departamento_id,
-           SUM(e.varones + e.mujeres) AS empleo_total
-    FROM dfEP AS e
-    INNER JOIN dfDepartamento AS d
-      ON e.departamento_id = d.departamento_id
-    GROUP BY d.provincia_id, e.departamento_id
-  ) AS t
-  INNER JOIN (
-    SELECT provincia_id,
-           AVG(empleo_total) AS promedio_prov
-    FROM (
-      SELECT d.provincia_id,
-             e.departamento_id,
-             SUM(e.varones + e.mujeres) AS empleo_total
-      FROM dfEP AS e
-      INNER JOIN dfDepartamento AS d
-        ON e.departamento_id = d.departamento_id
-      GROUP BY d.provincia_id, e.departamento_id
-    ) AS x
-    GROUP BY provincia_id
-  ) AS p
-    ON t.provincia_id = p.provincia_id
-  WHERE t.empleo_total > p.promedio_prov
-) AS dep_que_cumplen
-  ON dep_que_cumplen.departamento_id = t.departamento_id
+# Calculamos promedio de los puestos de trabajo de los departamentos de la cada provincia:
 
-ORDER BY d.provincia, empleos_en_rubro DESC;
+# Trabajadores totales por provincia: Utilizamos trabajadoresXDepartamento del item ii:
+trabajadoresXProvinciaRepetidos = """
+      SELECT d.provincia_id, txd.total AS trabajadores
+      FROM dfDepartamento as d
+      INNER JOIN dftrabajadoresXDepartamento AS txd ON d.departamento_id = txd.departamento_id
 """
+dftrabajadoresXProvinciaRepetidos = dd.query(trabajadoresXProvinciaRepetidos).df()
 
-
-
-df_iv = dd.query(iv).df()
-print(df_iv)
-
-
-q_iv_prov = """
-SELECT 
-  d.provincia,
-  AVG(x.total_dep) AS promedio_empleo_total_por_dpto
-FROM (
-  SELECT e.departamento_id, SUM(e.mujeres+e.varones) AS total_dep
-  FROM dfEP e
-  GROUP BY e.departamento_id
-) x
-JOIN dfDepartamento d ON d.departamento_id = x.departamento_id
-GROUP BY d.provincia
-ORDER BY promedio_empleo_total_por_dpto DESC;
-
+trabajadoresXProvincia = """
+      SELECT p.provincia AS Provincia, SUM(trabajadores) AS cant_empleos
+      FROM dftrabajadoresXProvinciaRepetidos as txp
+      INNER JOIN dfProvincia AS p ON txp.provincia_id = p.provincia_id
+      GROUP BY Provincia
 """
-df_iv_prov = dd.query(q_iv_prov).df()
+dftrabajadoresXProvincia= dd.query(trabajadoresXProvincia).df()
 
-
-dep_que_cumplen = """
-SELECT
-  d.provincia,
-  d.departamento,
-  t.departamento_id,
-  t.empleo_total,
-  p.promedio_prov,
-  t.empleo_total - p.promedio_prov AS diferencia,
-  (t.empleo_total * 1.0) / p.promedio_prov AS ratio
-FROM (
-  SELECT 
-    d.provincia_id,
-    e.departamento_id,
-    SUM(e.varones + e.mujeres) AS empleo_total
-  FROM dfEP AS e
-  INNER JOIN dfDepartamento AS d
-    ON e.departamento_id = d.departamento_id
-  GROUP BY d.provincia_id, e.departamento_id
-) AS t
-INNER JOIN (
-  SELECT 
-    provincia_id,
-    AVG(empleo_total) AS promedio_prov
-  FROM (
-    SELECT 
-      d.provincia_id,
-      e.departamento_id,
-      SUM(e.varones + e.mujeres) AS empleo_total
-    FROM dfEP AS e
-    INNER JOIN dfDepartamento AS d
-      ON e.departamento_id = d.departamento_id
-    GROUP BY d.provincia_id, e.departamento_id
-  ) AS x
-  GROUP BY provincia_id
-) AS p
-  ON t.provincia_id = p.provincia_id
-INNER JOIN dfDepartamento AS d
-  ON d.departamento_id = t.departamento_id
-WHERE t.empleo_total > p.promedio_prov
-ORDER BY d.provincia, ratio DESC;
-
-
+# Necesitamos la cantidad de Departamentos por Provincia para calcular la cant de empleo promedio por departamento:
+cantDeptosXProvincia = """
+      SELECT p.provincia AS Provincia, COUNT(*) AS cant_departamentos
+      FROM dfDepartamento AS d
+      INNER JOIN dfProvincia AS p ON d.provincia_id = p.provincia_id 
+      GROUP BY Provincia
 """
-df_dep_que_cumplen = dd.query(dep_que_cumplen).df()
+dfcantDeptosXProvincia= dd.query(cantDeptosXProvincia).df()
+
+# Ahora ya tenemos la información para calcular el promedio de puestos de trabajo por Departamento;
+# Tenemos el total de puestos de trabajo por provincias (dftrabajadoresXProvincia)
+# Y tenemos la cant de Deptartamentos por provincia (dfcantDeptosXProvincia)
+
+
+#%% 
+
+
+
 
 
