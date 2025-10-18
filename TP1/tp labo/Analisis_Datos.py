@@ -217,7 +217,7 @@ iii = """
       FROM dfiiiconNULLS
       """
 dfiii = dd.query(iii).df()
-
+#%%
 # ======================
 # 1.iv
 # ======================
@@ -228,31 +228,52 @@ dfiii = dd.query(iii).df()
 trabajadoresXProvinciaRepetidos = """
       SELECT d.provincia_id, txd.total AS trabajadores
       FROM dfDepartamento as d
-      INNER JOIN dftrabajadoresXDepartamento AS txd ON d.departamento_id = txd.departamento_id
+      INNER JOIN dftrabajadoresXDepartamento AS txd 
+      ON d.departamento_id = txd.departamento_id
 """
 dftrabajadoresXProvinciaRepetidos = dd.query(trabajadoresXProvinciaRepetidos).df()
 
 trabajadoresXProvincia = """
-      SELECT p.provincia AS Provincia, SUM(trabajadores) AS cant_empleos
+      SELECT p.provincia_id AS Provincia, SUM(trabajadores) AS cant_empleos
       FROM dftrabajadoresXProvinciaRepetidos as txp
-      INNER JOIN dfProvincia AS p ON txp.provincia_id = p.provincia_id
-      GROUP BY Provincia
+      INNER JOIN dfProvincia AS p 
+      ON txp.provincia_id = p.provincia_id
+      GROUP BY p.Provincia_id
+      ORDER BY p.Provincia_id
 """
 dftrabajadoresXProvincia= dd.query(trabajadoresXProvincia).df()
 
 # Necesitamos la cantidad de Departamentos por Provincia para calcular la cant de empleo promedio por departamento:
 cantDeptosXProvincia = """
-      SELECT p.provincia AS Provincia, COUNT(*) AS cant_departamentos
+      SELECT p.provincia_id AS Provincia, COUNT(*) AS cant_departamentos
       FROM dfDepartamento AS d
-      INNER JOIN dfProvincia AS p ON d.provincia_id = p.provincia_id 
-      GROUP BY Provincia
+      INNER JOIN dfProvincia AS p 
+      ON d.provincia_id = p.provincia_id 
+      GROUP BY p.Provincia_id
+      ORDER BY p.Provincia_id
 """
 dfcantDeptosXProvincia= dd.query(cantDeptosXProvincia).df()
+
 
 # Ahora ya tenemos la información para calcular el promedio de puestos de trabajo por Departamento;
 # Tenemos el total de puestos de trabajo por provincias (dftrabajadoresXProvincia)
 # Y tenemos la cant de Deptartamentos por provincia (dfcantDeptosXProvincia)
 
+#creo un dataFrame con las provincias y una columna vacia para asignar el promedio
+PromedioPorProvincia = """
+            SELECT provincia_id
+            FROM dfProvincia
+            ORDER BY provincia_id
+"""
+dfPromedioPorProvincia = dd.query(PromedioPorProvincia).df()
+dfPromedioPorProvincia['Promedio'] = 0
+for i,row in dftrabajadoresXProvincia['cant_empleos'].items():
+    cantDepartamentosi = dfcantDeptosXProvincia.loc[i,'cant_departamentos']
+    promProvinciai= row/cantDepartamentosi
+    dfPromedioPorProvincia.loc[i,'Promedio'] = promProvinciai
+    
+#Ahora hacemos una tabla de provincia,departamento,clae6,cant_empleados (en el departamento),promedio trabajadores en provincia
+# con un inner join. Luego nos quedamos solo con los casos donde cant_empleados>promedio y recortamos el clae6
 
 #%% 
 
