@@ -48,6 +48,7 @@ CantEE = """
 """
 dfCantEE = dd.query(CantEE).df()
 
+
 # Calculamos las poblaciones de cada rango de edad según nivel educativo por departamento siguiendo el siguiente criterio:
 # Población Jardín = 0 - 5
 # Población Primaria = 6 - 12
@@ -116,7 +117,7 @@ i = """
     INNER JOIN dfPoblacionXPrimarioEnDpto AS pp ON d.departamento_id = pp.departamento_id
     INNER JOIN dfPoblacionXSecundarioEnDpto AS ps ON d.departamento_id = ps.departamento_id
     INNER JOIN dfPoblacionXSNUEnDpto AS pa ON d.departamento_id = pa.departamento_id
-    ORDER BY p.provincia ASC, ee.Primarios DESC
+    ORDER BY p.provincia ASC
     """
 dfi = dd.query(i).df()
 
@@ -134,17 +135,23 @@ trabajadoresXDepartamento = """
     GROUP BY departamento_id
 """
 dftrabajadoresXDepartamento = dd.query(trabajadoresXDepartamento).df()
+
+
 # Ahora juntamos provincia (dfProvincia), departamento (dfDepartamento) y la cant de empleados de dftrabajadoresXDepartamento.
 # Relacionamos todo mediante departamento_id
 ii = """
-    SELECT p.provincia, d.departamento, td.total AS Cantidad_total_de_empleados_en_2022
-    FROM dfDepartamento AS d, dfProvincia AS p
-    INNER JOIN dftrabajadoresXDepartamento AS td ON d.departamento_id = td.departamento_id
-    ORDER BY provincia ASC, total DESC
+        SELECT  dfProvincia.Provincia,departamento,total
+        FROM  dftrabajadoresXDepartamento
+        INNER JOIN dfDepartamento
+        ON dftrabajadoresXDepartamento.departamento_id = dfDepartamento.departamento_id
+        INNER JOIN dfProvincia
+        ON dfDepartamento.provincia_id = dfProvincia.provincia_id
+        ORDER BY dfProvincia.Provincia, total DESC
 """
+
 dfii = dd.query(ii).df()
 
-# ======================
+# =====================
 # 1.iii
 # ======================
 
