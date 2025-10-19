@@ -261,7 +261,7 @@ dfcantDeptosXProvincia= dd.query(cantDeptosXProvincia).df()
 
 #creo un dataFrame con las provincias y una columna vacia para asignar el promedio
 PromedioPorProvincia = """
-            SELECT provincia_id
+            SELECT *
             FROM dfProvincia
             ORDER BY provincia_id
 """
@@ -275,6 +275,55 @@ for i,row in dftrabajadoresXProvincia['cant_empleos'].items():
 #Ahora hacemos una tabla de provincia,departamento,clae6,cant_empleados (en el departamento),promedio trabajadores en provincia
 # con un inner join. Luego nos quedamos solo con los casos donde cant_empleados>promedio y recortamos el clae6
 
+empleadosPorDeptoyProv = """
+        SELECT dfPromedioPorProvincia.Provincia, departamento, dfDepartamento.Departamento_id,total
+        FROM dfDepartamento
+        LEFT OUTER JOIN dfPromedioPorProvincia
+        ON dfDepartamento.Provincia_id = dfPromedioPorProvincia.Provincia_id
+        LEFT OUTER JOIN dftrabajadoresXDepartamento
+        ON dfDepartamento.Departamento_id = dftrabajadoresXDepartamento.departamento_id
+        WHERE total>Promedio
+"""
+
+dfempleadosPorDeptoyProv = dd.query(empleadosPorDeptoyProv).df()
+
+trabajadoresxclae6ydepto = """
+        SELECT departamento_id,clae6,
+        SUM(varones + mujeres) AS trabajadores
+        FROM dfEP
+        GROUP BY departamento_id,clae6
+"""
+
+dftrabajadoresxclae6ydepto = dd.query(trabajadoresxclae6ydepto).df()
+
+MaxTrabajadoresPorClaeEnDepartamento = """
+        SELECT departamento_id, ANY_VALUE(clae6) AS clae3, trabajadores
+        FROM dftrabajadoresxclae6ydepto
+        WHERE (departamento_id, trabajadores) IN (
+            SELECT departamento_id, MAX(trabajadores)
+            FROM dftrabajadoresxclae6ydepto
+            GROUP BY departamento_id)
+        GROUP BY departamento_id, trabajadores
+        ORDER BY departamento_id
+"""
+
+dfMaxTrabajadoresPorClaeEnDepartamento = dd.query(MaxTrabajadoresPorClaeEnDepartamento).df()
+
+
+for i,row in dfMaxTrabajadoresPorClaeEnDepartamento['clae3'].items():
+    if len(str(row)) == 5:
+        res = '0'+str(row)[0:2]
+    else:
+        res = str(row)[0:3]
+    dfMaxTrabajadoresPorClaeEnDepartamento.loc[i,'clae3'] = res
+    
+iv = """
+        SELECT provincia AS Provincia,departamento AS Departamento,clae3 AS CLAE3,trabajadores AS "Cant. empleos"
+        FROM dfempleadosPorDeptoyProv
+        LEFT OUTER JOIN dfMaxTrabajadoresPorClaeEnDepartamento
+        ON dfempleadosPorDeptoyProv.Departamento_id = dfMaxTrabajadoresPorClaeEnDepartamento.departamento_id
+"""
+dfiv=dd.query(iv).df()
 #%% 
 
 
