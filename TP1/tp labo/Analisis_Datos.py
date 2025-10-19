@@ -1,5 +1,6 @@
 import pandas as pd
 import duckdb as dd
+import matplotlib.pyplot as plt
 
 # ============================================
 # IMPORTAMOS CSV (DataFrames del DER)
@@ -217,12 +218,12 @@ iii = """
       FROM dfiiiconNULLS
       """
 dfiii = dd.query(iii).df()
-#%%
+
 # ======================
 # 1.iv
 # ======================
 
-# Calculamos promedio de los puestos de trabajo de los departamentos de la cada provincia:
+# Primero calculamos promedio de los puestos de trabajo de los departamentos de la cada provincia:
 
 # Trabajadores totales por provincia: Utilizamos trabajadoresXDepartamento del item ii:
 trabajadoresXProvinciaRepetidos = """
@@ -254,12 +255,11 @@ cantDeptosXProvincia = """
 """
 dfcantDeptosXProvincia= dd.query(cantDeptosXProvincia).df()
 
-
 # Ahora ya tenemos la información para calcular el promedio de puestos de trabajo por Departamento;
 # Tenemos el total de puestos de trabajo por provincias (dftrabajadoresXProvincia)
 # Y tenemos la cant de Deptartamentos por provincia (dfcantDeptosXProvincia)
 
-#creo un dataFrame con las provincias y una columna vacia para asignar el promedio
+# Creamos un dataFrame con las provincias y una columna vacía para asignar el promedio:
 PromedioPorProvincia = """
             SELECT *
             FROM dfProvincia
@@ -272,9 +272,8 @@ for i,row in dftrabajadoresXProvincia['cant_empleos'].items():
     promProvinciai= row/cantDepartamentosi
     dfPromedioPorProvincia.loc[i,'Promedio'] = promProvinciai
     
-#Ahora hacemos una tabla de provincia,departamento,clae6,cant_empleados (en el departamento),promedio trabajadores en provincia
-# con un inner join. Luego nos quedamos solo con los casos donde cant_empleados>promedio y recortamos el clae6
-
+# Ahora hacemos una tabla de provincia, departamento, clae6, cant_empleados (en el departamento), promedio trabajadores en provincia con un join. 
+# Luego nos quedamos solo con los casos donde cant_empleados > promedio y recortamos el clae6.
 empleadosPorDeptoyProv = """
         SELECT dfPromedioPorProvincia.Provincia, departamento, dfDepartamento.Departamento_id,total
         FROM dfDepartamento
@@ -284,7 +283,6 @@ empleadosPorDeptoyProv = """
         ON dfDepartamento.Departamento_id = dftrabajadoresXDepartamento.departamento_id
         WHERE total>Promedio
 """
-
 dfempleadosPorDeptoyProv = dd.query(empleadosPorDeptoyProv).df()
 
 trabajadoresxclae6ydepto = """
@@ -293,7 +291,6 @@ trabajadoresxclae6ydepto = """
         FROM dfEP
         GROUP BY departamento_id,clae6
 """
-
 dftrabajadoresxclae6ydepto = dd.query(trabajadoresxclae6ydepto).df()
 
 MaxTrabajadoresPorClaeEnDepartamento = """
@@ -306,9 +303,7 @@ MaxTrabajadoresPorClaeEnDepartamento = """
         GROUP BY departamento_id, trabajadores
         ORDER BY departamento_id
 """
-
 dfMaxTrabajadoresPorClaeEnDepartamento = dd.query(MaxTrabajadoresPorClaeEnDepartamento).df()
-
 
 for i,row in dfMaxTrabajadoresPorClaeEnDepartamento['clae3'].items():
     if len(str(row)) == 5:
@@ -324,9 +319,31 @@ iv = """
         ON dfempleadosPorDeptoyProv.Departamento_id = dfMaxTrabajadoresPorClaeEnDepartamento.departamento_id
 """
 dfiv=dd.query(iv).df()
-#%% 
+
+# ########################################################
+# ======================= GRAFICOS =======================
+# ########################################################
+#%%
+
+# ======================
+# 2.i
+# ======================
+
+# Utilizando la tabla creada para el ej 1.iv) dftrabajadoresXProvincia, le ponemos nombre a las provincias, ya que esta tiene el id.
+
+EmpleadosXProvincia = """
+            SELECT p.provincia, cant_empleos
+            FROM dftrabajadoresXProvincia AS tp
+            INNER JOIN dfProvincia AS p
+            ON tp.Provincia = p.provincia_id
+            ORDER BY cant_empleos DESC 
+"""
+dfEmpleadosXProvincia=dd.query(EmpleadosXProvincia).df()
 
 
-
-
-
+plt.figure(figsize=(10, 6))
+plt.bar(dfEmpleadosXProvincia['provincia'], dfEmpleadosXProvincia['cant_empleos'])
+plt.title('Cantidad de empleos por provincia', fontsize=14, fontweight='bold')
+plt.xlabel('Provincia', fontsize=12)
+plt.ylabel('Cantidad de empleados', fontsize=12)
+plt.xticks(rotation=45, ha='right') # Esto es para rotar los nombres pq si no se amontonan todos.

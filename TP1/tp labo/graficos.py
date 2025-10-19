@@ -1,14 +1,65 @@
 import pandas as pd
+import duckdb as dd
 import matplotlib.pyplot as plt
+
+# ============================================
+# IMPORTAMOS CSV (DataFrames del DER)
+# ============================================
 
 dfDepartamento = pd.read_csv("datasets/Finales/df_Departamento.csv")
 dfEE = pd.read_csv("datasets/Finales/df_EE.csv")
 dfEP = pd.read_csv("datasets/Finales/df_EP.csv")
 dfPoblacion = pd.read_csv("datasets/Finales/df_Poblacion.csv")
 dfEP_con_desc = pd.read_csv("datasets/Finales/EP_con_desc.csv")
+dfProvincia = pd.read_csv("datasets/Finales/df_Provincia.csv")
+
+# ============================================
+# 2.i
+# ============================================
+
+trabajadoresXProvincia = """
+      SELECT p.provincia_id AS Provincia, SUM(trabajadores) AS cant_empleos
+      FROM dftrabajadoresXProvinciaRepetidos as txp
+      INNER JOIN dfProvincia AS p 
+      ON txp.provincia_id = p.provincia_id
+      GROUP BY p.Provincia_id
+      ORDER BY p.Provincia_id
+"""
+dftrabajadoresXProvincia= dd.query(trabajadoresXProvincia).df()
 
 
-# i)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 df_EP_completo = pd.merge(dfEP, dfDepartamento[["departamento_id", "provincia", "departamento"]], on="departamento_id", how="left")
 df_EP_completo["total"] = df_EP_completo["varones"] + df_EP_completo["mujeres"]
@@ -29,7 +80,9 @@ plt.xticks([0, 250000, 500000, 750000, 1000000, 1250000, 1500000, 1750000, 20000
 
 #plt.show()
 
-# v)
+# ============================================
+# 2.v
+# ============================================
 
 # Obtenemos todas las clae6 y la cantidad de mujeres que trabajan en cada clave
 df_mujeres_por_clae6 = dfEP.groupby('clae6', as_index=False)['mujeres'].sum().sort_values("mujeres", ascending=False)
