@@ -1,6 +1,8 @@
 import pandas as pd
 import duckdb as dd
 import matplotlib.pyplot as plt
+import numpy as np
+import duckdb as dd
 
 # ============================================
 # IMPORTAMOS CSV (DataFrames del DER)
@@ -79,10 +81,61 @@ plt.tight_layout()
 plt.xticks([0, 250000, 500000, 750000, 1000000, 1250000, 1500000, 1750000, 2000000, 2250000, 2500000,2750000,3000000])
 
 #plt.show()
+#%%
+#FALTA HACER QUE ESTE ORDENADO POR MEDIANA
+#iii)
 
-# ============================================
-# 2.v
-# ============================================
+from Analisis_Datos import dfEEtotalesXDepto
+from TP_laboDeDatos import dfProvincia
+
+EEPorDepartamento = dfEEtotalesXDepto
+departamentoConProvincia = """
+            SELECT departamento_id, provincia
+            FROM dfDepartamento
+            LEFT OUTER JOIN dfProvincia
+            ON dfDepartamento.Provincia_id = dfProvincia.Provincia_id
+"""
+dfdepartamentoconProvincia = dd.query(departamentoConProvincia).df()
+
+EEPorDepartamentoyProvincia ="""
+        SELECT provincia, "Total Establecimientos Educativos"
+        FROM EEPorDepartamento
+        LEFT OUTER JOIN dfdepartamentoconProvincia
+        ON dfdepartamentoconProvincia.departamento_id = EEPorDepartamento.departamento_id
+"""
+
+dfEEPorDepartamentoyProvincia = dd.query(EEPorDepartamentoyProvincia).df()
+
+
+EEenProvincia= {}
+for i,row in dfEEPorDepartamentoyProvincia.iterrows():
+    provincia = row['provincia']
+    if provincia not in EEenProvincia.keys():
+        EEenProvincia[provincia] = [dfEEPorDepartamentoyProvincia.loc[i,'Total Establecimientos Educativos']]
+    else:
+        EEenProvincia[provincia].append(dfEEPorDepartamentoyProvincia.loc[i,'Total Establecimientos Educativos'])
+
+Provincias = list(EEenProvincia.keys())
+EEPorProv = list(EEenProvincia.values())
+#ordeno EE PorProv de menor a mayor para calcular mediana
+#def ordenar (x):
+    
+#calculo mediana de una lista de valores. Las agrego a una lista
+#def calcularMediana (v):
+    
+#reordeno Provincias y EEPorProv de mayor a menor mediana
+#def OrdenarPorMediana
+
+fig, ax = plt.subplots(figsize=(10, 6))
+VP = ax.boxplot(EEPorProv, labels= Provincias, patch_artist=True)
+ax.tick_params(axis='x', rotation=45, labelsize=8)
+for label in ax.get_xticklabels():
+    label.set_ha('right')
+plt.tight_layout()
+plt.show()
+
+#%%
+# v)
 
 # Obtenemos todas las clae6 y la cantidad de mujeres que trabajan en cada clave
 df_mujeres_por_clae6 = dfEP.groupby('clae6', as_index=False)['mujeres'].sum().sort_values("mujeres", ascending=False)
