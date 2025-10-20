@@ -1,0 +1,296 @@
+import pandas as pd
+import duckdb as dd
+
+"""
+===============================================================================
+                    Trabajo Práctico 01 - Laboratorio de Datos
+===============================================================================
+2do. Cuatrimestre - 2025
+
+Integrantes del grupo:
+---------------------
+- Felix Soriano
+- Sofia Glionna
+- Ramiro --------------FALTA APELLIDO
+
+Descripción:
+-------------
+En este archivo (Tablas_Modelo.py) creamos los DataFrames indicados en el DER y luego
+utilizados para el análisis de los datos, ubicado en (Analisis_Datos.py).  
+===============================================================================
+"""
+
+
+# =====================================================================
+# LECTURA DE ARCHIVOS (Tablas Originales)
+# =====================================================================
+
+ArchivoEP = pd.read_csv("datasets/TablasOriginales/Datos_por_departamento_actividad_y_sexo.csv")
+ArchivoEE = pd.read_csv("datasets/TablasOriginales/2022_padron_oficial_establecimientos_educativos.csv", header=6)
+ArchivoPoblacion = pd.read_csv("datasets/TablasOriginales/padron_poblacion.csv", header=11)
+ArchivoActividadesEstablecimientos = pd.read_csv("datasets/TablasOriginales/actividades_establecimientos.csv")
+
+# =====================================================================
+# CONSTRUCCIÓN DE DATAFRAMES DEL DER
+# =====================================================================
+
+# ======================
+# 1.1 DF de Departamentos
+# ======================
+
+Departamento = """
+                SELECT DISTINCT in_departamentos AS departamento_id,departamento,provincia_id
+                FROM ArchivoEP
+                """
+dfDepartamento = dd.query(Departamento).df()
+
+# ======================
+# 1.2 DF de Provinicias
+# ======================
+
+Provincia = """
+                SELECT DISTINCT provincia_id,provincia
+                FROM ArchivoEP
+                ORDER BY provincia_id ASC
+                """
+dfProvincia = dd.query(Provincia).df()
+
+
+# ===================================================================
+# 2. DF de Establecimientos Productivos: Empleo (Varones y Mujeres)
+# ===================================================================
+
+# Cantidad de varones que emplea cada rubro por departamento en 2022
+VaronesEmpleados = """
+                    SELECT anio, clae6,in_departamentos AS departamento_id, empleo AS varones, empresas_exportadoras
+                    FROM ArchivoEP
+                    WHERE  anio = 2022 AND genero = 'Varones'
+                    """
+dfVaronesEmpleados=dd.query(VaronesEmpleados).df()       
+
+# Cantidad de mujeres que emplea cada rubro por departamento en 2022
+MujeresEmpleados = """ 
+                    SELECT anio, clae6,in_departamentos AS departamento_id, empleo AS mujeres, empresas_exportadoras
+                    FROM ArchivoEP
+                    WHERE anio = 2022 AND genero = 'Mujeres'
+                    """
+dfMujeresEmpleadas=dd.query(MujeresEmpleados).df()
+
+# Juntamos ambas tablas de varones y mujeres, pero hay una consideración:
+# Lo que sucede es que en el archivo original hombres y mujeres están separados en dos filas
+# y nosotros queremos ponerlos como columnas. El problema es que cuando la cantidad de mujeres es 0
+# en el archivo original, en vez de aparecer un "0" en "empleo" (de "Mujeres"), esa fila no existe.
+# Por lo tanto, creamos un dataframe intermedio, que tendrá todas las columnas creadas, pero en null,
+# aquellas cuya cantidad sea cero.
+
+EP_con_nulls = """
+                    SELECT dfVaronesEmpleados.clae6, dfVaronesEmpleados.departamento_id, dfVaronesEmpleados.varones, dfMujeresEmpleadas.mujeres, dfVaronesEmpleados.empresas_exportadoras
+                    FROM dfVaronesEmpleados
+                    LEFT OUTER JOIN dfMujeresEmpleadas
+                    ON dfVaronesEmpleados.clae6 = dfMujeresEmpleadas.clae6 AND dfVaronesEmpleados.departamento_id = dfMujeresEmpleadas.departamento_id
+
+                    UNION
+                    
+                    SELECT dfMujeresEmpleadas.clae6, dfMujeresEmpleadas.departamento_id, dfVaronesEmpleados.varones, dfMujeresEmpleadas.mujeres, dfMujeresEmpleadas.empresas_exportadoras
+                    FROM dfMujeresEmpleadas
+                    LEFT OUTER JOIN dfVaronesEmpleados
+                    ON dfVaronesEmpleados.clae6 = dfMujeresEmpleadas.clae6 AND dfVaronesEmpleados.departamento_id = dfMujeresEmpleadas.departamento_id
+                    """
+dfEP_con_nulls = dd.query(EP_con_nulls).df()
+
+# Reemplazamos todos los nulls con "0" como resolución al problema de "EP_con_nulls".
+
+EP = """
+        SELECT clae6, departamento_id, empresas_exportadoras,
+        CASE WHEN varones IS NOT NULL THEN varones ELSE 0 END AS varones,
+        CASE WHEN mujeres IS NOT NULL THEN mujeres ELSE 0 END AS mujeres                     
+        FROM dfEP_con_nulls
+        """
+dfEP = dd.query(EP).df()
+
+# ====================================
+# 3. DF de Establecimientos Educativos
+# ====================================
+#%%
+# Establecimientos educativos con codigo de localidad completo.
+EE = """
+      SELECT cueanexo,
+      "Código de localidad" AS departamento_id,
+      SNU,"SNU - INET","Secundario - INET", "Nivel inicial - Jardín maternal","Nivel inicial - Jardín de infantes", Primario,Secundario
+      FROM ArchivoEE
+    """
+dfEE = dd.query(EE).df()
+
+for i,row in dfEE['departamento_id'].items():
+    if len(str(row)) == 7:
+        if str(row)[0:4] ==  "6218":
+            res = 6217
+        elif str(row)[0:2] == "21":
+            if str(row)[2] == '0':
+                res = int(dfDepartamento.loc[dfDepartamento['departamento'] == ('Comuna ' + str(row)[3]), "departamento_id"].iloc[0])
+            else:
+                res = int(dfDepartamento.loc[dfDepartamento['departamento'] == ('Comuna ' + str(row)[2:4]), "departamento_id"].iloc[0])
+        else:
+            res = int(str(row)[0:4])
+    else:
+        if  str(row)[0:5] != "94028":
+            res = int(str(row)[0:5])
+    dfEE.loc[i,'departamento_id'] = res
+#%%
+
+#Normalizamos tipos numéricos en columnas del padrón educativo 
+cols_a_numericas = [
+    "SNU",
+    "SNU - INET",
+    "Secundario - INET",
+    "Nivel inicial - Jardín maternal",
+    "Nivel inicial - Jardín de infantes",
+    "Primario",
+    "Secundario"
+]
+
+for col in cols_a_numericas:
+    dfEE[col] = pd.to_numeric(dfEE[col], errors="coerce").fillna(0).astype("int64")
+
+# Aseguramos que departamento_id quede como entero
+dfEE["departamento_id"] = pd.to_numeric(dfEE["departamento_id"], errors="coerce").astype("Int64")
+dfEE.dtypes
+
+# ====================================
+# 4. DF de Población
+# ====================================
+
+#corregir población
+Poblacion_con_nombre = """
+                       SELECT "  de Edad" AS departamento_id, "Unnamed: 1" AS Edad, "Unnamed: 2" AS Casos
+                       FROM ArchivoPoblacion
+                       """
+
+dfPoblacion_con_nombre=dd.query(Poblacion_con_nombre).df()
+dfPoblacion_con_nombre['provincia_id'] = None
+
+dfPoblacion_con_nombre.dropna(subset=['Edad'], inplace=True)
+dfPoblacion_con_nombre.reset_index(drop=True, inplace=True)
+
+
+# En departamento tengo varios departamentos con mismo nombre por lo que solo el nombre no me distingue entre ellos
+# pero dentro de la misma provincia no pueden existir 2 departamentos de igual nombre. Por eso me guardo el provincia_id
+# formado por los primeros 2 digitos del codigo de Area.
+
+departamento_id = 0
+AREA = 0
+for i, row in dfPoblacion_con_nombre.iterrows():
+    dfPoblacion_con_nombre.loc[i, 'departamento_id'] = departamento_id
+    dfPoblacion_con_nombre.loc[i, 'provincia_id'] = AREA
+    if row['Casos'] == 'Casos':
+        departamento_id= dfPoblacion_con_nombre.loc[i-1, 'Casos']
+        AREA= dfPoblacion_con_nombre.loc[i-1, 'Edad'][7:9]
+for i, row in dfPoblacion_con_nombre.iterrows():
+    if row['Casos'] == "Casos":
+        dfPoblacion_con_nombre.drop(i,inplace=True)
+        dfPoblacion_con_nombre.drop(i-1,inplace=True)
+    if row['Edad'] == "Total":
+        dfPoblacion_con_nombre.drop(i,inplace=True)
+dfPoblacion_con_nombre.dropna(subset=['departamento_id'], inplace=True)
+dfPoblacion_con_nombre.reset_index(drop=True, inplace=True)
+
+dfDepartamento['provincia_id'] = dfDepartamento['provincia_id'].astype(str)
+
+#%%
+print(dfPoblacion_con_nombre['Casos'][0])
+print(type(dfPoblacion_con_nombre['Casos'][0]))
+
+#%%
+numeros = ['1','2','3','4','5','6','7','8','9','0']
+# Limpieza fuerte de 'Casos': borra espacios (incl. NBSP), puntos, comas, etc.
+for i,row in dfPoblacion_con_nombre['Casos'].items():
+    res = ""
+    for j in row:
+        if j in numeros:
+            res+=j
+    dfPoblacion_con_nombre.loc[i,'Casos'] = int(res)
+#%%
+print(dfPoblacion_con_nombre['Casos'][0])
+print(type(dfPoblacion_con_nombre['Casos'][0]))
+
+#%%
+#dfPoblacion_con_nombre["Casos"] = (
+#    pd.to_numeric(
+#        dfPoblacion_con_nombre["Casos"]
+#            .astype(str)
+#            .str.replace(r"[^\d]", "", regex=True),  # deja solo 0-9
+#        errors="coerce"
+#    ).astype("Int64")
+#)
+#%%
+dfPoblacion_con_nombre["Edad"] = dfPoblacion_con_nombre["Edad"].astype(int)
+
+print(type(dfPoblacion_con_nombre['Edad'][0]))
+
+PoblacionAux = """
+SELECT 
+    dfDepartamento.departamento_id,
+    dfPoblacion_con_nombre.Edad,
+    dfPoblacion_con_nombre.Casos
+FROM dfPoblacion_con_nombre
+LEFT OUTER JOIN dfDepartamento
+  ON departamento = dfPoblacion_con_nombre.departamento_id
+ AND (dfPoblacion_con_nombre.provincia_id = dfDepartamento.provincia_id 
+      OR '0'||dfDepartamento.provincia_id = dfPoblacion_con_nombre.provincia_id)
+ORDER BY dfDepartamento.departamento_id, dfPoblacion_con_nombre.Edad
+"""
+dfPoblacionAux = dd.query(PoblacionAux).df()
+
+print(type(dfPoblacionAux['Edad'][0]))
+dfPoblacionAux.loc[53749:,'departamento_id'] = 6651
+dfPoblacionAux.loc[53750:53943:2,'departamento_id'] = 22126
+
+poblacion ="""
+        SELECT *
+        FROM dfPoblacionAux
+        ORDER BY departamento_id, Edad
+"""
+
+dfPoblacion = dd.query(poblacion).df()
+
+print(type(ArchivoPoblacion['Unnamed: 1'][5]))
+print(type(dfPoblacion['Edad'][0]))
+print(type(dfPoblacion_con_nombre['Edad'][0]))
+
+# Actividades establecimiento
+EP_con_desc = """
+                SELECT DISTINCT
+                    ArchivoEP.clae6,
+                    ArchivoActividadesEstablecimientos.clae6_desc
+                FROM ArchivoEP
+                LEFT JOIN ArchivoActividadesEstablecimientos
+                ON ArchivoEP.clae6 = ArchivoActividadesEstablecimientos.clae6
+              """
+dfEP_con_desc = dd.query(EP_con_desc).df()
+
+# =====================================================================
+# VALIDACIONES
+# =====================================================================
+
+# Usamos este DF para ver que no borraramos filas de 2022. 
+# Basicamente vemos cuantos departamentos y clae6 (que son la superclave del archivo original si no se tiene en cuenta el año)
+# hay sin repeticiones por varones y mujeres y vemos si coincide con lo que nos quedo en EP. Ya que en esta juntamos varones y mujeres en una misma fila por departamento y clae6.
+
+EPaux = """
+        SELECT DISTINCT in_departamentos, clae6
+        FROM ArchivoEP
+        WHERE anio = 2022
+        
+    """
+dfEPaux = dd.query(EPaux).df()
+
+# =====================================================================
+# EXPORTAMOS LOS DFs a CSVs
+# =====================================================================
+
+dfProvincia.to_csv("datasets/TablasModelo/df_Provincia.csv", index=False,encoding ="utf-8")
+dfDepartamento.to_csv("datasets/TablasModelo/df_Departamento.csv", index=False,encoding ="utf-8")
+dfEP.to_csv("datasets/TablasModelo/df_EP.csv", index=False,encoding ="utf-8")
+dfEP_con_desc.to_csv("datasets/TablasModelo/EP_con_desc.csv", index=False, encoding="utf-8")
+dfEE.to_csv("datasets/TablasModelo/df_EE.csv", index=False,encoding ="utf-8")
+dfPoblacion.to_csv("datasets/TablasModelo/df_Poblacion.csv", index=False,encoding ="utf-8")

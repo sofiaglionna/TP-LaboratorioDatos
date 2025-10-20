@@ -2,16 +2,36 @@ import pandas as pd
 import duckdb as dd
 import matplotlib.pyplot as plt
 
+"""
+===============================================================================
+                    Trabajo Práctico 01 - Laboratorio de Datos
+===============================================================================
+2do. Cuatrimestre - 2025
+
+Integrantes del grupo:
+---------------------
+- Felix Soriano
+- Sofia Glionna
+- Ramiro --------------FALTA APELLIDO
+
+Descripción:
+-------------
+En este archivo (Analisis_Datos.py) se encuentran todos los ejercicios de análisis
+de los datos. Primero (1) los reportes utilizando sólo consultas SQL y luego (2) los
+gráficos utilizando herramientas de visualización (matplotlib) a partir también de colsultas SQL.
+===============================================================================
+"""
+
 # ============================================
 # IMPORTAMOS CSV (DataFrames del DER)
 # ============================================
 
-dfDepartamento = pd.read_csv("datasets/Finales/df_Departamento.csv")
-dfEE = pd.read_csv("datasets/Finales/df_EE.csv")
-dfEP = pd.read_csv("datasets/Finales/df_EP.csv")
-dfPoblacion = pd.read_csv("datasets/Finales/df_Poblacion.csv")
-dfEP_con_desc = pd.read_csv("datasets/Finales/EP_con_desc.csv")
-dfProvincia = pd.read_csv("datasets/Finales/df_Provincia.csv")
+dfDepartamento = pd.read_csv("datasets/TablasModelo/df_Departamento.csv")
+dfEE = pd.read_csv("datasets/TablasModelo/df_EE.csv")
+dfEP = pd.read_csv("datasets/TablasModelo/df_EP.csv")
+dfPoblacion = pd.read_csv("datasets/TablasModelo/df_Poblacion.csv")
+dfEP_con_desc = pd.read_csv("datasets/TablasModelo/EP_con_desc.csv")
+dfProvincia = pd.read_csv("datasets/TablasModelo/df_Provincia.csv")
 
 # ============================================
 # CORREGIMOS TIPOS DE DATOS
@@ -320,16 +340,17 @@ iv = """
 """
 dfiv=dd.query(iv).df()
 
-# ########################################################
+
+#%%#######################################################
 # ======================= GRAFICOS =======================
 # ########################################################
-#%%
+
 
 # ======================
 # 2.i
 # ======================
 
-# Utilizando la tabla creada para el ej 1.iv) dftrabajadoresXProvincia, le ponemos nombre a las provincias, ya que esta tiene el id.
+# Utilizando la tabla creada para el ej 1.iv (dftrabajadoresXProvincia), le ponemos nombre a las provincias, ya que esta tiene el id.
 
 EmpleadosXProvincia = """
             SELECT p.provincia, cant_empleos
@@ -347,3 +368,210 @@ plt.title('Cantidad de empleos por provincia', fontsize=14, fontweight='bold')
 plt.xlabel('Provincia', fontsize=12)
 plt.ylabel('Cantidad de empleados', fontsize=12)
 plt.xticks(rotation=45, ha='right') # Esto es para rotar los nombres pq si no se amontonan todos.
+
+#%%=====================
+# 2.ii
+# ======================
+
+# Para el siguiente gráfico nos va a convenir usar un gráfico de dispersión donde cada
+# punto sea un departamento, el eje x la población del grupo, el eje y la cant de EE de
+# ese grupo, y cada grupo con distinto color (siendo cada grupo jardin, primario, secundario, SNU).
+# Para ello usamos el df creado en el punto 1.i
+
+plt.figure(figsize=(8,6))
+
+plt.scatter(dfi['Poblacion Jardin'], dfi['Jardines'], s=20,color='green', label='Jardines')
+plt.scatter(dfi['Poblacion Primaria'], dfi['Primarios'], s=20,color='blue', label='Primarios')
+plt.scatter(dfi['Poblacion Secundaria'], dfi['Secundarios'], s=20,label='Secundarios', color='orange')
+plt.scatter(dfi['Poblacion Adultos'], dfi['SNU'], color='red', s=20,label='SNU')
+# con s=20 hacemos más chicos los puntos
+plt.xscale('log') # algunas provincias tienen poblaciones adultas mucho mayores, entonces usamos escala log en el eje x (poblacion)
+
+plt.xlabel('Población')
+plt.ylabel('Cantidad de Establecimientos Educativos')
+plt.title('Relación entre población y cantidad de EE por nivel educativo x departamento')
+plt.legend() #cuadradito con nombres de los niveles educativos
+plt.grid(True)
+plt.show()
+
+
+#%%=====================
+# 2.iii
+# ======================
+
+#FALTA HACER QUE ESTE ORDENADO POR MEDIANA
+
+EEPorDepartamento = dfEEtotalesXDepto
+departamentoConProvincia = """
+            SELECT departamento_id, provincia
+            FROM dfDepartamento
+            LEFT OUTER JOIN dfProvincia
+            ON dfDepartamento.Provincia_id = dfProvincia.Provincia_id
+"""
+dfdepartamentoconProvincia = dd.query(departamentoConProvincia).df()
+
+EEPorDepartamentoyProvincia ="""
+        SELECT provincia, "Total Establecimientos Educativos"
+        FROM EEPorDepartamento
+        LEFT OUTER JOIN dfdepartamentoconProvincia
+        ON dfdepartamentoconProvincia.departamento_id = EEPorDepartamento.departamento_id
+"""
+
+dfEEPorDepartamentoyProvincia = dd.query(EEPorDepartamentoyProvincia).df()
+
+EEenProvincia= {}
+for i,row in dfEEPorDepartamentoyProvincia.iterrows():
+    provincia = row['provincia']
+    if provincia not in EEenProvincia.keys():
+        EEenProvincia[provincia] = [dfEEPorDepartamentoyProvincia.loc[i,'Total Establecimientos Educativos']]
+    else:
+        EEenProvincia[provincia].append(dfEEPorDepartamentoyProvincia.loc[i,'Total Establecimientos Educativos'])
+
+provinciasaux = list(EEenProvincia.keys())
+EEPorProvaux = list(EEenProvincia.values())
+
+#ordeno EE PorProv de menor a mayor para calcular mediana
+Provinciasordenadas = []
+EEPorProvordenados = []
+indices = []
+#No ordena bien. No ordena las provincias por EE, se debe meter adentro de cada lista en EEPorProvaux
+#Entonces no se moverian las provincias ya que ordeno los EE dentro de cada provincia
+for j in EEPorProvaux:
+    indicej = 0
+    for i in EEPorProvaux:
+        if j>i:
+            indicej+=1
+    indices.append(indicej)
+
+for i in range(0,len(indices)):
+    for j in range (0,len(indices)):
+        if i == indices[j]:
+            EEPorProvordenados.append(EEPorProvaux[j])
+            Provinciasordenadas.append(provinciasaux[j])
+    
+#calculo medianas de EEPorProv
+medianas = []
+for j in EEPorProvordenados:
+    if len(j)%2 != 0:
+        medianas.append(j[(int(len(j)-1)//2)])
+    else:
+        medianas.append((j[int(len(j)//2)]+j[int((len(j)//2))-1])/2)
+print(medianas)
+#reordeno Provincias y EEPorProv de mayor a menor mediana
+indicesMedianas = []
+Provincias = []
+EEPorProv = []
+for j in medianas:
+    indicej = 0
+    for i in medianas:
+        if j>i:
+            indicej+=1
+    indicesMedianas.append(indicej)
+print(indicesMedianas)
+for i in range(0,len(indicesMedianas)):
+    for j in range (0,len(indicesMedianas)):
+        if i == indicesMedianas[j]:
+            EEPorProv.append(EEPorProvordenados[j])
+            Provincias.append(Provinciasordenadas[j])
+
+fig, ax = plt.subplots(figsize=(10, 6))
+VP = ax.boxplot(EEPorProv, labels= Provincias, patch_artist=True)
+ax.tick_params(axis='x', rotation=45, labelsize=8)
+for label in ax.get_xticklabels():
+    label.set_ha('right')
+plt.tight_layout()
+plt.show()
+
+#%%=====================
+# 2.iv
+# ======================
+
+# Calculamos a partir de dfCantEE la cantidad de EE totales por departamento:
+
+CantEETotales = """
+        SELECT departamento_id, SUM(Jardines + Primarios + Secundarios + SNU) AS Cantidad_EE
+        FROM dfCantEE
+        GROUP BY departamento_id
+"""
+dfCantEETotales = dd.query(CantEETotales).df()
+
+# Utilizamos el df "dftrabajadoresXDepartamento" creado para el punto 1.ii
+# y la población total por departamento"dfPoblacionXDepto".
+
+# Juntamos los 3 dfs:
+EE_Empleados_Poblacion = """
+        SELECT pd.departamento_id, pd.Poblacion, t.total AS Empleados, EE.Cantidad_EE AS EE
+        FROM dfPoblacionXDepto AS pd
+        INNER JOIN dftrabajadoresXDepartamento AS t ON pd.departamento_id = t.departamento_id
+        INNER JOIN dfCantEETotales AS EE ON pd.departamento_id = EE.departamento_id
+        ORDER BY pd.departamento_id
+"""
+dfEE_Empleados_Poblacion = dd.query(EE_Empleados_Poblacion).df()
+
+# Ahora hacemos la cuenta para 1000 habitantes:
+# Dividimos por la poblacion en ese dpto y multiplicamos por 1000.
+
+dfEE_Empleados_Poblacion["EE_por_1000hab"] = dfEE_Empleados_Poblacion["EE"] / dfEE_Empleados_Poblacion["Poblacion"] * 1000
+dfEE_Empleados_Poblacion["Empleados_por_1000hab"] = dfEE_Empleados_Poblacion["Empleados"] / dfEE_Empleados_Poblacion["Poblacion"] * 1000
+# Observación: En departamentos como el 2007 (COMUNA 1) la cantidad de empleados supera la población.
+# Esto es correcto, y nos indica que los empleados de COMUNA 1 no son residentes de ahi mismo.
+
+# Ahora graficamos:
+plt.figure(figsize=(8,6))
+plt.scatter(dfEE_Empleados_Poblacion["EE_por_1000hab"], dfEE_Empleados_Poblacion["Empleados_por_1000hab"], color='red', alpha=0.7, s=25)
+
+plt.xlabel("Establecimientos Educativos cada 1000 habitantes")
+plt.ylabel("Empleados cada 1000 habitantes")
+plt.title("Relación entre EE y trabajadores por cada 1000 habitantes (por departamento)")
+
+plt.xscale('log') # Es util para verlo nosotros pero para el final lo sacaría.
+plt.yscale('log')
+
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
+#%%=====================
+# 2.v
+# ======================
+
+# Obtenemos todas las clae6 y la cantidad de mujeres que trabajan en cada clave
+df_mujeres_por_clae6 = dfEP.groupby('clae6', as_index=False)['mujeres'].sum().sort_values("mujeres", ascending=False)
+
+#Sacamos todos los valores que son 0
+df_mujeres_por_clae6_final = df_mujeres_por_clae6[df_mujeres_por_clae6["mujeres"] > 0]
+
+# Obtenemos las 5 clae6 con mayor y menor cantidad de mujeres
+mayores_5 = df_mujeres_por_clae6_final.head(5)
+menores_5 = df_mujeres_por_clae6_final.tail(5)
+
+# Concatenamos los dfs del punto anterior
+finales_10 = pd.concat([mayores_5, menores_5])
+
+# Unimos el dataset anterior con sus respectivas descripciones
+df_mujeres_por_clae6_con_desc = pd.merge(finales_10, dfEP_con_desc[["clae6_desc","clae6"]], on="clae6", how="left")
+
+# Calculamos el promedio de mujeres sobre el total de empleados
+
+cant_mujeres = dfEP["mujeres"].sum()
+cant_varones = dfEP["varones"].sum()
+
+promedio_mujeres_sobre_total = (cant_mujeres/(cant_mujeres + cant_varones))*100
+
+# Graficamos
+
+plt.figure(figsize=(10,8))
+plt.barh(df_mujeres_por_clae6_con_desc["clae6_desc"], df_mujeres_por_clae6_con_desc["mujeres"],height=0.8)
+
+# Línea vertical con el promedio nacional de participación femenina (%)
+plt.axvline(promedio_mujeres_sobre_total, color="red", linestyle="--", label=f"Promedio nacional {promedio_mujeres_sobre_total:.1f}%")
+
+
+plt.title("Participación femenina por actividad económica")
+plt.xlabel("Cantidad de empleos femeninos")
+plt.ylabel("Actividad económica (CLAE6)")
+plt.legend()
+plt.tight_layout()
+plt.show()
+
+
