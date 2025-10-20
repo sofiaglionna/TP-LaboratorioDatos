@@ -399,8 +399,8 @@ plt.show()
 # 2.iii
 # ======================
 
-#FALTA HACER QUE ESTE ORDENADO POR MEDIANA
 
+#junto departamentos con sus provincias para tenerlos con nombre
 EEPorDepartamento = dfEEtotalesXDepto
 departamentoConProvincia = """
             SELECT departamento_id, provincia
@@ -410,6 +410,7 @@ departamentoConProvincia = """
 """
 dfdepartamentoconProvincia = dd.query(departamentoConProvincia).df()
 
+#Establecimientos educativos por departamento y la provincia a la que pertenecen
 EEPorDepartamentoyProvincia ="""
         SELECT provincia, "Total Establecimientos Educativos"
         FROM EEPorDepartamento
@@ -419,6 +420,8 @@ EEPorDepartamentoyProvincia ="""
 
 dfEEPorDepartamentoyProvincia = dd.query(EEPorDepartamentoyProvincia).df()
 
+#Por cada provincia creo una lista con el numero de EE en cada departamento (no conservo a que departamento se refiere)
+#solo conservo el numero de EE
 EEenProvincia= {}
 for i,row in dfEEPorDepartamentoyProvincia.iterrows():
     provincia = row['provincia']
@@ -430,34 +433,43 @@ for i,row in dfEEPorDepartamentoyProvincia.iterrows():
 provinciasaux = list(EEenProvincia.keys())
 EEPorProvaux = list(EEenProvincia.values())
 
-#ordeno EE PorProv de menor a mayor para calcular mediana
-Provinciasordenadas = []
 EEPorProvordenados = []
-indices = []
-#No ordena bien. No ordena las provincias por EE, se debe meter adentro de cada lista en EEPorProvaux
-#Entonces no se moverian las provincias ya que ordeno los EE dentro de cada provincia
-for j in EEPorProvaux:
-    indicej = 0
-    for i in EEPorProvaux:
-        if j>i:
-            indicej+=1
-    indices.append(indicej)
 
-for i in range(0,len(indices)):
-    for j in range (0,len(indices)):
-        if i == indices[j]:
-            EEPorProvordenados.append(EEPorProvaux[j])
-            Provinciasordenadas.append(provinciasaux[j])
+#ordeno los departamentos dentro de cada provincia de menor a mayor en cantidad de EE
+def Buscarmaximo (v):
+    maximo=0
+    for i in v:
+        if i>maximo:
+            maximo=i
+    return maximo
+
+def ordenar (v):
+    res = []
+    maximo = Buscarmaximo(v)
+    for j in range(0,len(v)):
+        minimo = maximo
+        for i in v:
+            if i < minimo and i not in res:
+                minimo = i
+        res.append(minimo)
+    return res
+
+for j in EEPorProvaux:
+    EEPorProvordenados.append(ordenar(j))
     
-#calculo medianas de EEPorProv
+
+
+#calculo medianas de cada provincia
 medianas = []
 for j in EEPorProvordenados:
     if len(j)%2 != 0:
         medianas.append(j[(int(len(j)-1)//2)])
     else:
         medianas.append((j[int(len(j)//2)]+j[int((len(j)//2))-1])/2)
-print(medianas)
-#reordeno Provincias y EEPorProv de mayor a menor mediana
+        
+
+
+#reordeno Provincias y EEPorProv de menor a mayor mediana
 indicesMedianas = []
 Provincias = []
 EEPorProv = []
@@ -467,18 +479,21 @@ for j in medianas:
         if j>i:
             indicej+=1
     indicesMedianas.append(indicej)
-print(indicesMedianas)
+
 for i in range(0,len(indicesMedianas)):
     for j in range (0,len(indicesMedianas)):
         if i == indicesMedianas[j]:
             EEPorProv.append(EEPorProvordenados[j])
-            Provincias.append(Provinciasordenadas[j])
+            Provincias.append(provinciasaux[j])
 
 fig, ax = plt.subplots(figsize=(10, 6))
 VP = ax.boxplot(EEPorProv, labels= Provincias, patch_artist=True)
 ax.tick_params(axis='x', rotation=45, labelsize=8)
 for label in ax.get_xticklabels():
     label.set_ha('right')
+plt.xlabel('Provincia')
+plt.ylabel('Cantidad de establecimientos educativos')
+plt.title('Cantidad de establecimientos educativos por provincia')
 plt.tight_layout()
 plt.show()
 
