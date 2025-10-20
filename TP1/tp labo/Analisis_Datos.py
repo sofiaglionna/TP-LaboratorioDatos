@@ -12,7 +12,7 @@ Integrantes del grupo:
 ---------------------
 - Felix Soriano
 - Sofia Glionna
-- Ramiro --------------FALTA APELLIDO
+- Ramiro Gantman
 
 Descripción:
 -------------
@@ -39,12 +39,12 @@ dfProvincia = pd.read_csv("datasets/TablasModelo/df_Provincia.csv")
 
 dfEE["departamento_id"] = pd.to_numeric(dfEE["departamento_id"], errors="coerce").astype("Int64")
 
-# Asegurar tipos de Población
+# cambiamos los tipos de datos de Población
 dfPoblacion["departamento_id"] = pd.to_numeric(dfPoblacion["departamento_id"], errors="coerce").astype("Int64")
 dfPoblacion["Edad"]            = pd.to_numeric(dfPoblacion["Edad"], errors="coerce")
 dfPoblacion["Casos"]           = pd.to_numeric(dfPoblacion["Casos"], errors="coerce")
 
-# Asegurar tipos de EE (por si vinieron como texto)
+# Convertimos los tipos de datos de EE
 cols_ee = ["SNU","SNU - INET","Secundario - INET","Nivel inicial - Jardín maternal",
            "Nivel inicial - Jardín de infantes","Primario","Secundario"]
 for c in cols_ee:
@@ -531,6 +531,9 @@ plt.grid(True)
 plt.tight_layout()
 plt.show()
 
+
+
+
 #%%=====================
 # 2.v
 # ======================
@@ -558,20 +561,42 @@ cant_varones = dfEP["varones"].sum()
 
 promedio_mujeres_sobre_total = (cant_mujeres/(cant_mujeres + cant_varones))*100
 
-# Graficamos
+# --- Datos ---
+descs = df_mujeres_por_clae6_con_desc["clae6_desc"].tolist()
+vals  = df_mujeres_por_clae6_con_desc["mujeres"].tolist()
 
-plt.figure(figsize=(10,8))
-plt.barh(df_mujeres_por_clae6_con_desc["clae6_desc"], df_mujeres_por_clae6_con_desc["mujeres"],height=0.8)
+# función para cortar texto cada N caracteres
+def cortar_lineas(texto, ancho=18):
+    palabras = texto.split()
+    lineas, linea_actual = [], ""
+    for p in palabras:
+        if len(linea_actual) + len(p) + 1 <= ancho:
+            linea_actual += (" " if linea_actual else "") + p
+        else:
+            lineas.append(linea_actual)
+            linea_actual = p
+    if linea_actual:
+        lineas.append(linea_actual)
+    return "\n".join(lineas)
 
-# Línea vertical con el promedio nacional de participación femenina (%)
-plt.axvline(promedio_mujeres_sobre_total, color="red", linestyle="--", label=f"Promedio nacional {promedio_mujeres_sobre_total:.1f}%")
+labels_multilinea = [cortar_lineas(t, ancho=18) for t in descs]
 
+# --- Gráfico estilo Excel ---
+fig, ax = plt.subplots(figsize=(14, 7))
+ax.bar(range(len(vals)), vals, width=0.55, color="cornflowerblue")
 
-plt.title("Participación femenina por actividad económica")
-plt.xlabel("Cantidad de empleos femeninos")
-plt.ylabel("Actividad económica (CLAE6)")
-plt.legend()
+ax.grid(axis='y', alpha=0.3)
+ax.axhline(promedio_mujeres_sobre_total, color="black", linestyle="--", linewidth=1)
+
+ax.set_xticks(range(len(vals)))
+ax.set_xticklabels(labels_multilinea, fontsize=8, ha='center')
+
+ax.tick_params(axis='x', pad=10)
+plt.subplots_adjust(bottom=0.45)  # aumentá si se corta el texto
+
+ax.set_title("Participación femenina por actividad económica")
+ax.set_ylabel("Cantidad de empleos femeninos")
+ax.set_xlabel("")
+
 plt.tight_layout()
 plt.show()
-
-
