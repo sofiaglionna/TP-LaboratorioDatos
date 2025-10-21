@@ -105,7 +105,17 @@ EP = """
         CASE WHEN mujeres IS NOT NULL THEN mujeres ELSE 0 END AS mujeres                     
         FROM dfEP_con_nulls
         """
+        
 dfEP = dd.query(EP).df()
+
+dfEP['clae3'] = ""
+
+for i,row in dfEP['clae6'].items():
+    if len(str(row)) == 5:
+        res = '0'+str(row)[0:2]
+    else:
+        res = str(row)[0:3]
+    dfEP.loc[i,'clae3'] = res
 
 # ======================
 # 2.2 DF de Actividades Establecimientos Productivos
@@ -263,6 +273,7 @@ dfEPaux = dd.query(EPaux).df()
 # =====================================================================
 # EXPORTAMOS LOS DFs a CSVs
 # =====================================================================
+#%%
 
 dfProvincia.to_csv("datasets/TablasModelo/df_Provincia.csv", index=False,encoding ="utf-8")
 dfDepartamento.to_csv("datasets/TablasModelo/df_Departamento.csv", index=False,encoding ="utf-8")

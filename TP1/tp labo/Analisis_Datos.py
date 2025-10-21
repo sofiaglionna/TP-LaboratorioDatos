@@ -28,7 +28,9 @@ gráficos utilizando herramientas de visualización (matplotlib) a partir tambi�
 
 dfDepartamento = pd.read_csv("datasets/TablasModelo/df_Departamento.csv")
 dfEE = pd.read_csv("datasets/TablasModelo/df_EE.csv")
-dfEP = pd.read_csv("datasets/TablasModelo/df_EP.csv")
+#Me aseguro de pasar clae3 como string porque sino al ser numeros duckdb lo interpreta automaticamente como int
+#modificando los valores
+dfEP = pd.read_csv("datasets/TablasModelo/df_EP.csv", dtype={"clae3": str})
 dfPoblacion = pd.read_csv("datasets/TablasModelo/df_Poblacion.csv")
 dfEP_con_desc = pd.read_csv("datasets/TablasModelo/EP_con_desc.csv")
 dfProvincia = pd.read_csv("datasets/TablasModelo/df_Provincia.csv")
@@ -37,19 +39,19 @@ dfProvincia = pd.read_csv("datasets/TablasModelo/df_Provincia.csv")
 # CORREGIMOS TIPOS DE DATOS
 # ============================================
 
-dfEE["departamento_id"] = pd.to_numeric(dfEE["departamento_id"], errors="coerce").astype("Int64")
+#dfEE["departamento_id"] = pd.to_numeric(dfEE["departamento_id"], errors="coerce").astype("Int64")
 
 # cambiamos los tipos de datos de Población
-dfPoblacion["departamento_id"] = pd.to_numeric(dfPoblacion["departamento_id"], errors="coerce").astype("Int64")
-dfPoblacion["Edad"]            = pd.to_numeric(dfPoblacion["Edad"], errors="coerce")
-dfPoblacion["Casos"]           = pd.to_numeric(dfPoblacion["Casos"], errors="coerce")
+#dfPoblacion["departamento_id"] = pd.to_numeric(dfPoblacion["departamento_id"], errors="coerce").astype("Int64")
+#dfPoblacion["Edad"]            = pd.to_numeric(dfPoblacion["Edad"], errors="coerce")
+#dfPoblacion["Casos"]           = pd.to_numeric(dfPoblacion["Casos"], errors="coerce")
 
 # Convertimos los tipos de datos de EE
-cols_ee = ["SNU","SNU - INET","Secundario - INET","Nivel inicial - Jardín maternal",
-           "Nivel inicial - Jardín de infantes","Primario","Secundario"]
-for c in cols_ee:
-    dfEE[c] = pd.to_numeric(dfEE[c], errors="coerce").fillna(0).astype("int64")
-dfEE["departamento_id"] = pd.to_numeric(dfEE["departamento_id"], errors="coerce").astype("Int64")
+#cols_ee = ["SNU","SNU - INET","Secundario - INET","Nivel inicial - Jardín maternal",
+#           "Nivel inicial - Jardín de infantes","Primario","Secundario"]
+#for c in cols_ee:
+#    dfEE[c] = pd.to_numeric(dfEE[c], errors="coerce").fillna(0).astype("int64")
+#dfEE["departamento_id"] = pd.to_numeric(dfEE["departamento_id"], errors="coerce").astype("Int64")
 
 # ============================================
 # ============= 1. REPORTES SQL ==============
@@ -256,46 +258,19 @@ trabajadoresXProvinciaRepetidos = """
 """
 dftrabajadoresXProvinciaRepetidos = dd.query(trabajadoresXProvinciaRepetidos).df()
 
-trabajadoresXProvincia = """
-      SELECT p.provincia_id AS Provincia, SUM(trabajadores) AS cant_empleos
+#calculo el promedio de trabajadores por provincia
+PromedioPorProvincia = """
+      SELECT p.provincia_id,p.provincia, AVG(trabajadores) AS Prom_empleados
       FROM dftrabajadoresXProvinciaRepetidos as txp
       INNER JOIN dfProvincia AS p 
       ON txp.provincia_id = p.provincia_id
-      GROUP BY p.Provincia_id
+      GROUP BY p.Provincia_id,p.provincia
       ORDER BY p.Provincia_id
 """
-dftrabajadoresXProvincia= dd.query(trabajadoresXProvincia).df()
-
-# Necesitamos la cantidad de Departamentos por Provincia para calcular la cant de empleo promedio por departamento:
-cantDeptosXProvincia = """
-      SELECT p.provincia_id AS Provincia, COUNT(*) AS cant_departamentos
-      FROM dfDepartamento AS d
-      INNER JOIN dfProvincia AS p 
-      ON d.provincia_id = p.provincia_id 
-      GROUP BY p.Provincia_id
-      ORDER BY p.Provincia_id
-"""
-dfcantDeptosXProvincia= dd.query(cantDeptosXProvincia).df()
-
-# Ahora ya tenemos la información para calcular el promedio de puestos de trabajo por Departamento;
-# Tenemos el total de puestos de trabajo por provincias (dftrabajadoresXProvincia)
-# Y tenemos la cant de Deptartamentos por provincia (dfcantDeptosXProvincia)
-
-# Creamos un dataFrame con las provincias y una columna vacía para asignar el promedio:
-PromedioPorProvincia = """
-            SELECT *
-            FROM dfProvincia
-            ORDER BY provincia_id
-"""
-dfPromedioPorProvincia = dd.query(PromedioPorProvincia).df()
-dfPromedioPorProvincia['Promedio'] = 0
-for i,row in dftrabajadoresXProvincia['cant_empleos'].items():
-    cantDepartamentosi = dfcantDeptosXProvincia.loc[i,'cant_departamentos']
-    promProvinciai= row/cantDepartamentosi
-    dfPromedioPorProvincia.loc[i,'Promedio'] = promProvinciai
+dfPromedioPorProvincia= dd.query(PromedioPorProvincia).df()
     
-# Ahora hacemos una tabla de provincia, departamento, clae6, cant_empleados (en el departamento), promedio trabajadores en provincia con un join. 
-# Luego nos quedamos solo con los casos donde cant_empleados > promedio y recortamos el clae6.
+# Hace una tabla de provincia, departamento, cant_empleados (en el departamento) con un join. 
+# conservando solo con los departamentos donde cant_empleados > promedio de su provincia
 empleadosPorDeptoyProv = """
         SELECT dfPromedioPorProvincia.Provincia, departamento, dfDepartamento.Departamento_id,total
         FROM dfDepartamento
@@ -303,37 +278,32 @@ empleadosPorDeptoyProv = """
         ON dfDepartamento.Provincia_id = dfPromedioPorProvincia.Provincia_id
         LEFT OUTER JOIN dftrabajadoresXDepartamento
         ON dfDepartamento.Departamento_id = dftrabajadoresXDepartamento.departamento_id
-        WHERE total>Promedio
+        WHERE total>Prom_empleados
 """
 dfempleadosPorDeptoyProv = dd.query(empleadosPorDeptoyProv).df()
 
+#Hago un tabla con departamento,clae6, clae3 y cantidad de empleados en dicha clae6 en ese departamento
 trabajadoresxclae6ydepto = """
-        SELECT departamento_id,clae6,
+        SELECT departamento_id,clae6, clae3,
         SUM(varones + mujeres) AS trabajadores
         FROM dfEP
-        GROUP BY departamento_id,clae6
+        GROUP BY departamento_id,clae6,clae3
 """
 dftrabajadoresxclae6ydepto = dd.query(trabajadoresxclae6ydepto).df()
 
+#Por departamento solo conservo la clae6 con mayor numero de empleados y su clae 3 asociada
 MaxTrabajadoresPorClaeEnDepartamento = """
-        SELECT departamento_id, ANY_VALUE(clae6) AS clae3, trabajadores
+        SELECT departamento_id, ANY_VALUE(clae6) AS clae6, trabajadores,clae3,
         FROM dftrabajadoresxclae6ydepto
         WHERE (departamento_id, trabajadores) IN (
             SELECT departamento_id, MAX(trabajadores)
             FROM dftrabajadoresxclae6ydepto
             GROUP BY departamento_id)
-        GROUP BY departamento_id, trabajadores
+        GROUP BY departamento_id, trabajadores,clae3
         ORDER BY departamento_id
 """
 dfMaxTrabajadoresPorClaeEnDepartamento = dd.query(MaxTrabajadoresPorClaeEnDepartamento).df()
-
-for i,row in dfMaxTrabajadoresPorClaeEnDepartamento['clae3'].items():
-    if len(str(row)) == 5:
-        res = '0'+str(row)[0:2]
-    else:
-        res = str(row)[0:3]
-    dfMaxTrabajadoresPorClaeEnDepartamento.loc[i,'clae3'] = res
-    
+#paso el departamento_id de MaxTrabajadoresPorClaeEnDepartamento al nombre del departamento y de la provincia a la que pertenece
 iv = """
         SELECT provincia AS Provincia,departamento AS Departamento,clae3 AS CLAE3,trabajadores AS "Cant. empleos"
         FROM dfempleadosPorDeptoyProv
@@ -352,12 +322,23 @@ dfiv=dd.query(iv).df()
 # 2.i
 # ======================
 
-# Utilizando la tabla creada para el ej 1.iv (dftrabajadoresXProvincia), le ponemos nombre a las provincias, ya que esta tiene el id_provincia.
+# Utilizando la tabla creada para el ej 1.iv (dftrabajadoresXProvinciaRepetidos). Hacemos una tabla con la suma
+#de todos los trabajadores en una provincia
+trabajadoresXProvincia = """
+        SELECT provincia_id, SUM(trabajadores) AS cant_empleos
+        FROM dftrabajadoresXProvinciaRepetidos
+        GROUP BY provincia_id
+"""
+
+dftrabajadoresXProvincia = dd.query(trabajadoresXProvincia).df()
+
+
+#le ponemos nombre a las provincias, ya que esta tiene el id_provincia.
 EmpleadosXProvincia = """
             SELECT p.provincia, cant_empleos
             FROM dftrabajadoresXProvincia AS tp
             INNER JOIN dfProvincia AS p
-            ON tp.Provincia = p.provincia_id
+            ON tp.provincia_id = p.provincia_id
             ORDER BY cant_empleos DESC 
 """
 dfEmpleadosXProvincia=dd.query(EmpleadosXProvincia).df()
