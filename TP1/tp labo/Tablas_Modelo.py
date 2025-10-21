@@ -11,7 +11,7 @@ Integrantes del grupo:
 ---------------------
 - Felix Soriano
 - Sofia Glionna
-- Ramiro --------------FALTA APELLIDO
+- Ramiro Gantman
 
 Descripción:
 -------------
@@ -19,7 +19,6 @@ En este archivo (Tablas_Modelo.py) creamos los DataFrames indicados en el DER y 
 utilizados para el análisis de los datos, ubicado en (Analisis_Datos.py).  
 ===============================================================================
 """
-
 
 # =====================================================================
 # LECTURA DE ARCHIVOS (Tablas Originales)
@@ -56,9 +55,9 @@ Provincia = """
 dfProvincia = dd.query(Provincia).df()
 
 
-# ===================================================================
-# 2. DF de Establecimientos Productivos: Empleo (Varones y Mujeres)
-# ===================================================================
+# ======================
+# 2.1 DF de Establecimientos Productivos: Empleo (Varones y Mujeres)
+# ======================
 
 # Cantidad de varones que emplea cada rubro por departamento en 2022
 VaronesEmpleados = """
@@ -108,11 +107,25 @@ EP = """
         """
 dfEP = dd.query(EP).df()
 
-# ====================================
-# 3. DF de Establecimientos Educativos
-# ====================================
-#%%
-# Establecimientos educativos con codigo de localidad completo.
+# ======================
+# 2.2 DF de Actividades Establecimientos Productivos
+# ======================
+
+EP_con_desc = """
+                SELECT DISTINCT
+                    ArchivoEP.clae6,
+                    ArchivoActividadesEstablecimientos.clae6_desc
+                FROM ArchivoEP
+                LEFT JOIN ArchivoActividadesEstablecimientos
+                ON ArchivoEP.clae6 = ArchivoActividadesEstablecimientos.clae6
+              """
+dfEP_con_desc = dd.query(EP_con_desc).df()
+
+
+# ====================================================
+#%% 3. DF de Establecimientos Educativos
+# ====================================================
+
 EE = """
       SELECT cueanexo,
       "Código de localidad" AS departamento_id,
@@ -136,9 +149,7 @@ for i,row in dfEE['departamento_id'].items():
         if  str(row)[0:5] != "94028":
             res = int(str(row)[0:5])
     dfEE.loc[i,'departamento_id'] = res
-#%%
 
-#Normalizamos tipos numéricos en columnas del padrón educativo 
 cols_a_numericas = [
     "SNU",
     "SNU - INET",
@@ -152,15 +163,14 @@ cols_a_numericas = [
 for col in cols_a_numericas:
     dfEE[col] = pd.to_numeric(dfEE[col], errors="coerce").fillna(0).astype("int64")
 
-# Aseguramos que departamento_id quede como entero
+# para que departamento_id quede como entero:
 dfEE["departamento_id"] = pd.to_numeric(dfEE["departamento_id"], errors="coerce").astype("Int64")
 dfEE.dtypes
 
 # ====================================
-# 4. DF de Población
+#%% 4. DF de Población
 # ====================================
 
-#corregir población
 Poblacion_con_nombre = """
                        SELECT "  de Edad" AS departamento_id, "Unnamed: 1" AS Edad, "Unnamed: 2" AS Casos
                        FROM ArchivoPoblacion
@@ -173,8 +183,8 @@ dfPoblacion_con_nombre.dropna(subset=['Edad'], inplace=True)
 dfPoblacion_con_nombre.reset_index(drop=True, inplace=True)
 
 
-# En departamento tengo varios departamentos con mismo nombre por lo que solo el nombre no me distingue entre ellos
-# pero dentro de la misma provincia no pueden existir 2 departamentos de igual nombre. Por eso me guardo el provincia_id
+# En departamento tenemos varios departamentos con mismo nombre por lo que solo el nombre no me distingue entre ellos
+# pero dentro de la misma provincia no pueden existir 2 departamentos de igual nombre. Por eso nos guardamos el provincia_id
 # formado por los primeros 2 digitos del codigo de Area.
 
 departamento_id = 0
@@ -196,11 +206,6 @@ dfPoblacion_con_nombre.reset_index(drop=True, inplace=True)
 
 dfDepartamento['provincia_id'] = dfDepartamento['provincia_id'].astype(str)
 
-#%%
-print(dfPoblacion_con_nombre['Casos'][0])
-print(type(dfPoblacion_con_nombre['Casos'][0]))
-
-#%%
 numeros = ['1','2','3','4','5','6','7','8','9','0']
 # Limpieza fuerte de 'Casos': borra espacios (incl. NBSP), puntos, comas, etc.
 for i,row in dfPoblacion_con_nombre['Casos'].items():
@@ -209,23 +214,8 @@ for i,row in dfPoblacion_con_nombre['Casos'].items():
         if j in numeros:
             res+=j
     dfPoblacion_con_nombre.loc[i,'Casos'] = int(res)
-#%%
-print(dfPoblacion_con_nombre['Casos'][0])
-print(type(dfPoblacion_con_nombre['Casos'][0]))
 
-#%%
-#dfPoblacion_con_nombre["Casos"] = (
-#    pd.to_numeric(
-#        dfPoblacion_con_nombre["Casos"]
-#            .astype(str)
-#            .str.replace(r"[^\d]", "", regex=True),  # deja solo 0-9
-#        errors="coerce"
-#    ).astype("Int64")
-#)
-#%%
 dfPoblacion_con_nombre["Edad"] = dfPoblacion_con_nombre["Edad"].astype(int)
-
-print(type(dfPoblacion_con_nombre['Edad'][0]))
 
 PoblacionAux = """
 SELECT 
@@ -253,20 +243,6 @@ poblacion ="""
 
 dfPoblacion = dd.query(poblacion).df()
 
-print(type(ArchivoPoblacion['Unnamed: 1'][5]))
-print(type(dfPoblacion['Edad'][0]))
-print(type(dfPoblacion_con_nombre['Edad'][0]))
-
-# Actividades establecimiento
-EP_con_desc = """
-                SELECT DISTINCT
-                    ArchivoEP.clae6,
-                    ArchivoActividadesEstablecimientos.clae6_desc
-                FROM ArchivoEP
-                LEFT JOIN ArchivoActividadesEstablecimientos
-                ON ArchivoEP.clae6 = ArchivoActividadesEstablecimientos.clae6
-              """
-dfEP_con_desc = dd.query(EP_con_desc).df()
 
 # =====================================================================
 # VALIDACIONES

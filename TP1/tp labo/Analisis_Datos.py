@@ -17,7 +17,7 @@ Integrantes del grupo:
 Descripción:
 -------------
 En este archivo (Analisis_Datos.py) se encuentran todos los ejercicios de análisis
-de los datos. Primero (1) los reportes utilizando sólo consultas SQL y luego (2) los
+de los datos. Primero (1) se muestran los reportes utilizando sólo consultas SQL y luego (2) los
 gráficos utilizando herramientas de visualización (matplotlib) a partir también de colsultas SQL.
 ===============================================================================
 """
@@ -51,10 +51,13 @@ for c in cols_ee:
     dfEE[c] = pd.to_numeric(dfEE[c], errors="coerce").fillna(0).astype("int64")
 dfEE["departamento_id"] = pd.to_numeric(dfEE["departamento_id"], errors="coerce").astype("Int64")
 
+# ============================================
+# ============= 1. REPORTES SQL ==============
+# ============================================
 
-# ============================================
+# ======================
 # 1.i
-# ============================================
+# ======================
 
 # Contamos los Establecimientos Educativos que hay en cada departamento.
 CantEE = """
@@ -68,7 +71,6 @@ CantEE = """
         GROUP BY departamento_id
 """
 dfCantEE = dd.query(CantEE).df()
-
 
 # Calculamos las poblaciones de cada rango de edad según nivel educativo por departamento siguiendo el siguiente criterio:
 # Población Jardín = 0 - 5
@@ -341,17 +343,16 @@ iv = """
 dfiv=dd.query(iv).df()
 
 
-#%%#######################################################
-# ======================= GRAFICOS =======================
-# ########################################################
+# ============================================
+# =============== 2. GRAFICOS ================
+# ============================================
 
 
 # ======================
 # 2.i
 # ======================
 
-# Utilizando la tabla creada para el ej 1.iv (dftrabajadoresXProvincia), le ponemos nombre a las provincias, ya que esta tiene el id.
-
+# Utilizando la tabla creada para el ej 1.iv (dftrabajadoresXProvincia), le ponemos nombre a las provincias, ya que esta tiene el id_provincia.
 EmpleadosXProvincia = """
             SELECT p.provincia, cant_empleos
             FROM dftrabajadoresXProvincia AS tp
@@ -399,8 +400,7 @@ plt.show()
 # 2.iii
 # ======================
 
-
-#junto departamentos con sus provincias para tenerlos con nombre
+# Juntamos departamentos con sus provincias para tenerlos con nombre:
 EEPorDepartamento = dfEEtotalesXDepto
 departamentoConProvincia = """
             SELECT departamento_id, provincia
@@ -410,7 +410,7 @@ departamentoConProvincia = """
 """
 dfdepartamentoconProvincia = dd.query(departamentoConProvincia).df()
 
-#Establecimientos educativos por departamento y la provincia a la que pertenecen
+# Establecimientos educativos por departamento y la provincia a la que pertenecen.
 EEPorDepartamentoyProvincia ="""
         SELECT provincia, "Total Establecimientos Educativos"
         FROM EEPorDepartamento
@@ -420,8 +420,8 @@ EEPorDepartamentoyProvincia ="""
 
 dfEEPorDepartamentoyProvincia = dd.query(EEPorDepartamentoyProvincia).df()
 
-#Por cada provincia creo una lista con el numero de EE en cada departamento (no conservo a que departamento se refiere)
-#solo conservo el numero de EE
+# Por cada provincia creamos una lista con el numero de EE en cada departamento (no conservamos a que departamento se refiere).
+# solo conservamos el numero de EE.
 EEenProvincia= {}
 for i,row in dfEEPorDepartamentoyProvincia.iterrows():
     provincia = row['provincia']
@@ -435,7 +435,7 @@ EEPorProvaux = list(EEenProvincia.values())
 
 EEPorProvordenados = []
 
-#ordeno los departamentos dentro de cada provincia de menor a mayor en cantidad de EE
+# Ordenamos los departamentos dentro de cada provincia de menor a mayor en cantidad de EE.
 def Buscarmaximo (v):
     maximo=0
     for i in v:
@@ -457,9 +457,7 @@ def ordenar (v):
 for j in EEPorProvaux:
     EEPorProvordenados.append(ordenar(j))
     
-
-
-#calculo medianas de cada provincia
+# Calculamos medianas de cada provincia
 medianas = []
 for j in EEPorProvordenados:
     if len(j)%2 != 0:
@@ -467,9 +465,7 @@ for j in EEPorProvordenados:
     else:
         medianas.append((j[int(len(j)//2)]+j[int((len(j)//2))-1])/2)
         
-
-
-#reordeno Provincias y EEPorProv de menor a mayor mediana
+# Reordenamos Provincias y EEPorProv de menor a mayor mediana
 indicesMedianas = []
 Provincias = []
 EEPorProv = []
@@ -486,6 +482,7 @@ for i in range(0,len(indicesMedianas)):
             EEPorProv.append(EEPorProvordenados[j])
             Provincias.append(provinciasaux[j])
 
+# Finalmente graficamos:
 fig, ax = plt.subplots(figsize=(10, 6))
 VP = ax.boxplot(EEPorProv, labels= Provincias, patch_artist=True)
 ax.tick_params(axis='x', rotation=45, labelsize=8)
@@ -531,7 +528,7 @@ dfEE_Empleados_Poblacion["Empleados_por_1000hab"] = dfEE_Empleados_Poblacion["Em
 # Observación: En departamentos como el 2007 (COMUNA 1) la cantidad de empleados supera la población.
 # Esto es correcto, y nos indica que los empleados de COMUNA 1 no son residentes de ahi mismo.
 
-# Ahora graficamos:
+# Finalmente graficamos:
 plt.figure(figsize=(8,6))
 plt.scatter(dfEE_Empleados_Poblacion["EE_por_1000hab"], dfEE_Empleados_Poblacion["Empleados_por_1000hab"], color='red', alpha=0.7, s=25)
 
@@ -539,14 +536,12 @@ plt.xlabel("Establecimientos Educativos cada 1000 habitantes")
 plt.ylabel("Empleados cada 1000 habitantes")
 plt.title("Relación entre EE y trabajadores por cada 1000 habitantes (por departamento)")
 
-plt.xscale('log') # Es util para verlo nosotros pero para el final lo sacaría.
+plt.xscale('log') # (Es util para verlo nosotros pero para el final capaz lo sacaría)
 plt.yscale('log')
 
 plt.grid(True)
 plt.tight_layout()
 plt.show()
-
-
 
 
 #%%=====================
@@ -570,13 +565,12 @@ finales_10 = pd.concat([mayores_5, menores_5])
 df_mujeres_por_clae6_con_desc = pd.merge(finales_10, dfEP_con_desc[["clae6_desc","clae6"]], on="clae6", how="left")
 
 # Calculamos el promedio de mujeres sobre el total de empleados
-
 cant_mujeres = dfEP["mujeres"].sum()
 cant_varones = dfEP["varones"].sum()
 
 promedio_mujeres_sobre_total = (cant_mujeres/(cant_mujeres + cant_varones))*100
 
-# --- Datos ---
+#
 descs = df_mujeres_por_clae6_con_desc["clae6_desc"].tolist()
 vals  = df_mujeres_por_clae6_con_desc["mujeres"].tolist()
 
@@ -596,7 +590,7 @@ def cortar_lineas(texto, ancho=18):
 
 labels_multilinea = [cortar_lineas(t, ancho=18) for t in descs]
 
-# --- Gráfico estilo Excel ---
+# Graficamos:
 fig, ax = plt.subplots(figsize=(14, 7))
 ax.bar(range(len(vals)), vals, width=0.55, color="cornflowerblue")
 
@@ -607,7 +601,7 @@ ax.set_xticks(range(len(vals)))
 ax.set_xticklabels(labels_multilinea, fontsize=8, ha='center')
 
 ax.tick_params(axis='x', pad=10)
-plt.subplots_adjust(bottom=0.45)  # aumentá si se corta el texto
+plt.subplots_adjust(bottom=0.45)  
 
 ax.set_title("Participación femenina por actividad económica")
 ax.set_ylabel("Cantidad de empleos femeninos")
