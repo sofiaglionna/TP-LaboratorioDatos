@@ -472,7 +472,6 @@ for label in ax.get_xticklabels():
 plt.xlabel('Provincia')
 plt.ylabel('Cantidad de establecimientos educativos')
 plt.title('Cantidad de establecimientos educativos por provincia')
-plt.tight_layout()
 plt.show()
 
 #%%=====================
@@ -521,7 +520,6 @@ plt.xscale('log') # (Es util para verlo nosotros pero para el final capaz lo sac
 plt.yscale('log')
 
 plt.grid(True)
-plt.tight_layout()
 plt.show()
 
 
@@ -529,64 +527,108 @@ plt.show()
 # 2.v
 # ======================
 
-# Obtenemos todas las clae6 y la cantidad de mujeres que trabajan en cada clave
+# Obtenemos todas las clae6 y la cantidad de mujeres y trabajadores totales que trabajan en cada clae
 df_mujeres_por_clae6 = dfEP.groupby('clae6', as_index=False)['mujeres'].sum().sort_values("mujeres", ascending=False)
+trabajadores_y_mujeres_por_clae = """
+            SELECT clae6, SUM (varones+mujeres) AS "Total de empleados",SUM(mujeres) AS "Mujeres empleadas"
+            FROM dfEP
+            GROUP BY clae6
+            HAVING SUM(mujeres) > 0
+"""
+dftrabajadores_y_mujeres_por_clae=dd.query(trabajadores_y_mujeres_por_clae).df()
 
-#Sacamos todos los valores que son 0
-df_mujeres_por_clae6_final = df_mujeres_por_clae6[df_mujeres_por_clae6["mujeres"] > 0]
+porcentaje_mujeres_por_clae = """
+                    SELECT clae6, ("Mujeres empleadas" * 100.0 / "Total de empleados") AS Porcentaje_mujeres
+                    FROM dftrabajadores_y_mujeres_por_clae
+                    ORDER BY porcentaje_mujeres
+"""
 
-# Obtenemos las 5 clae6 con mayor y menor cantidad de mujeres
-mayores_5 = df_mujeres_por_clae6_final.head(5)
-menores_5 = df_mujeres_por_clae6_final.tail(5)
+dfporcentaje_mujeres_por_clae=dd.query(porcentaje_mujeres_por_clae).df()
 
-# Concatenamos los dfs del punto anterior
-finales_10 = pd.concat([mayores_5, menores_5])
+#calculo el porcentaje Promedio de trabajadoras mujeres por clae6
+promedioTotalValor = """
+            SELECT (SUM("Mujeres empleadas") * 100.0) / SUM("Total de empleados") AS valor
+            FROM dftrabajadores_y_mujeres_por_clae
+"""
+dfpromedioTotalValor = dd.query(promedioTotalValor).df()
+promediototal = pd.DataFrame({
+    "clae6": ["Promedio"],
+    "Porcentaje_mujeres": [dfpromedioTotalValor.iloc[0,0]]
+    })
 
-# Unimos el dataset anterior con sus respectivas descripciones
-df_mujeres_por_clae6_con_desc = pd.merge(finales_10, dfEP_con_desc[["clae6_desc","clae6"]], on="clae6", how="left")
+#junto los que tienen mayor porcentaje de mujeres y los que tienen menor
+dfmaxYmin_porcentaje = pd.DataFrame()
+dfmaxYmin_porcentaje = pd.concat([
+    dfporcentaje_mujeres_por_clae[0:5],
+    dfporcentaje_mujeres_por_clae[932::],
+])
+dfmaxYmin_porcentaje.reset_index(drop=True, inplace=True)
 
-# Calculamos el promedio de mujeres sobre el total de empleados
-cant_mujeres = dfEP["mujeres"].sum()
-cant_varones = dfEP["varones"].sum()
+maxYmin_Porcentaje_con_Nombre = """
+            SELECT clae6_desc AS clae6 ,Porcentaje_mujeres
+            FROM dfmaxYmin_porcentaje
+            INNER JOIN dfEP_con_desc
+            ON dfmaxYmin_porcentaje.clae6 = dfEP_con_desc.clae6
+            ORDER BY Porcentaje_mujeres ASC
+"""
+dfmaxYmin_Porcentaje_con_Nombre = dd.query(maxYmin_Porcentaje_con_Nombre).df()
 
-promedio_mujeres_sobre_total = (cant_mujeres/(cant_mujeres + cant_varones))*100
+Clae6_con_Porcentaje_de_Mujeres = pd.concat([
+    dfmaxYmin_Porcentaje_con_Nombre,
+    promediototal    
+])
+Clae6_con_Porcentaje_de_Mujeres.reset_index(drop=True, inplace=True)
 
-#
-descs = df_mujeres_por_clae6_con_desc["clae6_desc"].tolist()
-vals  = df_mujeres_por_clae6_con_desc["mujeres"].tolist()
+descs = Clae6_con_Porcentaje_de_Mujeres["clae6"].tolist()
+vals  = Clae6_con_Porcentaje_de_Mujeres["Porcentaje_mujeres"].tolist()
 
 # función para cortar texto cada N caracteres
-def cortar_lineas(texto, ancho=18):
+def cortar_lineas(texto, ancho):
     palabras = texto.split()
-    lineas, linea_actual = [], ""
+    lineas = []
+    linea_actual =  ""
     for p in palabras:
-        if len(linea_actual) + len(p) + 1 <= ancho:
-            linea_actual += (" " if linea_actual else "") + p
-        else:
+        if p == "(Incluye":
             lineas.append(linea_actual)
-            linea_actual = p
-    if linea_actual:
+            res = ""
+            for j in lineas:
+                res += j +'\n'
+            return res
+        else:
+            
+            if len(linea_actual) + len(p) + 1 <= ancho:
+                if linea_actual != "":
+                    p = " " + p
+                linea_actual += p
+            else:
+                lineas.append(linea_actual)
+                linea_actual = p
+    if linea_actual != "":
         lineas.append(linea_actual)
-    return "\n".join(lineas)
+    res = ""
+    for j in lineas:
+        res += j +'\n'
+    return res
 
-labels_multilinea = [cortar_lineas(t, ancho=18) for t in descs]
+labels_multilinea =[]
+for t in descs:
+    labels_multilinea.append(cortar_lineas(t, 18))
 
-# Graficamos:
-fig, ax = plt.subplots(figsize=(14, 7))
-ax.bar(range(len(vals)), vals, width=0.55, color="cornflowerblue")
-
-ax.grid(axis='y', alpha=0.3)
-ax.axhline(promedio_mujeres_sobre_total, color="black", linestyle="--", linewidth=1)
-
+#graficamos
+fig, ax = plt.subplots(figsize=(15, 7))
+barras = ax.bar(range(len(vals)),
+       vals,
+       width=0.55,
+       edgecolor="white")
 ax.set_xticks(range(len(vals)))
-ax.set_xticklabels(labels_multilinea, fontsize=8, ha='center')
-
-ax.tick_params(axis='x', pad=10)
-plt.subplots_adjust(bottom=0.45)  
-
-ax.set_title("Participación femenina por actividad económica")
-ax.set_ylabel("Cantidad de empleos femeninos")
-ax.set_xlabel("")
-
-plt.tight_layout()
+ax.set_xticklabels(labels_multilinea)
+ax.set_xlabel("Rubro")
+ax.set_ylabel("Porcentaje de mujeres")
+plt.title('Porcentaje de mujeres en actividades productivas')
+plt.subplots_adjust(bottom=0.35)  
+plt.xticks(fontsize=7, ha="center")  
+ax.bar_label(barras, fmt='%.1f%%', fontsize=8)
+ax.axvline((len(vals)/2)-1, color='gray', linestyle='--', linewidth=1)
+ax.axvline(len(vals)-1.5, color='gray', linestyle='--', linewidth=1)
 plt.show()
+
