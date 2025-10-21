@@ -465,10 +465,8 @@ for i in range(0,len(indicesMedianas)):
 
 # Finalmente graficamos:
 fig, ax = plt.subplots(figsize=(10, 6))
-VP = ax.boxplot(EEPorProv, labels= Provincias, patch_artist=True)
-ax.tick_params(axis='x', rotation=45, labelsize=8)
-for label in ax.get_xticklabels():
-    label.set_ha('right')
+ax.boxplot(EEPorProv, labels= Provincias, patch_artist=True)
+ax.set_xticklabels(Provincias, rotation=45, ha='right')
 plt.xlabel('Provincia')
 plt.ylabel('Cantidad de establecimientos educativos')
 plt.title('Cantidad de establecimientos educativos por provincia')
