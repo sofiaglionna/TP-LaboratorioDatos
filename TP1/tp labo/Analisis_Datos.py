@@ -551,10 +551,7 @@ promedioTotalValor = """
             FROM dftrabajadores_y_mujeres_por_clae
 """
 dfpromedioTotalValor = dd.query(promedioTotalValor).df()
-promediototal = pd.DataFrame({
-    "clae6": ["Promedio"],
-    "Porcentaje_mujeres": [dfpromedioTotalValor.iloc[0,0]]
-    })
+promedio = dfpromedioTotalValor.iloc[0,0]
 
 #junto los que tienen mayor porcentaje de mujeres y los que tienen menor
 dfmaxYmin_porcentaje = pd.DataFrame()
@@ -571,12 +568,8 @@ maxYmin_Porcentaje_con_Nombre = """
             ON dfmaxYmin_porcentaje.clae6 = dfEP_con_desc.clae6
             ORDER BY Porcentaje_mujeres ASC
 """
-dfmaxYmin_Porcentaje_con_Nombre = dd.query(maxYmin_Porcentaje_con_Nombre).df()
+Clae6_con_Porcentaje_de_Mujeres = dd.query(maxYmin_Porcentaje_con_Nombre).df()
 
-Clae6_con_Porcentaje_de_Mujeres = pd.concat([
-    dfmaxYmin_Porcentaje_con_Nombre,
-    promediototal    
-])
 Clae6_con_Porcentaje_de_Mujeres.reset_index(drop=True, inplace=True)
 
 descs = Clae6_con_Porcentaje_de_Mujeres["clae6"].tolist()
@@ -628,7 +621,8 @@ plt.title('Porcentaje de mujeres en actividades productivas')
 plt.subplots_adjust(bottom=0.35)  
 plt.xticks(fontsize=7, ha="center")  
 ax.bar_label(barras, fmt='%.1f%%', fontsize=8)
-ax.axvline((len(vals)/2)-1, color='gray', linestyle='--', linewidth=1)
-ax.axvline(len(vals)-1.5, color='gray', linestyle='--', linewidth=1)
+ax.axvline((len(vals)/2)-0.5, color='gray', linestyle='--', linewidth=1)
+ax.axhline(y=promedio, color='red', linestyle='--', linewidth=1.5, label=f'Promedio ({promedio:.1f}%)')
+ax.legend()
 plt.show()
 
