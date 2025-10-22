@@ -274,9 +274,9 @@ dfEPaux = dd.query(EPaux).df()
 # =====================================================================
 #%%
 
-dfProvincia.to_csv("datasets/TablasModelo/df_Provincia.csv", index=False,encoding ="utf-8")
-dfDepartamento.to_csv("datasets/TablasModelo/df_Departamento.csv", index=False,encoding ="utf-8")
-dfEP.to_csv("datasets/TablasModelo/df_EP.csv", index=False,encoding ="utf-8")
-dfEP_con_desc.to_csv("datasets/TablasModelo/df_EP_con_desc.csv", index=False, encoding="utf-8")
-dfEE.to_csv("datasets/TablasModelo/df_EE.csv", index=False,encoding ="utf-8")
-dfPoblacion.to_csv("datasets/TablasModelo/df_Poblacion.csv", index=False,encoding ="utf-8")
+dfProvincia.to_csv("datasets/TablasModelo/dfProvincia.csv", index=False,encoding ="utf-8")
+dfDepartamento.to_csv("datasets/TablasModelo/dfDepartamento.csv", index=False,encoding ="utf-8")
+dfEP.to_csv("datasets/TablasModelo/dfEP.csv", index=False,encoding ="utf-8")
+dfEP_con_desc.to_csv("datasets/TablasModelo/dfEP_con_desc.csv", index=False, encoding="utf-8")
+dfEE.to_csv("datasets/TablasModelo/dfEE.csv", index=False,encoding ="utf-8")
+dfPoblacion.to_csv("datasets/TablasModelo/dfPoblacion.csv", index=False,encoding ="utf-8")

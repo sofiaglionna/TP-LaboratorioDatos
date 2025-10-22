@@ -26,14 +26,14 @@ gráficos utilizando herramientas de visualización (matplotlib) a partir tambi�
 # IMPORTAMOS CSV (DataFrames del DER)
 # ============================================
 
-dfDepartamento = pd.read_csv("datasets/TablasModelo/df_Departamento.csv")
-dfEE = pd.read_csv("datasets/TablasModelo/df_EE.csv")
+dfDepartamento = pd.read_csv("datasets/TablasModelo/dfDepartamento.csv")
+dfEE = pd.read_csv("datasets/TablasModelo/dfEE.csv")
 #Me aseguro de pasar clae3 como string porque sino al ser numeros duckdb lo interpreta automaticamente como int
 #modificando los valores
-dfEP = pd.read_csv("datasets/TablasModelo/df_EP.csv", dtype={"clae3": str})
-dfPoblacion = pd.read_csv("datasets/TablasModelo/df_Poblacion.csv")
-dfEP_con_desc = pd.read_csv("datasets/TablasModelo/df_EP_con_desc.csv")
-dfProvincia = pd.read_csv("datasets/TablasModelo/df_Provincia.csv")
+dfEP = pd.read_csv("datasets/TablasModelo/dfEP.csv", dtype={"clae3": str})
+dfPoblacion = pd.read_csv("datasets/TablasModelo/dfPoblacion.csv")
+dfEP_con_desc = pd.read_csv("datasets/TablasModelo/dfEP_con_desc.csv")
+dfProvincia = pd.read_csv("datasets/TablasModelo/dfProvincia.csv")
 
 # ============================================
 # ============= 1. REPORTES SQL ==============
