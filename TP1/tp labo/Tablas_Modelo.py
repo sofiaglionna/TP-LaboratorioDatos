@@ -241,7 +241,6 @@ ORDER BY dfDepartamento.departamento_id, dfPoblacion_con_nombre.Edad
 """
 dfPoblacionAux = dd.query(PoblacionAux).df()
 
-print(type(dfPoblacionAux['Edad'][0]))
 dfPoblacionAux.loc[53749:,'departamento_id'] = 6651
 dfPoblacionAux.loc[53750:53943:2,'departamento_id'] = 22126
 

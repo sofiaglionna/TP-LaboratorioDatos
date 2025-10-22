@@ -36,24 +36,6 @@ dfEP_con_desc = pd.read_csv("datasets/TablasModelo/EP_con_desc.csv")
 dfProvincia = pd.read_csv("datasets/TablasModelo/df_Provincia.csv")
 
 # ============================================
-# CORREGIMOS TIPOS DE DATOS
-# ============================================
-
-#dfEE["departamento_id"] = pd.to_numeric(dfEE["departamento_id"], errors="coerce").astype("Int64")
-
-# cambiamos los tipos de datos de Población
-#dfPoblacion["departamento_id"] = pd.to_numeric(dfPoblacion["departamento_id"], errors="coerce").astype("Int64")
-#dfPoblacion["Edad"]            = pd.to_numeric(dfPoblacion["Edad"], errors="coerce")
-#dfPoblacion["Casos"]           = pd.to_numeric(dfPoblacion["Casos"], errors="coerce")
-
-# Convertimos los tipos de datos de EE
-#cols_ee = ["SNU","SNU - INET","Secundario - INET","Nivel inicial - Jardín maternal",
-#           "Nivel inicial - Jardín de infantes","Primario","Secundario"]
-#for c in cols_ee:
-#    dfEE[c] = pd.to_numeric(dfEE[c], errors="coerce").fillna(0).astype("int64")
-#dfEE["departamento_id"] = pd.to_numeric(dfEE["departamento_id"], errors="coerce").astype("Int64")
-
-# ============================================
 # ============= 1. REPORTES SQL ==============
 # ============================================
 
@@ -465,7 +447,7 @@ for i in range(0,len(indicesMedianas)):
 
 # Finalmente graficamos:
 fig, ax = plt.subplots(figsize=(10, 6))
-ax.boxplot(EEPorProv, labels= Provincias, patch_artist=True)
+ax.boxplot(EEPorProv, tick_labels= Provincias, patch_artist=True)
 ax.set_xticklabels(Provincias, rotation=45, ha='right')
 plt.xlabel('Provincia')
 plt.ylabel('Cantidad de establecimientos educativos')
