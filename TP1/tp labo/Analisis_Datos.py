@@ -32,7 +32,7 @@ dfEE = pd.read_csv("datasets/TablasModelo/df_EE.csv")
 #modificando los valores
 dfEP = pd.read_csv("datasets/TablasModelo/df_EP.csv", dtype={"clae3": str})
 dfPoblacion = pd.read_csv("datasets/TablasModelo/df_Poblacion.csv")
-dfEP_con_desc = pd.read_csv("datasets/TablasModelo/EP_con_desc.csv")
+dfEP_con_desc = pd.read_csv("datasets/TablasModelo/df_EP_con_desc.csv")
 dfProvincia = pd.read_csv("datasets/TablasModelo/df_Provincia.csv")
 
 # ============================================
