@@ -126,7 +126,7 @@ EP_con_desc = """
                     ArchivoEP.clae6,
                     ArchivoActividadesEstablecimientos.clae6_desc
                 FROM ArchivoEP
-                LEFT JOIN ArchivoActividadesEstablecimientos
+                LEFT OUTER JOIN ArchivoActividadesEstablecimientos
                 ON ArchivoEP.clae6 = ArchivoActividadesEstablecimientos.clae6
               """
 dfEP_con_desc = dd.query(EP_con_desc).df()
