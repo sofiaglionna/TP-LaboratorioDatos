@@ -330,7 +330,7 @@ plt.figure(figsize=(10, 6))
 plt.bar(dfEmpleadosXProvincia['provincia'], dfEmpleadosXProvincia['cant_empleos'])
 plt.title('Cantidad de empleos por provincia', fontsize=14, fontweight='bold')
 plt.xlabel('Provincia', fontsize=12)
-plt.ylabel('Cantidad de empleados', fontsize=12)
+plt.ylabel('Cantidad de empleados (millones)', fontsize=12)
 plt.xticks(rotation=45, ha='right') # Esto es para rotar los nombres pq si no se amontonan todos.
 
 #%%=====================
