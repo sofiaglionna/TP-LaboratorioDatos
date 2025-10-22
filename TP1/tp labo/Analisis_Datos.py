@@ -606,3 +606,57 @@ ax.axhline(y=promedio, color='red', linestyle='--', linewidth=1.5, label=f'Prome
 ax.legend()
 plt.show()
 
+#%%
+#calculo la poblacion en cada provincia
+poblacionPorProvconId="""
+    SELECT provincia_id, SUM(poblacion) AS poblacion
+    FROM dfPoblacionXDepto
+    LEFT OUTER JOIN dfDepartamento
+    ON dfPoblacionXDepto.departamento_id = dfDepartamento.departamento_id
+    GROUP BY provincia_id
+"""
+
+dfpoblacionPorProvconId = dd.query(poblacionPorProvconId).df()
+#paso la tabla anterior para tener la provincia por nombre
+poblacionPorProv = """
+    SELECT provincia, poblacion
+    FROM dfpoblacionPorProvconId 
+    LEFT OUTER JOIN dfProvincia
+    ON dfpoblacionPorProvconId.provincia_id = dfProvincia.provincia_id
+    ORDER BY provincia
+"""
+
+dfpoblacionPorProv = dd.query(poblacionPorProv).df()
+#calculo la cantidad de establecimientos educativos por provincia
+EEPorProv = """
+SELECT provincia, SUM("Total Establecimientos Educativos") AS EE
+FROM dfEEPorDepartamentoyProvincia
+GROUP BY provincia
+ORDER BY provincia
+"""
+dfEEPorProv = dd.query(EEPorProv).df()
+#tomo la tabla empleados por provincia y la ordeno alfabeticamente por provincia asi tengo las 3 tablas en el mismo orden
+empleadosPorProvOrdenado = """
+SELECT *
+FROM dfEmpleadosXProvincia
+ORDER BY provincia
+"""
+dfempleadosPorProvOrdenado = dd.query(empleadosPorProvOrdenado).df()
+
+#creo una tabla con 3 columnas, la provincia (solo la usamos para tomar nota de los datos), la cantidad de establecimientos
+#educativos cada 1000 habitantes y la cantidad de empleados cada 1000 habitantes
+dfEEYEmpleadosCada1000PorProv = pd.DataFrame()
+dfEEYEmpleadosCada1000PorProv['provincia'] = dfpoblacionPorProv['provincia']
+dfEEYEmpleadosCada1000PorProv['EE_por_1000hab'] = (dfEEPorProv['EE'] / dfpoblacionPorProv['poblacion']) * 1000
+dfEEYEmpleadosCada1000PorProv['Empleados_por_1000hab'] = (dfempleadosPorProvOrdenado['cant_empleos'] / dfpoblacionPorProv['poblacion']) * 1000
+
+# Finalmente graficamos:
+plt.figure(figsize=(8,6))
+plt.scatter(dfEEYEmpleadosCada1000PorProv["EE_por_1000hab"], dfEEYEmpleadosCada1000PorProv["Empleados_por_1000hab"], color='red', alpha=0.7, s=25)
+
+plt.xlabel("Establecimientos Educativos cada 1000 habitantes")
+plt.ylabel("Empleados cada 1000 habitantes")
+plt.title("Relación entre EE y trabajadores por cada 1000 habitantes (por provincia)")
+
+plt.grid(True)
+plt.show()
