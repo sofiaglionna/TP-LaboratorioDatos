@@ -1,0 +1,112 @@
+Provincia,Departamento,CLAE3,Cant. empleos
+CABA,Comuna 1,641,40247.0
+CABA,Comuna 4,620,12598.0
+CABA,Comuna 13,869,6528.0
+CABA,Comuna 14,511,6363.0
+Buenos Aires,Almirante Brown,851,4248.0
+Buenos Aires,Avellaneda,851,3280.0
+Buenos Aires,Bahía Blanca,471,1923.0
+Buenos Aires,Berazategui,851,3135.0
+Buenos Aires,Campana,241,4122.0
+Buenos Aires,Escobar,851,3181.0
+Buenos Aires,Esteban Echeverría,851,3105.0
+Buenos Aires,Ezeiza,511,3071.0
+Buenos Aires,Florencio Varela,851,2755.0
+Buenos Aires,General Pueyrredón,851,5952.0
+Buenos Aires,General Rodríguez,105,2120.0
+Buenos Aires,General San Martín,851,4334.0
+Buenos Aires,Hurlingham,851,1693.0
+Buenos Aires,Ituzaingó,851,1791.0
+Buenos Aires,La Matanza,851,10152.0
+Buenos Aires,Lanús,851,4300.0
+Buenos Aires,La Plata,851,8307.0
+Buenos Aires,Lomas de Zamora,851,8665.0
+Buenos Aires,Luján,851,1169.0
+Buenos Aires,Malvinas Argentinas,851,3237.0
+Buenos Aires,Merlo,851,3413.0
+Buenos Aires,Moreno,851,3688.0
+Buenos Aires,Morón,851,4612.0
+Buenos Aires,Olavarría,851,1077.0
+Buenos Aires,Pergamino,013,964.0
+Buenos Aires,Pilar,851,4993.0
+Buenos Aires,Quilmes,851,6848.0
+Buenos Aires,San Fernando,851,2055.0
+Buenos Aires,San Isidro,801,5694.0
+Buenos Aires,San Miguel,851,3214.0
+Buenos Aires,San Nicolás,851,1704.0
+Buenos Aires,Tandil,851,1123.0
+Buenos Aires,Tigre,291,6904.0
+Buenos Aires,Tres de Febrero,851,3201.0
+Buenos Aires,Vicente López,801,11368.0
+Buenos Aires,Zárate,291,7707.0
+Catamarca,Capital,851,2362.0
+Cordoba,Capital,822,12735.0
+Cordoba,Colón,851,1754.0
+Cordoba,General San Martín,851,1373.0
+Cordoba,Punilla,851,1824.0
+Cordoba,Río Cuarto,851,1480.0
+Cordoba,San Justo,107,1741.0
+Corrientes,Capital,471,1532.0
+Corrientes,Goya,014,492.0
+Corrientes,Ituzaingó,107,429.0
+Corrientes,Mercedes,014,769.0
+Corrientes,Paso de los Libres,014,297.0
+Corrientes,Santo Tomé,107,1091.0
+Chaco,Comandante Fernández,949,369.0
+Chaco,San Fernando,822,9120.0
+Chubut,Biedma,102,3176.0
+Chubut,Escalante,091,10630.0
+Chubut,Rawson,102,1348.0
+Entre Rios,Colón,101,2785.0
+Entre Rios,Concordia,851,1116.0
+Entre Rios,Gualeguaychú,852,767.0
+Entre Rios,Paraná,851,2344.0
+Entre Rios,Uruguay,101,2672.0
+Formosa,Formosa,410,2876.0
+Jujuy,El Carmen,011,5012.0
+Jujuy,Dr. Manuel Belgrano,851,1440.0
+Jujuy,Ledesma,107,5883.0
+Jujuy,Palpalá,492,271.0
+La Pampa,Capital,410,1148.0
+La Pampa,Maracó,351,343.0
+La Rioja,Capital,131,1750.0
+La Rioja,Chilecito,011,812.0
+Mendoza,Capital,851,2632.0
+Mendoza,Godoy Cruz,851,1898.0
+Mendoza,Guaymallén,851,1831.0
+Mendoza,Las Heras,471,2811.0
+Mendoza,Luján de Cuyo,110,3246.0
+Mendoza,Maipú,110,3799.0
+Mendoza,San Rafael,103,916.0
+Misiones,Capital,410,3327.0
+Misiones,Eldorado,161,1076.0
+Misiones,Iguazú,551,1982.0
+Misiones,Oberá,107,995.0
+Neuquen,Confluencia,091,15839.0
+Rio Negro,Bariloche,551,2314.0
+Rio Negro,General Roca,012,13440.0
+Salta,Capital,851,3597.0
+Salta,General José de San Martín,410,903.0
+Salta,Orán,107,1379.0
+San Juan,Capital,410,2384.0
+San Juan,Chimbas,410,740.0
+San Juan,Pocito,210,956.0
+San Juan,Rawson,410,1198.0
+San Juan,Rivadavia,853,1472.0
+San Luis,General Pedernera,107,952.0
+San Luis,Juan Martín de Pueyrredón,851,2385.0
+Santa Cruz,Deseado,091,5033.0
+Santa Cruz,Güer Aike,051,2124.0
+Santa Fe,Castellanos,293,2612.0
+Santa Fe,General López,011,1381.0
+Santa Fe,La Capital,851,4115.0
+Santa Fe,Rosario,851,9012.0
+Santa Fe,San Lorenzo,104,3722.0
+Santiago Del Estero,Banda,421,840.0
+Santiago Del Estero,Capital,851,3032.0
+Santiago Del Estero,Río Hondo,551,486.0
+Tucuman,Cruz Alta,016,2392.0
+Tucuman,Capital,016,13863.0
+Tucuman,Yerba Buena,016,2923.0
+Tierra Del Fuego,Río Grande,264,2770.0
+Tierra Del Fuego,Ushuaia,264,3076.0

@@ -660,3 +660,8 @@ plt.title("Relación entre EE y trabajadores por cada 1000 habitantes (por provi
 
 plt.grid(True)
 plt.show()
+
+dfi.to_csv("datasets/TablasAnalisisDeDatos/dfi.csv", index=False,encoding ="utf-8")
+dfii.to_csv("datasets/TablasAnalisisDeDatos/dfii.csv", index=False,encoding ="utf-8")
+dfiii.to_csv("datasets/TablasAnalisisDeDatos/dfiii.csv", index=False,encoding ="utf-8")
+dfiv.to_csv("datasets/TablasAnalisisDeDatos/dfiv.csv", index=False, encoding="utf-8")
