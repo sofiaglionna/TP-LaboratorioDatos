@@ -9,15 +9,25 @@ from sklearn.neighbors import KNeighborsClassifier
 import duckdb as dd
 from sklearn.model_selection import train_test_split
 
-##########################################################
+########################
 #%% Leer el archivo
-##########################################################
+########################
 
 kuzushiji = pd.read_csv("datos\originales\kuzushiji_full.csv")
 
 ##########################################################
-#%% Graficar caracteres
+#%% 1. Análisis exploratorio de los datos
 ##########################################################
+
+# Ver cuántas columnas tiene el archivo
+print(kuzushiji.shape)
+# (70000,785)
+# El archivo kuzushiji cuenta con 70000 imagenes de caracteres
+# 785 columnas, de las cuales 784 pixeles y 1 columna "label" con el caracter al que corresponde 
+
+########################
+#%% Graficar caracteres
+########################
 
 X = kuzushiji.drop(columns=["label"])
 
@@ -31,9 +41,9 @@ dfkuzushiji8 = dd.query(kuzushiji8).df()
 
 X8 = dfkuzushiji8.drop(columns=["label"])
 
-##########################################################
+########################
 #%% Plot imagen
-##########################################################
+########################
 
 print(dfkuzushiji8.loc[50,"label"])
 
