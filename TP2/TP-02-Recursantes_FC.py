@@ -22,62 +22,78 @@ kuzushiji = pd.read_csv("datos\originales\kuzushiji_full.csv")
 #%% 1. Análisis exploratorio de los datos
 ##########################################################
 
-# Ver cuántas columnas tiene el archivo
+# Veamos cuántas columnas tiene el archivo:
 print(kuzushiji.shape)
 # (70000,785)
-# El archivo kuzushiji cuenta con 70000 imagenes de caracteres
-# 785 columnas, de las cuales 784 pixeles y 1 columna "label" con el caracter al que corresponde 
+# El archivo kuzushiji cuenta con 70000 imagenes de caracteres.
+# 785 columnas, de las cuales 784 pixeles (imágenes de 28x28) y 1 columna "label" con el caracter al que corresponde. 
 
-########################
-#%% Graficar caracteres
-########################
+##########################
+#%% Grafico de caracteres
+##########################
 
-X = kuzushiji.drop(columns=["label"])
-
-#Solo clase 8
-kuzushiji8 = """
+# Sleccionamos solo una clase
+kuzushiji_clase = """
         SELECT *
         FROM kuzushiji
-        WHERE "label" = 8
+        WHERE "label" = 6
 """
-dfkuzushiji8 = dd.query(kuzushiji8).df()
+dfkuzushiji_clase = dd.query(kuzushiji_clase).df()
+print(dfkuzushiji_clase.shape)
+XC = dfkuzushiji_clase.drop(columns=["label"])
 
-X8 = dfkuzushiji8.drop(columns=["label"])
+#%% Viasualizamos varias imagenes para tener una idea de que aparece en cada clase:
 
-########################
-#%% Plot imagen
-########################
-
-print(dfkuzushiji8.loc[50,"label"])
-
-"""img = np.array(X8.iloc[50]).reshape((28,28))
-plt.imshow(img, cmap='gray')
-plt.show()"""
+for i in range(100,110):
+    img = np.array(XC.iloc[i]).reshape((28,28))
+    plt.imshow(img, cmap='gray')
+    plt.show()
+#print(dfkuzushiji_clase.loc[i,"label"]) #para ver la clase
 
 ##########################################################
 #%% 2. Clasificación Binaria
 ##########################################################
 
-# DF con clases 4 y 5
+#%% 2.a)
+# Creamos un DF con clases 4 y 5:
 clases4y5 = """
         SELECT *
         FROM kuzushiji
         WHERE "label" = 4 OR "label" = 5
 """
 dfclases4y5 = dd.query(clases4y5).df()
+X45 = dfclases4y5.drop(columns=["label"])
 
-# Separamos datos en conjuntos de train y test.
-y = kuzushiji["label"]
+print(dfclases4y5.shape) # Total = 14000 imágenes.
+# Veamos de esas 14000 imágenes cuántas pertenecen a las clase 4.
 
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size = 0.1
+clase4 = """
+        SELECT *
+        FROM dfclases4y5
+        WHERE "label" = 4
+"""
+dfclase4 = dd.query(clase4).df()
+
+print(dfclase4.shape) # Total = 7000 imágenes.
+# En dfclases4y5 hay 7000 caracteres de la clase 4; exactamente la mitad.
+# Por lo tanto el dfclase4y5 está perfectamente balanceado entre las clases 4 y 5.
+
+#%% 2.b)
+# Separamos datos en conjuntos de train y test de las clases 4 y 5.
+y45 = dfclases4y5["label"]
+
+X45_train, X45_test, y45_train, y45_test = train_test_split(
+    X45, y45, test_size = 0.2
 )
 
+#%% 2.c)
 # Ajustamos un modelo de KNN sobre los datos de entrenamiento.
 clasificador = KNeighborsClassifier(n_neighbors=10) # construimos el modelo.
-clasificador.fit(X_train, y_train) # lo entrenamos.
+clasificador.fit(X45_train, y45_train) # lo entrenamos.
 
-# Ejercicio 3 
+##########################################################
+#%% 2. Clasificación Multiclase
+##########################################################
 
 # Para empezar, nos aseguramos de que en ambos modelos las veces que cada modelo recibe x letra sea la misma entre las letras
 # dev = 80%, held-out = 20%
