@@ -9,7 +9,7 @@ from sklearn.neighbors import KNeighborsClassifier
 import duckdb as dd
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay, classification_report
 from sklearn.model_selection import StratifiedKFold, cross_val_score
 
 ########################
@@ -108,6 +108,17 @@ for i in range(1,11):
 
 dataset_resultados_entropy = pd.DataFrame(resultados_entropy).sort_values("evaluacion_acc", ascending=False).reset_index(drop=True)
 
+"""Graficamos los valores de entropy
+
+plt.figure()
+plt.scatter(dataset_resultados_entropy["max_depth"], dataset_resultados_entropy["evaluacion_acc"])
+plt.xlabel("max_depth")
+plt.ylabel("accuracy en evaluación")
+plt.title("Entropy (3.b) - depth vs accuracy")
+plt.tight_layout()
+plt.show()"""   
+
+
 # 3.c
 # En este punto nos queda probar con el criterio de Gini y hacerlo con validacion cruzada (K-fold)
 
@@ -141,7 +152,7 @@ df_entropy = entropy()
 
 #Graficamos el cv mean de cada uno
 
-plt.figure()
+"""plt.figure()
 plt.scatter(df_gini["max_depth"], df_gini["cv_mean"])
 plt.scatter(df_entropy["max_depth"], df_entropy["cv_mean"])
 plt.xlabel("max_depth")
@@ -149,7 +160,7 @@ plt.ylabel("accuracy (cv_mean)")
 plt.title("Comparación - Gini vs Entropy")
 plt.legend(["Gini","Entropy"])
 plt.tight_layout()
-plt.show()
+plt.show()"""
 
 # 3.d
 # Usamos entropy ya que fue el mejor modelo
@@ -165,8 +176,23 @@ y_pred = mejor_modelo.predict(X_held)
 acc_final = accuracy_score(y_held, y_pred)
 #print(f"Accuracy final en held-out: {acc_final:.4f}")
 
+"""
+# Generamos la matriz de confusion del modelo y sus metricas
 
+# Matriz de confusión 
+cm = confusion_matrix(y_held, y_pred)
+print("Matriz de confusión:\n", cm)
 
+# Gráfico de matriz de confusión
+plt.figure()
+ConfusionMatrixDisplay(confusion_matrix=cm).plot(cmap="Blues", values_format='d')
+plt.title("Matriz de Confusión – Held-Out (Entropy, depth=10)")
+plt.tight_layout()
+plt.show()
+
+# Metricas
+print("Reporte por clase:\n")
+print(classification_report(y_held, y_pred, digits=4))"""
 
 
 
