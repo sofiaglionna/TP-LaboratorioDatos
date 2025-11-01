@@ -62,11 +62,9 @@ clases4y5 = """
         WHERE "label" = 4 OR "label" = 5
 """
 dfclases4y5 = dd.query(clases4y5).df()
-X45 = dfclases4y5.drop(columns=["label"])
 
 print(dfclases4y5.shape) # Total = 14000 imágenes.
 # Veamos de esas 14000 imágenes cuántas pertenecen a las clase 4.
-
 clase4 = """
         SELECT *
         FROM dfclases4y5
@@ -79,6 +77,9 @@ print(dfclase4.shape) # Total = 7000 imágenes.
 # Por lo tanto el dfclase4y5 está perfectamente balanceado entre las clases 4 y 5.
 
 #%% 2.b)
+# Tomamos solo 3 atributos del df con las clases 4 y 5.
+X45 = dfclases4y5[["225", "341", "459"]]
+
 # Separamos datos en conjuntos de train y test de las clases 4 y 5.
 y45 = dfclases4y5["label"]
 
@@ -91,8 +92,19 @@ X45_train, X45_test, y45_train, y45_test = train_test_split(
 clasificador = KNeighborsClassifier(n_neighbors=10) # construimos el modelo.
 clasificador.fit(X45_train, y45_train) # lo entrenamos.
 
+#%%
+# Calculamos predicciones
+y_pred = clasificador.predict(X45_test)
+
+# Matriz de confusión comparando y con y_pred
+matrizconfusion = confusion_matrix(y45_test, y_pred)
+
+# Accuracy comparando y con y_pred
+accuracyscore = accuracy_score(y45_test, y_pred)
+
+
 ##########################################################
-#%% 2. Clasificación Multiclase
+#%% 3. Clasificación Multiclase
 ##########################################################
 
 # Para empezar, nos aseguramos de que en ambos modelos las veces que cada modelo recibe x letra sea la misma entre las letras
