@@ -11,6 +11,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay, classification_report
 from sklearn.model_selection import StratifiedKFold, cross_val_score
+import random
+
 
 ########################
 #%% Leer el archivo
@@ -40,7 +42,7 @@ kuzushiji_clase = """
 """
 dfkuzushiji_clase = dd.query(kuzushiji_clase).df()
 print(dfkuzushiji_clase.shape)
-XC = dfkuzushiji_clase.drop(columns=["label"])
+XC = dfkuzushiji_clase.drop('label', axis=1)
 
 #%% Viasualizamos varias imagenes para tener una idea de que aparece en cada clase:
 
@@ -77,10 +79,8 @@ print(dfclase4.shape) # Total = 7000 imágenes.
 # Por lo tanto el dfclase4y5 está perfectamente balanceado entre las clases 4 y 5.
 
 #%% 2.b)
-# Tomamos solo 3 atributos del df con las clases 4 y 5.
-X45 = dfclases4y5[["225", "341", "459"]]
-
 # Separamos datos en conjuntos de train y test de las clases 4 y 5.
+X45 = dfclases4y5.drop('label', axis=1)
 y45 = dfclases4y5["label"]
 
 X45_train, X45_test, y45_train, y45_test = train_test_split(
@@ -88,19 +88,64 @@ X45_train, X45_test, y45_train, y45_test = train_test_split(
 )
 
 #%% 2.c)
-# Ajustamos un modelo de KNN sobre los datos de entrenamiento.
-clasificador = KNeighborsClassifier(n_neighbors=10) # construimos el modelo.
-clasificador.fit(X45_train, y45_train) # lo entrenamos.
+#voy a entrenar un modelo KNN para distintas cantidades reducidas de atributos para determinar la mejor
+#Para esto voy a buscar los atributos mas distintivos entre las clases. Voy a ver los pixeles que nunca se pintan en ambas
+#Para hacer esto voy a sumar cada columna de ambas clases y quedarme las que den 0
+
+#clase 5 sola
+clase5 = """
+        SELECT *
+        FROM dfclases4y5
+        WHERE "label" = 5
+"""
+dfclase5 = dd.query(clase5).df()
+
+#Tengo la clase 4 sola del punto 2.b. Le saco la columna label a ambas
+dfclase4.drop('label', axis=1,inplace = True)
+dfclase5.drop('label', axis=1,inplace = True)
+#%%
+#calculo el promedio por columna con .mean() de pandas
+prom4 = dfclase4.mean()
+prom5 = dfclase5.mean()
+#paso los indices a int ya que toma los nombres de las columnas como indices, estos son strings
+prom4.index = prom4.index.astype(int)
+prom5.index = prom5.index.astype(int)
+promedios = pd.DataFrame({"promedio4": prom4,
+                          "promedio5": prom5})
+#agrego una columna que sea la diferencia entre los 2 promedios.
+promedios["diferencia"] = abs(promedios["promedio5"] - promedios["promedio4"])
+#voy a quedarme con los i atributos con mayor diferencia entre ellos. Variando ese i voy a probar irme quedando
+#con distintas cantidades de atributos. Para cada uno voy a medir el accuracy para quedarme con el que de maximo
+cant_atributos = [3,5,7,10,15,20,25,50,100,150,200,250,300,400,500,600,700,750,1000]
+for i in cant_atributos:
+    #tomo los i atributos con mayor diferencia con un comando de pandas
+    conjunto = promedios["diferencia"].nlargest(i)
+    #tomo sus indices (nombre del atributo) y lo paso a tipo lista
+    indices = conjunto.index.tolist()
+    #creo una lista con el nombre de esos atributos
+    atributos= []
+    for j in indices:
+        atributos.append(str(j))
+    #Creo X45acotado una tabla que para cada fila de X_train conserva solo los valores de los atributos de interes
+    X45_train_acotado = X45_train[atributos]
+    #tambien voy a acotar mi X45_test a solo estos atributos
+    X45_test_acotado = X45_test[atributos]
+    #hago el modelo de KNN para 5 vecinos (despues lo voy a cambiar)
+    clasificador = KNeighborsClassifier(n_neighbors=5)
+    clasificador.fit(X45_train_acotado, y45_train)
+    # Calculamos predicciones
+    y_pred = clasificador.predict(X45_test_acotado)
+    print(str(i) +":")
+    # Accuracy comparando y con y_pred
+    accuracyscore = accuracy_score(y45_test, y_pred)
+    print(accuracyscore)
 
 #%%
-# Calculamos predicciones
-y_pred = clasificador.predict(X45_test)
 
+#%%
 # Matriz de confusión comparando y con y_pred
 matrizconfusion = confusion_matrix(y45_test, y_pred)
 
-# Accuracy comparando y con y_pred
-accuracyscore = accuracy_score(y45_test, y_pred)
 
 
 ##########################################################
