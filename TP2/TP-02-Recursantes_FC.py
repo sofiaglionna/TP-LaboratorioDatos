@@ -87,12 +87,12 @@ X45_train, X45_test, y45_train, y45_test = train_test_split(
     X45, y45, test_size = 0.2
 )
 
-#%% 2.c)
-#voy a entrenar un modelo KNN para distintas cantidades reducidas de atributos para determinar la mejor
-#Para esto voy a buscar los atributos mas distintivos entre ambas clases. Para hacer esto calculamos en promedio
-#cuanto se pinta cada pixel en cada clase y tomo los que mayor diferencia tengan entre ambas clases.
+#%% 2.c y d)
+# Vamos a entrenar un modelo KNN para distintas cantidades reducidas de atributos para determinar la mejor
+# Para esto vamos a buscar los atributos mas distintivos entre ambas clases. Para hacer esto calculamos en promedio
+# cuánto se pinta cada pixel en cada clase y tomamos los que mayor diferencia tengan entre ambas clases.
 
-#clase 5 sola
+# Clase 5 sola:
 clase5 = """
         SELECT *
         FROM dfclases4y5
@@ -100,33 +100,35 @@ clase5 = """
 """
 dfclase5 = dd.query(clase5).df()
 
-#Tengo la clase 4 sola del punto 2.b. Le saco la columna label a ambas
+# Tenemos la clase 4 sola del punto 2.b. Le sacamos la columna label a ambas.
 dfclase4.drop('label', axis=1,inplace = True)
 dfclase5.drop('label', axis=1,inplace = True)
 #%%
 
-#calculo el promedio por columna con .mean() de pandas. Esto me dara cuanto se pinta cada pixel (columna) en promedio
+# Calculamos el promedio por columna con .mean() de pandas. Esto nos dara cuanto se pinta cada pixel (columna) en promedio
 prom4 = dfclase4.mean()
 prom5 = dfclase5.mean()
-#paso los indices a int ya que toma los nombres de las columnas como indices, estos son strings
+# Pasamos los indices a int ya que toma los nombres de las columnas como indices, estos son strings
 prom4.index = prom4.index.astype(int)
 prom5.index = prom5.index.astype(int)
 promedios = pd.DataFrame({"promedio4": prom4,
                           "promedio5": prom5})
-#agrego una columna que sea la diferencia entre los 2 promedios.
+
+# Agregamos una columna que sea la diferencia entre los 2 promedios.
 promedios["diferencia"] = abs(promedios["promedio5"] - promedios["promedio4"])
-#reordeno por diferencia para tener los de amyor diferencia mas arriba
+# Reordenamos por diferencia para tener los de amyor diferencia mas arriba.
 promedios = promedios.sort_values(by = "diferencia", ascending=False)
-#reseteo los indices, ahora el de menor indice es el de mayor diferencia pero conservo los indices viejos
-#como una columna. Asi se a que atributo hace referencia cada fila
+# Reseteamos los indices, ahora el de menor indice es el de mayor diferencia pero conservamos los indices viejos
+# como una columna. Asi sabemos a que atributo hace referencia cada fila
 promedios.reset_index(inplace=True)
 
-#Ahora que tengo promedios ordenado por mayor diferencia creo una funcion que tome los i atributos con mayor diferencia
-#separados por n atributos entre ellos en el grafico. Es decir si el siguiente de mayor diferencia esta en un "radio"
-#menor o igual a n se prueba con el siguiente en terminos de diferencia.
-#Con radio nos referimos a que si tenemos el pixel en la posicion (x1,y1) en la lista res, no aceptamos pixeles cuya
-#coordenada x este en el rango [x1-n,x1+n] ni su coordenada y en [y1-n,y1+n].
-#Hay que tener en cuenta que cada fila mide 28 pixeles por lo que el pixel n esta encima del pixel n+28
+# Ahora que tenemos los promedios ordenado por mayor diferencia creamos una funcion que tome los i atributos con mayor diferencia
+# separados por n atributos entre ellos en el grafico. Es decir si el siguiente de mayor diferencia esta en un "radio"
+# menor o igual a n se prueba con el siguiente en terminos de diferencia.
+# Con radio nos referimos a que si tenemos el pixel en la posicion (x1,y1) en la lista res, no aceptamos pixeles cuya
+# coordenada x este en el rango [x1-n,x1+n] ni su coordenada y en [y1-n,y1+n]. (ver figura 4 del informe)
+# Hay que tener en cuenta que cada fila mide 28 pixeles por lo que el pixel n esta encima del pixel n+28
+
 def enRango  (res,indice,n):
     #lo pienso como un grafico cartesiano. le asigno coordenadas en x e y tomando como (0,0) el punto superior izquierdo
     #creciendo hacia abajo y a la derecha (la division entera // redondea hacia abajo)
@@ -160,9 +162,9 @@ def maximosConSeparacion (df,n,i):
             indice+=1
     return res
 
-#Creo un dataframe con unicamente las columnas vacias para ir rellenando
+# Creamos un dataframe con unicamente las columnas vacias para ir rellenando
 ModelosPorAccuracy = pd.DataFrame({"Valor de K": [] ,"cant_atributos": [], "Separación": [],"Accuracy": [],"Recall clase 4": [], "Recall clase 5": []})
-#probamos para varios valores de k como pide el punto 2.d)
+# Probamos para varios valores de k como pide el punto 2.d)
 valoresDeK = [1,3,5,10,15]
 for k in valoresDeK:
     #Vamos a probar con varias separaciones entre atributos ya que creemos que 2 pixeles que estan al lado seguramente
@@ -209,14 +211,15 @@ for k in valoresDeK:
             ModelosPorAccuracy = pd.concat([ModelosPorAccuracy,nuevaFila])
             
 
-#ordeno el DataFrame para cada valor de k y cantidad de atributos pongo el de mayor accuracy mas arriba
-#por lo que el conjunto de atributos (valor de separacion) con mejor accuracy queda arriba.
+# Ordenamos el DataFrame para cada valor de k y cantidad de atributos pongo el de mayor accuracy mas arriba
+# por lo que el conjunto de atributos (valor de separacion) con mejor accuracy queda arriba.
 ModelosPorAccuracyaux = """
             SELECT *
             FROM ModelosPorAccuracy
             ORDER BY "Valor de K", "cant_atributos", "Accuracy" DESC
 """
 ModelosPorAccuracyOrdenado = dd.query(ModelosPorAccuracyaux).df()
+
 ##########################################################
 #%% 3. Clasificación Multiclase
 ##########################################################
