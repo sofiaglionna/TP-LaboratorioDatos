@@ -89,8 +89,8 @@ X45_train, X45_test, y45_train, y45_test = train_test_split(
 
 #%% 2.c)
 #voy a entrenar un modelo KNN para distintas cantidades reducidas de atributos para determinar la mejor
-#Para esto voy a buscar los atributos mas distintivos entre las clases. Voy a ver los pixeles que nunca se pintan en ambas
-#Para hacer esto voy a sumar cada columna de ambas clases y quedarme las que den 0
+#Para esto voy a buscar los atributos mas distintivos entre ambas clases. Para hacer esto calculamos en promedio
+#cuanto se pinta cada pixel en cada clase y tomo los que mayor diferencia tengan entre ambas clases.
 
 #clase 5 sola
 clase5 = """
@@ -105,7 +105,7 @@ dfclase4.drop('label', axis=1,inplace = True)
 dfclase5.drop('label', axis=1,inplace = True)
 #%%
 
-#calculo el promedio por columna con .mean() de pandas
+#calculo el promedio por columna con .mean() de pandas. Esto me dara cuanto se pinta cada pixel (columna) en promedio
 prom4 = dfclase4.mean()
 prom5 = dfclase5.mean()
 #paso los indices a int ya que toma los nombres de las columnas como indices, estos son strings
@@ -160,46 +160,63 @@ def maximosConSeparacion (df,n,i):
             indice+=1
     return res
 
+#Creo un dataframe con unicamente las columnas vacias para ir rellenando
+ModelosPorAccuracy = pd.DataFrame({"Valor de K": [] ,"cant_atributos": [], "Separación": [],"Accuracy": [],"Recall clase 4": [], "Recall clase 5": []})
+#probamos para varios valores de k como pide el punto 2.d)
+valoresDeK = [1,3,5,10,15]
+for k in valoresDeK:
+    #Vamos a probar con varias separaciones entre atributos ya que creemos que 2 pixeles que estan al lado seguramente
+    #tengan una diferencia parecida. Lo que podría causar que los i atributos de mayor diferencia esten todos pegados en
+    #el grafico y resulte redundante tomarlos.
+    #Por lo que tomarlos de mayor diferencia pero separados podria mejorar el algoritmo. 
+    #Separacion 0 es sin separacion, tomo el inmediatamente siguiente si este fuera el mas grande
+    separaciones = [0,1,2,3,4]
+    for n in separaciones:
+        #voy a quedarme con los i atributos con mayor diferencia entre ellos. Variando ese i voy a probar irme quedando
+        #con distintas cantidades de atributos. Para cada uno voy a medir el accuracy para quedarme con el que de maximo
+        cant_atributos = [3,5,7,10,15,20,25]
+        for i in cant_atributos:
+            #tomo los i atributos con mayor diferencia y una separacion n
+            indices = maximosConSeparacion(promedios, n,i)
+            #lo paso a una lista de str porque esta en tipo int64 de numpy
+            atributos = []
+            for j in indices:
+                atributos.append(str(int(j)))
+            #Creo X45acotado una tabla que para cada fila de X_train conserva solo los valores de los atributos de interes
+            X45_train_acotado = X45_train[atributos]
+            #tambien voy a acotar mi X45_test a solo estos atributos
+            X45_test_acotado = X45_test[atributos]
+            #hago el modelo de KNN para 5 vecinos (despues lo voy a cambiar)
+            clasificador = KNeighborsClassifier(n_neighbors=k)
+            clasificador.fit(X45_train_acotado, y45_train)
+            # Calculamos predicciones
+            y_pred = clasificador.predict(X45_test_acotado)
+            print("Valor de K: " + str(k))
+            print("Separación: " + str(n))
+            print(str(i)+ " atributos"  +":")
+            # Accuracy comparando y con y_pred
+            accuracyscore = accuracy_score(y45_test, y_pred)
+            print("Accuracy: " + str(accuracyscore))
+            #Usamos recall. Al tener, dentro de cada clase, grupos de dibujos similares entre si pero distintos al resto
+            #de su clase nos podria pasar que alguno de estos dibujos en particular sea mas suseptible a ser mal
+            #categorizado. recall nos dice que porcentaje de cada clase fue categorizada correctamente (en su clase)
+            #si el recall de una clase es notoriamente mas bajo que el de la otra podria estar ocurriendo que uno de los
+            #grupos de dibujos de la clase con menor recall este siendo categorizado en la otra clase
+            recall = recall_score(y45_test, y_pred, average=None)
+            print("Recall clase 4: " + str(recall[0]) + "\n" + "recall clase 5: " + str(recall[1]))
+            #agrego los valores al dataframe
+            nuevaFila = pd.DataFrame({"Valor de K": [k] ,"cant_atributos": [i], "Separación": [n],"Accuracy": [accuracyscore],"Recall clase 4": [recall[0]], "Recall clase 5": [recall[1]]})
+            ModelosPorAccuracy = pd.concat([ModelosPorAccuracy,nuevaFila])
+            
 
-#Vamos a probar con varias separaciones entre atributos ya que creemos que 2 pixeles que estan al lado seguramente
-#tengan una diferencia parecida. Lo que podría causar que los i atributos de mayor diferencia esten todos pegados en
-#el grafico y resulte redundante tomarlos.
-#Por lo que tomarlos de mayor diferencia pero separados podria mejorar el algoritmo. 
-#Separacion 0 es sin separacion, tomo el inmediatamente siguiente si este fuera el mas grande
-separaciones = [0,1,2,3,4]
-for n in separaciones:
-    #voy a quedarme con los i atributos con mayor diferencia entre ellos. Variando ese i voy a probar irme quedando
-    #con distintas cantidades de atributos. Para cada uno voy a medir el accuracy para quedarme con el que de maximo
-    cant_atributos = [3,5,7,10,15,20,25]
-    for i in cant_atributos:
-        #tomo los i atributos con mayor diferencia y una separacion n
-        indices = maximosConSeparacion(promedios, n,i)
-        #lo paso a una lista de str porque esta en tipo int64 de numpy
-        atributos = []
-        for j in indices:
-            atributos.append(str(int(j)))
-        #Creo X45acotado una tabla que para cada fila de X_train conserva solo los valores de los atributos de interes
-        X45_train_acotado = X45_train[atributos]
-        #tambien voy a acotar mi X45_test a solo estos atributos
-        X45_test_acotado = X45_test[atributos]
-        #hago el modelo de KNN para 5 vecinos (despues lo voy a cambiar)
-        clasificador = KNeighborsClassifier(n_neighbors=5)
-        clasificador.fit(X45_train_acotado, y45_train)
-        # Calculamos predicciones
-        y_pred = clasificador.predict(X45_test_acotado)
-        print("separación " + str(n) +":")
-        print(str(i)+ " atributos"  +":")
-        # Accuracy comparando y con y_pred
-        accuracyscore = accuracy_score(y45_test, y_pred)
-        print("accuracy: " + str(accuracyscore))
-        #Usamos recall. Al tener, dentro de cada clase, grupos de dibujos similares entre si pero distintos al resto
-        #de su clase nos podria pasar que alguno de estos dibujos en particular sea mas suseptible a ser mal
-        #categorizado. recall nos dice que porcentaje de cada clase fue categorizada correctamente (en su clase)
-        #si el recall de una clase es notoriamente mas bajo que el de la otra podria estar ocurriendo que uno de los
-        #grupos de dibujos de la clase con menor recall este siendo categorizado en la otra clase
-        recall = recall_score(y45_test, y_pred, average=None)
-        print("recall clase 4: " + str(recall[0]) + "\n" + "recall clase 5: " + str(recall[1]))
-
+#ordeno el DataFrame para cada valor de k y cantidad de atributos pongo el de mayor accuracy mas arriba
+#por lo que el conjunto de atributos (valor de separacion) con mejor accuracy queda arriba.
+ModelosPorAccuracyaux = """
+            SELECT *
+            FROM ModelosPorAccuracy
+            ORDER BY "Valor de K", "cant_atributos", "Accuracy" DESC
+"""
+ModelosPorAccuracyOrdenado = dd.query(ModelosPorAccuracyaux).df()
 ##########################################################
 #%% 3. Clasificación Multiclase
 ##########################################################
