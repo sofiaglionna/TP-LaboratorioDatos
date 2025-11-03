@@ -104,6 +104,7 @@ dfclase5 = dd.query(clase5).df()
 dfclase4.drop('label', axis=1,inplace = True)
 dfclase5.drop('label', axis=1,inplace = True)
 #%%
+
 #calculo el promedio por columna con .mean() de pandas
 prom4 = dfclase4.mean()
 prom5 = dfclase5.mean()
@@ -114,33 +115,83 @@ promedios = pd.DataFrame({"promedio4": prom4,
                           "promedio5": prom5})
 #agrego una columna que sea la diferencia entre los 2 promedios.
 promedios["diferencia"] = abs(promedios["promedio5"] - promedios["promedio4"])
-#voy a quedarme con los i atributos con mayor diferencia entre ellos. Variando ese i voy a probar irme quedando
-#con distintas cantidades de atributos. Para cada uno voy a medir el accuracy para quedarme con el que de maximo
-cant_atributos = [3,5,7,10,15,20,25,50,100,150,200,250,300,400,500,600,700,750,1000]
-for i in cant_atributos:
-    #tomo los i atributos con mayor diferencia con un comando de pandas
-    conjunto = promedios["diferencia"].nlargest(i)
-    #tomo sus indices (nombre del atributo) y lo paso a tipo lista
-    indices = conjunto.index.tolist()
-    #creo una lista con el nombre de esos atributos
-    atributos= []
-    for j in indices:
-        atributos.append(str(j))
-    #Creo X45acotado una tabla que para cada fila de X_train conserva solo los valores de los atributos de interes
-    X45_train_acotado = X45_train[atributos]
-    #tambien voy a acotar mi X45_test a solo estos atributos
-    X45_test_acotado = X45_test[atributos]
-    #hago el modelo de KNN para 5 vecinos (despues lo voy a cambiar)
-    clasificador = KNeighborsClassifier(n_neighbors=5)
-    clasificador.fit(X45_train_acotado, y45_train)
-    # Calculamos predicciones
-    y_pred = clasificador.predict(X45_test_acotado)
-    print(str(i) +":")
-    # Accuracy comparando y con y_pred
-    accuracyscore = accuracy_score(y45_test, y_pred)
-    print(accuracyscore)
+#reordeno por diferencia para tener los de amyor diferencia mas arriba
+promedios = promedios.sort_values(by = "diferencia", ascending=False)
+#reseteo los indices, ahora el de menor indice es el de mayor diferencia pero conservo los indices viejos
+#como una columna. Asi se a que atributo hace referencia cada fila
+promedios.reset_index(inplace=True)
 
-#%%
+#Ahora que tengo promedios ordenado por mayor diferencia creo una funcion que tome los i atributos con mayor diferencia
+#separados por n atributos entre ellos en el grafico. Es decir si el siguiente de mayor diferencia esta en un "radio"
+#menor o igual a n se prueba con el siguiente en terminos de diferencia.
+#Con radio nos referimos a que si tenemos el pixel en la posicion (x1,y1) en la lista res, no aceptamos pixeles cuya
+#coordenada x este en el rango [x1-n,x1+n] ni su coordenada y en [y1-n,y1+n].
+#Hay que tener en cuenta que cada fila mide 28 pixeles por lo que el pixel n esta encima del pixel n+28
+def enRango  (res,indice,n):
+    #lo pienso como un grafico cartesiano. le asigno coordenadas en x e y tomando como (0,0) el punto superior izquierdo
+    #creciendo hacia abajo y a la derecha (la division entera // redondea hacia abajo)
+    y = indice // 28
+    x = indice%28
+    for i in res:
+        yi = i//28
+        xi = i%28
+        #si la distancia es menor a n en ambos ejes entonces devuelvo True
+        if (abs(x-xi) <= n) and (abs(y-yi) <=n):
+            return True
+    return False
+
+def maximosConSeparacion (df,n,i):
+    res = []
+    #l lo voy a usar para cortar cuando res tenga longitud i
+    l=0
+    #indice lo voy a usar para ir recorriendo df
+    indice = 0
+    while l < i:
+        if indice >= 748:
+            print("fuera de rango, separacion o cantidad de atributos muy alto")
+            break
+        #si esta dentro del radio n entonces no lo agrego y paso al siguiente con mayor diferencia
+        elif enRango(res,df.loc[indice,"index"],n):
+            indice +=1
+        #si no esta dentro del radio lo agrego y paso al siguiente con mayor diferencia
+        else:
+            res.append(df.loc[indice,"index"])
+            l+=1
+            indice+=1
+    return res
+
+
+#Vamos a probar con varias separaciones entre atributos ya que creemos que 2 pixeles que estan al lado seguramente
+#tengan una diferencia parecida. Lo que podría causar que los i atributos de mayor diferencia esten todos pegados en
+#el grafico y resulte redundante tomarlos.
+#Por lo que tomarlos de mayor diferencia pero separados podria mejorar el algoritmo. 
+#Separacion 0 es sin separacion, tomo el inmediatamente siguiente si este fuera el mas grande
+separaciones = [0,1,2,3,4]
+for n in separaciones:
+    #voy a quedarme con los i atributos con mayor diferencia entre ellos. Variando ese i voy a probar irme quedando
+    #con distintas cantidades de atributos. Para cada uno voy a medir el accuracy para quedarme con el que de maximo
+    cant_atributos = [3,5,7,10,15,20,25]
+    for i in cant_atributos:
+        #tomo los i atributos con mayor diferencia y una separacion n
+        indices = maximosConSeparacion(promedios, n,i)
+        #lo paso a una lista de str porque esta en tipo int64 de numpy
+        atributos = []
+        for j in indices:
+            atributos.append(str(int(j)))
+        #Creo X45acotado una tabla que para cada fila de X_train conserva solo los valores de los atributos de interes
+        X45_train_acotado = X45_train[atributos]
+        #tambien voy a acotar mi X45_test a solo estos atributos
+        X45_test_acotado = X45_test[atributos]
+        #hago el modelo de KNN para 5 vecinos (despues lo voy a cambiar)
+        clasificador = KNeighborsClassifier(n_neighbors=5)
+        clasificador.fit(X45_train_acotado, y45_train)
+        # Calculamos predicciones
+        y_pred = clasificador.predict(X45_test_acotado)
+        print("separación " + str(n) +":")
+        print(str(i)+ " atributos"  +":")
+        # Accuracy comparando y con y_pred
+        accuracyscore = accuracy_score(y45_test, y_pred)
+        print(accuracyscore)
 
 #%%
 # Matriz de confusión comparando y con y_pred
