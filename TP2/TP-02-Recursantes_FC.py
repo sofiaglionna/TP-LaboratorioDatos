@@ -9,7 +9,7 @@ from sklearn.neighbors import KNeighborsClassifier
 import duckdb as dd
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay, classification_report
+from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay, classification_report,recall_score
 from sklearn.model_selection import StratifiedKFold, cross_val_score
 import random
 
@@ -191,13 +191,14 @@ for n in separaciones:
         print(str(i)+ " atributos"  +":")
         # Accuracy comparando y con y_pred
         accuracyscore = accuracy_score(y45_test, y_pred)
-        print(accuracyscore)
-
-#%%
-# Matriz de confusión comparando y con y_pred
-matrizconfusion = confusion_matrix(y45_test, y_pred)
-
-
+        print("accuracy: " + str(accuracyscore))
+        #Usamos recall. Al tener, dentro de cada clase, grupos de dibujos similares entre si pero distintos al resto
+        #de su clase nos podria pasar que alguno de estos dibujos en particular sea mas suseptible a ser mal
+        #categorizado. recall nos dice que porcentaje de cada clase fue categorizada correctamente (en su clase)
+        #si el recall de una clase es notoriamente mas bajo que el de la otra podria estar ocurriendo que uno de los
+        #grupos de dibujos de la clase con menor recall este siendo categorizado en la otra clase
+        recall = recall_score(y45_test, y_pred, average=None)
+        print("recall clase 4: " + str(recall[0]) + "\n" + "recall clase 5: " + str(recall[1]))
 
 ##########################################################
 #%% 3. Clasificación Multiclase
