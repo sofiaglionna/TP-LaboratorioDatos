@@ -11,8 +11,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay, classification_report,recall_score
 from sklearn.model_selection import StratifiedKFold, cross_val_score
-import random
-
+import seaborn as sns #para graficos utilizados en el 2)c
 
 ########################
 #%% Leer el archivo
@@ -165,18 +164,18 @@ def maximosConSeparacion (df,n,i):
 # Creamos un dataframe con unicamente las columnas vacias para ir rellenando
 ModelosPorAccuracy = pd.DataFrame({"Valor de K": [] ,"cant_atributos": [], "Separación": [],"Accuracy": [],"Recall clase 4": [], "Recall clase 5": []})
 # Probamos para varios valores de k como pide el punto 2.d)
-valoresDeK = [1,3,5,10,15]
+valoresDeK = [3,10,15]
 for k in valoresDeK:
     #Vamos a probar con varias separaciones entre atributos ya que creemos que 2 pixeles que estan al lado seguramente
     #tengan una diferencia parecida. Lo que podría causar que los i atributos de mayor diferencia esten todos pegados en
     #el grafico y resulte redundante tomarlos.
     #Por lo que tomarlos de mayor diferencia pero separados podria mejorar el algoritmo. 
     #Separacion 0 es sin separacion, tomo el inmediatamente siguiente si este fuera el mas grande
-    separaciones = [0,1,2,3,4]
+    separaciones = [0,1,2,3]
     for n in separaciones:
         #voy a quedarme con los i atributos con mayor diferencia entre ellos. Variando ese i voy a probar irme quedando
         #con distintas cantidades de atributos. Para cada uno voy a medir el accuracy para quedarme con el que de maximo
-        cant_atributos = [3,5,7,10,15,20,25]
+        cant_atributos = [3,10,20,50,75,100] #[3,5,7,10,15,20,25]
         for i in cant_atributos:
             #tomo los i atributos con mayor diferencia y una separacion n
             indices = maximosConSeparacion(promedios, n,i)
@@ -193,19 +192,20 @@ for k in valoresDeK:
             clasificador.fit(X45_train_acotado, y45_train)
             # Calculamos predicciones
             y_pred = clasificador.predict(X45_test_acotado)
-            print("Valor de K: " + str(k))
-            print("Separación: " + str(n))
-            print(str(i)+ " atributos"  +":")
+            #print("Valor de K: " + str(k))
+            #print("Separación: " + str(n))
+            #print(str(i)+ " atributos"  +":")
             # Accuracy comparando y con y_pred
             accuracyscore = accuracy_score(y45_test, y_pred)
-            print("Accuracy: " + str(accuracyscore))
+            #print("Accuracy: " + str(accuracyscore))
+            
             #Usamos recall. Al tener, dentro de cada clase, grupos de dibujos similares entre si pero distintos al resto
             #de su clase nos podria pasar que alguno de estos dibujos en particular sea mas suseptible a ser mal
             #categorizado. recall nos dice que porcentaje de cada clase fue categorizada correctamente (en su clase)
             #si el recall de una clase es notoriamente mas bajo que el de la otra podria estar ocurriendo que uno de los
             #grupos de dibujos de la clase con menor recall este siendo categorizado en la otra clase
             recall = recall_score(y45_test, y_pred, average=None)
-            print("Recall clase 4: " + str(recall[0]) + "\n" + "recall clase 5: " + str(recall[1]))
+            #print("Recall clase 4: " + str(recall[0]) + "\n" + "recall clase 5: " + str(recall[1]))
             #agrego los valores al dataframe
             nuevaFila = pd.DataFrame({"Valor de K": [k] ,"cant_atributos": [i], "Separación": [n],"Accuracy": [accuracyscore],"Recall clase 4": [recall[0]], "Recall clase 5": [recall[1]]})
             ModelosPorAccuracy = pd.concat([ModelosPorAccuracy,nuevaFila])
@@ -219,6 +219,34 @@ ModelosPorAccuracyaux = """
             ORDER BY "Valor de K", "cant_atributos", "Accuracy" DESC
 """
 ModelosPorAccuracyOrdenado = dd.query(ModelosPorAccuracyaux).df()
+
+#%% Vamos a graficar una tabla con los 10 valores con mas accuracy para el informe:
+
+n10ModelosPorAccuracy = """
+SELECT 
+    "Valor de K",
+    cant_atributos AS "n atributos",
+    Separación,
+    ROUND(Accuracy, 3) AS Accuracy,
+    ROUND("Recall clase 4", 3) AS "Recall clase 4",
+    ROUND("Recall clase 5", 3) AS "Recall clase 5"
+FROM ModelosPorAccuracy
+ORDER BY Accuracy DESC
+LIMIT 10
+"""
+dftop10 = dd.query(n10ModelosPorAccuracy).df()
+
+# A graficar la tabla:
+fig, ax = plt.subplots(figsize=(10, 3))
+ax.axis('off')  #para oclutar los ejes
+
+tablaDeAccuracy = ax.table(
+    cellText=dftop10.values,
+    colLabels=dftop10.columns,
+    cellLoc='center',
+    loc='center')
+plt.title("Top 10 modelos con mayor Accuracy", fontsize=12, weight='bold')
+plt.tight_layout()
 
 ##########################################################
 #%% 3. Clasificación Multiclase
