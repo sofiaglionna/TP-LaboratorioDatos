@@ -143,12 +143,11 @@ def enRango  (res,indice,n):
 
 def maximosConSeparacion (df,n,i):
     res = []
-    #l lo voy a usar para cortar cuando res tenga longitud i
-    l=0
     #indice lo voy a usar para ir recorriendo df
     indice = 0
-    while l < i:
-        if indice >= 748:
+    while len(res) < i:
+        if indice >= 784:
+            print("//////////////////////////////////////////////////////////////////////////////")
             print("fuera de rango, separacion o cantidad de atributos muy alto")
             break
         #si esta dentro del radio n entonces no lo agrego y paso al siguiente con mayor diferencia
@@ -157,7 +156,6 @@ def maximosConSeparacion (df,n,i):
         #si no esta dentro del radio lo agrego y paso al siguiente con mayor diferencia
         else:
             res.append(df.loc[indice,"index"])
-            l+=1
             indice+=1
     return res
 
@@ -192,12 +190,9 @@ for k in valoresDeK:
             clasificador.fit(X45_train_acotado, y45_train)
             # Calculamos predicciones
             y_pred = clasificador.predict(X45_test_acotado)
-            #print("Valor de K: " + str(k))
-            #print("Separación: " + str(n))
-            #print(str(i)+ " atributos"  +":")
             # Accuracy comparando y con y_pred
             accuracyscore = accuracy_score(y45_test, y_pred)
-            #print("Accuracy: " + str(accuracyscore))
+            
             
             #Usamos recall. Al tener, dentro de cada clase, grupos de dibujos similares entre si pero distintos al resto
             #de su clase nos podria pasar que alguno de estos dibujos en particular sea mas suseptible a ser mal
@@ -205,10 +200,18 @@ for k in valoresDeK:
             #si el recall de una clase es notoriamente mas bajo que el de la otra podria estar ocurriendo que uno de los
             #grupos de dibujos de la clase con menor recall este siendo categorizado en la otra clase
             recall = recall_score(y45_test, y_pred, average=None)
-            #print("Recall clase 4: " + str(recall[0]) + "\n" + "recall clase 5: " + str(recall[1]))
             #agrego los valores al dataframe
             nuevaFila = pd.DataFrame({"Valor de K": [k] ,"cant_atributos": [i], "Separación": [n],"Accuracy": [accuracyscore],"Recall clase 4": [recall[0]], "Recall clase 5": [recall[1]]})
             ModelosPorAccuracy = pd.concat([ModelosPorAccuracy,nuevaFila])
+            
+            #printeamos para controlar
+            print("//////////////////////////////////////////////////////////////////////////////")
+            print("Valor de K: " + str(k))
+            print("Separación: " + str(n))
+            print(str(i)+ " atributos"  +":")
+            print("cantidad de atributos tomados realmente:" + str(len(indices)))
+            print("Accuracy: " + str(accuracyscore))
+            print("Recall clase 4: " + str(recall[0]) + "\n" + "recall clase 5: " + str(recall[1]))
             
 
 # Ordenamos el DataFrame para cada valor de k y cantidad de atributos pongo el de mayor accuracy mas arriba
