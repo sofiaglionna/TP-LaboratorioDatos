@@ -7,11 +7,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.neighbors import KNeighborsClassifier
 import duckdb as dd
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, KFold
 from sklearn.tree import DecisionTreeClassifier
+from sklearn import tree
 from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay, classification_report,recall_score
 from sklearn.model_selection import StratifiedKFold, cross_val_score
-import seaborn as sns #para graficos utilizados en el 2)c
 
 ########################
 #%% Leer el archivo
@@ -125,7 +125,7 @@ promedios.reset_index(inplace=True)
 # separados por n atributos entre ellos en el grafico. Es decir si el siguiente de mayor diferencia esta en un "radio"
 # menor o igual a n se prueba con el siguiente en terminos de diferencia.
 # Con radio nos referimos a que si tenemos el pixel en la posicion (x1,y1) en la lista res, no aceptamos pixeles cuya
-# coordenada x este en el rango [x1-n,x1+n] ni su coordenada y en [y1-n,y1+n]. (ver figura 4 del informe)
+# coordenada x este en el rango [x1-n,x1+n] ni su coordenada y en [y1-n,y1+n]. (ver figura 4 del informe)!!
 # Hay que tener en cuenta que cada fila mide 28 pixeles por lo que el pixel n esta encima del pixel n+28
 
 def enRango  (res,indice,n):
@@ -223,7 +223,7 @@ ModelosPorAccuracyaux = """
 """
 ModelosPorAccuracyOrdenado = dd.query(ModelosPorAccuracyaux).df()
 
-#%% Vamos a graficar una tabla con los 10 valores con mas accuracy para el informe:
+#%% Vamos a graficar una tabla con los 10 valores con mas accuracy para el informe (figura 5):
 
 n10ModelosPorAccuracy = """
 SELECT 
@@ -255,21 +255,34 @@ plt.tight_layout()
 #%% 3. Clasificación Multiclase
 ##########################################################
 
-# Para empezar, nos aseguramos de que en ambos modelos las veces que cada modelo recibe x letra sea la misma entre las letras
-# dev = 80%, held-out = 20%
-
+# Se separa el dataset en dev = 80% y held-out = 20%
 x = kuzushiji.drop(columns=['label'])
 y = kuzushiji['label']
 
 X_dev, X_held, y_dev, y_held = train_test_split(x, y,test_size=0.2,stratify=y,random_state=42)
 
-# 3.b
-# Volvemos a separar, esta vez en el conjunto de datos de desarrollo (80/20 )
+#%% 3.b
+# Ahora dejamos de lado el conjunto held-out y separamos los datos de desarrollo (80/20)
 
 X_entrenamiento, X_evaluacion, y_entrenamiento, y_evaluacion = train_test_split(X_dev, y_dev,test_size=0.2,stratify=y_dev,random_state=42)
 
+#%% Probamos con todas las profundidades entre 1 y 10
 
-# Probamos con todas las profundidades entre 1 y 10
+alturas = [1,2,3,4,5,6,7,8,9,10]
+for i in alturas: 
+    arbol = DecisionTreeClassifier(max_depth=i,criterion="entropy") 
+    arbol.fit(X_entrenamiento, y_entrenamiento)
+
+    prediction = arbol.predict(X_evaluacion) 
+    score = accuracy_score(y_evaluacion, prediction)
+    print("score del arbol con altura",i,"=",score)
+
+#    plt.figure(figsize=[30,10])
+#    tree.plot_tree(arbol, filled=True)
+
+#%%
+
+"""
 resultados_entropy = []
 for i in range(1,11):
  clf = DecisionTreeClassifier( max_depth=i,criterion="entropy")
@@ -283,8 +296,9 @@ for i in range(1,11):
 #Creamos un df con los resultados 
 
 dataset_resultados_entropy = pd.DataFrame(resultados_entropy).sort_values("evaluacion_acc", ascending=False).reset_index(drop=True)
-
-"""Graficamos los valores de entropy
+"""
+"""
+Graficamos los valores de entropy
 
 plt.figure()
 plt.scatter(dataset_resultados_entropy["max_depth"], dataset_resultados_entropy["evaluacion_acc"])
@@ -292,16 +306,48 @@ plt.xlabel("max_depth")
 plt.ylabel("accuracy en evaluación")
 plt.title("Entropy (3.b) - depth vs accuracy")
 plt.tight_layout()
-plt.show()"""   
+plt.show()
+"""   
 
+#%% 3.c
 
-# 3.c
-# En este punto nos queda probar con el criterio de Gini y hacerlo con validacion cruzada (K-fold)
+# HIPERPARAMETROS EN ARBOLES: (lo saqué de la clase)
+# -Criterio de elección de atributos -> (Gini, entropy)
+# -Profundidad -> (1,...,10)
+# -Estrategia de poda (no se si esto seria el k-fold?)
 
 # Hacemos el K-fold
 
-k_fold = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+alturas = [1,2,3,4,5,6,7,8,9,10] # (mismas que inciso anterior)
+nsplits = 5
+kf = KFold(n_splits=nsplits)
 
+# =====================
+#%% ENTROPY CON KFOLDING
+# =====================
+resultadosENTROPY = np.zeros((nsplits, len(alturas))) # una fila por cada fold, una columna por cada modelo
+
+for i, (train_index, test_index) in enumerate(kf.split(X_dev)):
+
+    kf_X_train, kf_X_test = X_dev.iloc[train_index], X_dev.iloc[test_index]
+    kf_y_train, kf_y_test = y_dev.iloc[train_index], y_dev.iloc[test_index]
+    
+    for j, hmax in enumerate(alturas):
+        
+        arbol = tree.DecisionTreeClassifier(max_depth = hmax, criterion="entropy")
+        arbol.fit(kf_X_train, kf_y_train)
+        pred = arbol.predict(kf_X_test)
+        score = accuracy_score(kf_y_test,pred)
+        
+        resultadosENTROPY[i, j] = score
+# promedio scores sobre los folds
+scores_promedio = resultadosENTROPY.mean(axis = 0)
+#%%
+for i,e in enumerate(alturas):
+    print(f'Score promedio del modelo con hmax = {e}: {scores_promedio[i]:.4f}')
+#%% 
+"""
+#k_fold = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
 
 def gini():
  resultados_gini = []
@@ -325,7 +371,7 @@ def entropy():
 
 df_gini = gini()
 df_entropy = entropy()
-
+"""
 #Graficamos el cv mean de cada uno
 
 """plt.figure()
@@ -338,7 +384,7 @@ plt.legend(["Gini","Entropy"])
 plt.tight_layout()
 plt.show()"""
 
-# 3.d
+#%% 3.d
 # Usamos entropy ya que fue el mejor modelo
 
 #Entrenamos el modelo
