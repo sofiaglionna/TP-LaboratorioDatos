@@ -83,7 +83,7 @@ X45 = dfclases4y5.drop('label', axis=1)
 y45 = dfclases4y5["label"]
 
 X45_train, X45_test, y45_train, y45_test = train_test_split(
-    X45, y45, test_size = 0.2
+    X45, y45, test_size = 0.2, random_state=42
 )
 
 #%% 2.c y d)
