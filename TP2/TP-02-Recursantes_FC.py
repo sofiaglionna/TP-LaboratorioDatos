@@ -77,7 +77,9 @@ print(dfclase4.shape) # Total = 7000 imágenes.
 # En dfclases4y5 hay 7000 caracteres de la clase 4; exactamente la mitad.
 # Por lo tanto el dfclase4y5 está perfectamente balanceado entre las clases 4 y 5.
 
+# =====================
 #%% 2.b)
+# =====================
 # Separamos datos en conjuntos de train y test de las clases 4 y 5.
 X45 = dfclases4y5.drop('label', axis=1)
 y45 = dfclases4y5["label"]
@@ -85,13 +87,13 @@ y45 = dfclases4y5["label"]
 X45_train, X45_test, y45_train, y45_test = train_test_split(
     X45, y45, test_size = 0.2, random_state=42
 )
-
+# =====================
 #%% 2.c y d)
+# =====================
 # Vamos a entrenar un modelo KNN para distintas cantidades reducidas de atributos para determinar la mejor
 # Para esto vamos a buscar los atributos mas distintivos entre ambas clases. Para hacer esto calculamos en promedio
 # cuánto se pinta cada pixel en cada clase y tomamos los que mayor diferencia tengan entre ambas clases.
 
-# Clase 5 sola:
 clase5 = """
         SELECT *
         FROM dfclases4y5
@@ -99,11 +101,14 @@ clase5 = """
 """
 dfclase5 = dd.query(clase5).df()
 
-# Tenemos la clase 4 sola del punto 2.b. Le sacamos la columna label a ambas.
+# Ya tenemos la clase 4 sola del punto 2.b. Le sacamos la columna label a ambas.
 dfclase4.drop('label', axis=1,inplace = True)
 dfclase5.drop('label', axis=1,inplace = True)
-#%%
 
+
+# =====================
+#%% Relevancia de atributos
+# =====================
 # Calculamos el promedio por columna con .mean() de pandas. Esto nos dara cuanto se pinta cada pixel (columna) en promedio
 prom4 = dfclase4.mean()
 prom5 = dfclase5.mean()
@@ -121,6 +126,7 @@ promedios = promedios.sort_values(by = "diferencia", ascending=False)
 # como una columna. Asi sabemos a que atributo hace referencia cada fila
 promedios.reset_index(inplace=True)
 
+#%%
 # Ahora que tenemos los promedios ordenado por mayor diferencia creamos una funcion que tome los i atributos con mayor diferencia
 # separados por n atributos entre ellos en el grafico. Es decir si el siguiente de mayor diferencia esta en un "radio"
 # menor o igual a n se prueba con el siguiente en terminos de diferencia.
@@ -159,6 +165,9 @@ def maximosConSeparacion (df,n,i):
             indice+=1
     return res
 
+# ========================================
+#%% Modelos con distintos hiperparámetros
+# ========================================
 # Creamos un dataframe con unicamente las columnas vacias para ir rellenando
 ModelosPorAccuracy = pd.DataFrame({"Valor de K": [] ,"cant_atributos": [], "Separación": [],"Accuracy": [],"Recall clase 4": [], "Recall clase 5": []})
 # Probamos para varios valores de k como pide el punto 2.d)
@@ -173,7 +182,7 @@ for k in valoresDeK:
     for n in separaciones:
         #voy a quedarme con los i atributos con mayor diferencia entre ellos. Variando ese i voy a probar irme quedando
         #con distintas cantidades de atributos. Para cada uno voy a medir el accuracy para quedarme con el que de maximo
-        cant_atributos = [3,10,20,50,75,100] #[3,5,7,10,15,20,25]
+        cant_atributos = [3,10,20,50,75,100] 
         for i in cant_atributos:
             #tomo los i atributos con mayor diferencia y una separacion n
             indices = maximosConSeparacion(promedios, n,i)
@@ -223,8 +232,9 @@ ModelosPorAccuracyaux = """
 """
 ModelosPorAccuracyOrdenado = dd.query(ModelosPorAccuracyaux).df()
 
-#%% Vamos a graficar una tabla con los 10 valores con mas accuracy para el informe (figura 5):
-
+# =====================
+#%% Tabla con 10 modelos con mayor accuracy (figura 5):
+# =====================
 n10ModelosPorAccuracy = """
 SELECT 
     "Valor de K",
@@ -261,56 +271,38 @@ y = kuzushiji['label']
 
 X_dev, X_held, y_dev, y_held = train_test_split(x, y,test_size=0.2,stratify=y,random_state=42)
 
+# =====================
 #%% 3.b
+# =====================
 # Ahora dejamos de lado el conjunto held-out y separamos los datos de desarrollo (80/20)
-
 X_entrenamiento, X_evaluacion, y_entrenamiento, y_evaluacion = train_test_split(X_dev, y_dev,test_size=0.2,stratify=y_dev,random_state=42)
 
 #%% Probamos con todas las profundidades entre 1 y 10
 
 alturas = [1,2,3,4,5,6,7,8,9,10]
+scores = [] # para el grafico
+
 for i in alturas: 
     arbol = DecisionTreeClassifier(max_depth=i,criterion="entropy") 
     arbol.fit(X_entrenamiento, y_entrenamiento)
 
     prediction = arbol.predict(X_evaluacion) 
     score = accuracy_score(y_evaluacion, prediction)
+    scores.append(score)
     print("score del arbol con altura",i,"=",score)
 
-#    plt.figure(figsize=[30,10])
-#    tree.plot_tree(arbol, filled=True)
-
-#%%
-
-"""
-resultados_entropy = []
-for i in range(1,11):
- clf = DecisionTreeClassifier( max_depth=i,criterion="entropy")
- clf.fit(X_entrenamiento, y_entrenamiento)
-
- acc_entrenamiento = accuracy_score(y_entrenamiento, clf.predict(X_entrenamiento))
- acc_evaluacion = accuracy_score(y_evaluacion, clf.predict(X_evaluacion))
-
- resultados_entropy.append({"max_depth": i,"entrenamiento_acc": acc_entrenamiento,"evaluacion_acc": acc_evaluacion})
-
-#Creamos un df con los resultados 
-
-dataset_resultados_entropy = pd.DataFrame(resultados_entropy).sort_values("evaluacion_acc", ascending=False).reset_index(drop=True)
-"""
-"""
-Graficamos los valores de entropy
-
-plt.figure()
-plt.scatter(dataset_resultados_entropy["max_depth"], dataset_resultados_entropy["evaluacion_acc"])
-plt.xlabel("max_depth")
+#%% Grafico:
+plt.plot(alturas, scores, marker='o')
+plt.xlabel("Altura Árbol")
 plt.ylabel("accuracy en evaluación")
-plt.title("Entropy (3.b) - depth vs accuracy")
+plt.title("Entropy (3.b) - altura vs accuracy")
+plt.grid(True)
 plt.tight_layout()
 plt.show()
-"""   
 
+# =====================
 #%% 3.c
-
+# =====================
 # HIPERPARAMETROS EN ARBOLES: (lo saqué de la clase)
 # -Criterio de elección de atributos -> (Gini, entropy)
 # -Profundidad -> (1,...,10)
@@ -341,80 +333,80 @@ for i, (train_index, test_index) in enumerate(kf.split(X_dev)):
         
         resultadosENTROPY[i, j] = score
 # promedio scores sobre los folds
-scores_promedio = resultadosENTROPY.mean(axis = 0)
+scores_promedio_ENTROPY = resultadosENTROPY.mean(axis = 0)
 #%%
 for i,e in enumerate(alturas):
-    print(f'Score promedio del modelo con hmax = {e}: {scores_promedio[i]:.4f}')
-#%% 
-"""
-#k_fold = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+    print(f'Score promedio del modelo con criterio ENTROPY con hmax = {e}: {scores_promedio_ENTROPY[i]:.4f}')
 
-def gini():
- resultados_gini = []
- for i in range(1,11):
-  clf = DecisionTreeClassifier( max_depth=i,criterion="gini", random_state=42)
-  acc = cross_val_score(clf, X_dev, y_dev, cv=k_fold, scoring="accuracy", n_jobs=-1)
-  resultados_gini.append({"max_depth": i,"cv_mean": acc.mean(),"cv_std": acc.std()})
-  
- dataset_resultados_gini = pd.DataFrame(resultados_gini).sort_values("cv_mean", ascending=False).reset_index(drop=True)
- return dataset_resultados_gini
+# =====================
+#%% GINI CON KFOLDING
+# =====================
+resultadosGINI = np.zeros((nsplits, len(alturas))) # una fila por cada fold, una columna por cada modelo
 
-def entropy():
- resultados_entropy = []
- for i in range(1,11):
-  clf = DecisionTreeClassifier( max_depth=i,criterion="entropy", random_state=42)
-  acc = cross_val_score(clf, X_dev, y_dev, cv=k_fold, scoring="accuracy", n_jobs=-1)
-  resultados_entropy.append({"max_depth": i,"cv_mean": acc.mean(),"cv_std": acc.std()})
-  
- dataset_resultados_entropy = pd.DataFrame(resultados_entropy).sort_values("cv_mean", ascending=False).reset_index(drop=True)
- return dataset_resultados_entropy
+for i, (train_index, test_index) in enumerate(kf.split(X_dev)):
 
-df_gini = gini()
-df_entropy = entropy()
-"""
-#Graficamos el cv mean de cada uno
+    kf_X_train, kf_X_test = X_dev.iloc[train_index], X_dev.iloc[test_index]
+    kf_y_train, kf_y_test = y_dev.iloc[train_index], y_dev.iloc[test_index]
+    
+    for j, hmax in enumerate(alturas):
+        
+        arbol = tree.DecisionTreeClassifier(max_depth = hmax, criterion="gini")
+        arbol.fit(kf_X_train, kf_y_train)
+        pred = arbol.predict(kf_X_test)
+        score = accuracy_score(kf_y_test,pred)
+        
+        resultadosGINI[i, j] = score
+# promedio scores sobre los folds
+scores_promedio_GINY = resultadosGINI.mean(axis = 0)
+#%%
+for i,e in enumerate(alturas):
+    print(f'Score promedio del modelo con criterio GINI con hmax = {e}: {scores_promedio_GINY[i]:.4f}')
 
-"""plt.figure()
-plt.scatter(df_gini["max_depth"], df_gini["cv_mean"])
-plt.scatter(df_entropy["max_depth"], df_entropy["cv_mean"])
-plt.xlabel("max_depth")
-plt.ylabel("accuracy (cv_mean)")
-plt.title("Comparación - Gini vs Entropy")
-plt.legend(["Gini","Entropy"])
+# =====================
+#%% Grafico de ambos (Gini y Entropy) superpuestos:
+# =====================
+plt.plot(alturas, scores_promedio_ENTROPY, marker='o', label='Entropy', color='blue')
+plt.plot(alturas, scores_promedio_GINY, marker='o', label='Gini', color='green')
+plt.xlabel("Altura Árbol")
+plt.ylabel("accuracy promedio (k-folding)")
+plt.title("Comparación Entropy vs Gini - altura vs accuracy")
+plt.legend()
+plt.grid(True)
 plt.tight_layout()
-plt.show()"""
+plt.show()
 
+# =====================
 #%% 3.d
-# Usamos entropy ya que fue el mejor modelo
+# =====================
+# Usamos Entropy con profundidad 10 ya que fue el mejor modelo, dando un score del 71.53%.
+# Gini con profundidad 10 no estuvo muy lejos ya que dio un score del 70.00%.
 
-#Entrenamos el modelo
-mejor_modelo = DecisionTreeClassifier(criterion="entropy", max_depth=10, random_state=42)
+# Entrenamos el modelo ahora en todo el conjunto de desarrollo
+mejor_modelo = DecisionTreeClassifier(criterion="entropy", max_depth=10)
 mejor_modelo.fit(X_dev, y_dev)
 
-# Predecimos sobre held-out
+# Predecimos sobre el held-out
 y_pred = mejor_modelo.predict(X_held)
 
-# Calculamos accuracy
+# Calculamos accuracy del modelo
 acc_final = accuracy_score(y_held, y_pred)
-#print(f"Accuracy final en held-out: {acc_final:.4f}")
+print(f"Accuracy final en held-out: {acc_final:.4f}")
 
-"""
-# Generamos la matriz de confusion del modelo y sus metricas
-
-# Matriz de confusión 
+#%% Generamos la matriz de confusion del modelo
+# Matriz de confusion:
 cm = confusion_matrix(y_held, y_pred)
 print("Matriz de confusión:\n", cm)
 
-# Gráfico de matriz de confusión
+# Grafico de matriz de confusión para el informe:
 plt.figure()
 ConfusionMatrixDisplay(confusion_matrix=cm).plot(cmap="Blues", values_format='d')
+plt.xlabel("Clase predecida")
+plt.ylabel("Clase real")
 plt.title("Matriz de Confusión – Held-Out (Entropy, depth=10)")
 plt.tight_layout()
 plt.show()
 
-# Metricas
-print("Reporte por clase:\n")
-print(classification_report(y_held, y_pred, digits=4))"""
+
 
 
 
