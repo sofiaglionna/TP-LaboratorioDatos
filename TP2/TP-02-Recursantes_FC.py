@@ -10,8 +10,7 @@ import duckdb as dd
 from sklearn.model_selection import train_test_split, KFold
 from sklearn.tree import DecisionTreeClassifier
 from sklearn import tree
-from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay, classification_report,recall_score
-from sklearn.model_selection import StratifiedKFold, cross_val_score
+from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay,recall_score
 
 ########################
 #%% Leer el archivo
@@ -182,10 +181,13 @@ for k in valoresDeK:
     for n in separaciones:
         #voy a quedarme con los i atributos con mayor diferencia entre ellos. Variando ese i voy a probar irme quedando
         #con distintas cantidades de atributos. Para cada uno voy a medir el accuracy para quedarme con el que de maximo
-        cant_atributos = [3,10,20,50,75,100] 
+        cant_atributos = [3,10,20,41,50,71,100] 
         for i in cant_atributos:
             #tomo los i atributos con mayor diferencia y una separacion n
             indices = maximosConSeparacion(promedios, n,i)
+            #En caso de que no se hayan podido juntar i atributos con separacion n no devuelvo nada, paso a la siguiente iteración
+            if len(indices) != i:
+                continue
             #lo paso a una lista de str porque esta en tipo int64 de numpy
             atributos = []
             for j in indices:
@@ -292,10 +294,13 @@ for i in alturas:
     print("score del arbol con altura",i,"=",score)
 
 #%% Grafico:
+plt.subplots(figsize=(5, 5))
 plt.plot(alturas, scores, marker='o')
 plt.xlabel("Altura Árbol")
 plt.ylabel("accuracy en evaluación")
 plt.title("Entropy (3.b) - altura vs accuracy")
+plt.xlim(1, 10)
+plt.ylim(0, 1)
 plt.grid(True)
 plt.tight_layout()
 plt.show()
@@ -405,14 +410,6 @@ plt.ylabel("Clase real")
 plt.title("Matriz de Confusión – Held-Out (Entropy, depth=10)")
 plt.tight_layout()
 plt.show()
-
-
-
-
-
-
-
-
 
 
 
