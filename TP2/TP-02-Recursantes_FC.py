@@ -303,24 +303,68 @@ plt.title("Top 10 modelos con mayor Accuracy", fontsize=12, weight='bold')
 plt.tight_layout()
 
 ##########################################################
-#%% 3. Clasificación Multiclase
+# 3. Clasificación Multiclase
 ##########################################################
 
-# Se separa el dataset en dev = 80% y held-out = 20%
-x = kuzushiji.drop(columns=['label'])
+# =====================
+#%% Se separan atributos relevantes
+# =====================
+
+# Hacemos la suma de cada fila por columna. Es decir, sin distinguir entre clases,
+# se suman todas las filas por pixeles (columnas). Esto para luego poder ver cuales son
+# los pixeles más utilizados.
+
+X = kuzushiji.drop("label", axis=1)
+suma_columnas = X.sum(axis=0)
+df_sumas = suma_columnas.reset_index()
+df_sumas.columns = ['pixel', 'suma']
+
+Los350_pixeles_mas_pintados = """
+                SELECT *
+                FROM df_sumas
+                ORDER BY suma DESC
+                LIMIT 350
+"""
+dfLos350_pixeles_mas_pintados = dd.query(Los350_pixeles_mas_pintados).df()
+
+# Obtenemos la lista de los 350 pixeles más pintados
+pixeles_top350 = dfLos350_pixeles_mas_pintados['pixel'].tolist()
+
+# =====================
+#%% 3.a
+# =====================
+
+# Separamos el dataset en dev = 80% y held-out = 20%
 y = kuzushiji['label']
+x = kuzushiji.drop("label", axis=1)
 
 X_dev, X_held, y_dev, y_held = train_test_split(x, y,test_size=0.2,stratify=y,random_state=42)
+
+# Usamos solo los 350 atributos que seleccionamos.
+X_dev350 = X_dev[pixeles_top350]
+X_held350 = X_held[pixeles_top350]
 
 # =====================
 #%% 3.b
 # =====================
 # Ahora dejamos de lado el conjunto held-out y separamos los datos de desarrollo (80/20)
 X_entrenamiento, X_evaluacion, y_entrenamiento, y_evaluacion = train_test_split(X_dev, y_dev,test_size=0.2,stratify=y_dev,random_state=42)
+X_entrenamiento_350, X_evaluacion_350, y_entrenamiento, y_evaluacion = train_test_split(X_dev350, y_dev,test_size=0.2,stratify=y_dev,random_state=42)
 
 alturas = [1,2,3,4,5,6,7,8,9,10]
-scores = [] # para el grafico
+# para el grafico:
+scores = [] 
+scores350 = []
 
+for i in alturas: 
+    arbol = DecisionTreeClassifier(max_depth=i,criterion="entropy") 
+    arbol.fit(X_entrenamiento_350, y_entrenamiento)
+
+    prediction = arbol.predict(X_evaluacion_350) 
+    score350 = accuracy_score(y_evaluacion, prediction)
+    scores350.append(score350)
+    print("score del arbol (350 atributos) con altura",i,"=",score350)
+#%%
 for i in alturas: 
     arbol = DecisionTreeClassifier(max_depth=i,criterion="entropy") 
     arbol.fit(X_entrenamiento, y_entrenamiento)
@@ -328,18 +372,17 @@ for i in alturas:
     prediction = arbol.predict(X_evaluacion) 
     score = accuracy_score(y_evaluacion, prediction)
     scores.append(score)
-    print("score del arbol con altura",i,"=",score)
+    print("score del arbol (todos los atributos) con altura",i,"=",score)
 
 #%% Gráfico:
-plt.subplots(figsize=(5, 5))
-plt.plot(alturas, scores, marker='o')
+plt.plot(alturas, scores, marker='o', label = "780 atributos",  color = "blue")
+plt.plot(alturas, scores350, marker='o',label = "350 atributos", color = "red")
+plt.legend()
+plt.tight_layout()
 plt.xlabel("Altura Árbol")
 plt.ylabel("accuracy en evaluación")
-plt.title("Entropy (3.b) - altura vs accuracy")
-plt.xlim(1, 10)
-plt.ylim(0, 1)
+plt.title("Entropy 350 vs 780 atributos - altura vs accuracy")
 plt.grid(True)
-plt.tight_layout()
 plt.show()
 
 # =====================
@@ -362,9 +405,9 @@ kf = KFold(n_splits=nsplits)
 # =====================
 resultadosENTROPY = np.zeros((nsplits, len(alturas))) # una fila por cada fold, una columna por cada modelo
 
-for i, (train_index, test_index) in enumerate(kf.split(X_dev)):
+for i, (train_index, test_index) in enumerate(kf.split(X_dev350)):
 
-    kf_X_train, kf_X_test = X_dev.iloc[train_index], X_dev.iloc[test_index]
+    kf_X_train, kf_X_test = X_dev350.iloc[train_index], X_dev350.iloc[test_index]
     kf_y_train, kf_y_test = y_dev.iloc[train_index], y_dev.iloc[test_index]
     
     for j, hmax in enumerate(alturas):
@@ -386,9 +429,9 @@ for i,e in enumerate(alturas):
 # =====================
 resultadosGINI = np.zeros((nsplits, len(alturas))) # una fila por cada fold, una columna por cada modelo
 
-for i, (train_index, test_index) in enumerate(kf.split(X_dev)):
+for i, (train_index, test_index) in enumerate(kf.split(X_dev350)):
 
-    kf_X_train, kf_X_test = X_dev.iloc[train_index], X_dev.iloc[test_index]
+    kf_X_train, kf_X_test = X_dev350.iloc[train_index], X_dev350.iloc[test_index]
     kf_y_train, kf_y_test = y_dev.iloc[train_index], y_dev.iloc[test_index]
     
     for j, hmax in enumerate(alturas):
@@ -426,10 +469,10 @@ plt.show()
 
 # Entrenamos el modelo ahora en todo el conjunto de desarrollo
 mejor_modelo = DecisionTreeClassifier(criterion="entropy", max_depth=10)
-mejor_modelo.fit(X_dev, y_dev)
+mejor_modelo.fit(X_dev350, y_dev)
 
 # Predecimos sobre el held-out
-y_pred = mejor_modelo.predict(X_held)
+y_pred = mejor_modelo.predict(X_held350)
 
 # Calculamos accuracy del modelo
 acc_final = accuracy_score(y_held, y_pred)
