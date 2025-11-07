@@ -48,6 +48,18 @@ print(kuzushiji.shape)
 # El archivo kuzushiji cuenta con 70000 imagenes de caracteres.
 # 785 columnas, de las cuales 784 pixeles (imágenes de 28x28) y 1 columna "label" con el caracter al que corresponde. 
 
+#%% ¿Cuántas imágenes hay de cada caracter?
+caracteres_distintos = """
+                          SELECT label, COUNT(*) AS Cantidad
+                          FROM kuzushiji
+                          GROUP BY Label
+                          ORDER BY Cantidad DESC
+                    """
+dfcaracteres_distintos = dd.query(caracteres_distintos).df()
+    
+# Hay exactamente 7000 imagenes por cada clase.
+# 7000 imagenes x 10 clases = 70000 (numero de filas)
+
 ##########################
 #%% Gráfico de caracteres
 ##########################
