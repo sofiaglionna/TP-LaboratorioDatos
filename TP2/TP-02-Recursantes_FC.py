@@ -1,3 +1,23 @@
+"""
+===============================================================================
+                    Trabajo Práctico 02 - Laboratorio de Datos
+===============================================================================
+2do. Cuatrimestre - 2025
+
+Integrantes del grupo:
+---------------------
+- Felix Soriano
+- Sofia Glionna
+- Ramiro Gantman
+
+Descripción:
+-------------
+En este archivo se encuentran el análisis exploratorio del dataset Kuzushiji-MNIST,
+una clasificación binaria de solo las clases 4 y 5 y por último una clasificación
+multiclase de las 10 clases del dataset.
+===============================================================================
+"""
+
 ##########################################################
 # Imports
 ##########################################################
@@ -29,14 +49,14 @@ print(kuzushiji.shape)
 # 785 columnas, de las cuales 784 pixeles (imágenes de 28x28) y 1 columna "label" con el caracter al que corresponde. 
 
 ##########################
-#%% Grafico de caracteres
+#%% Gráfico de caracteres
 ##########################
 
 # Sleccionamos solo una clase
 kuzushiji_clase = """
         SELECT *
         FROM kuzushiji
-        WHERE "label" = 6
+        WHERE "label" = 6 
 """
 dfkuzushiji_clase = dd.query(kuzushiji_clase).df()
 print(dfkuzushiji_clase.shape)
@@ -48,7 +68,7 @@ for i in range(100,110):
     img = np.array(XC.iloc[i]).reshape((28,28))
     plt.imshow(img, cmap='gray')
     plt.show()
-#print(dfkuzushiji_clase.loc[i,"label"]) #para ver la clase
+#print(dfkuzushiji_clase.loc[i,"label"]) # para ver la clase
 
 ##########################################################
 #%% 2. Clasificación Binaria
@@ -89,7 +109,7 @@ X45_train, X45_test, y45_train, y45_test = train_test_split(
 # =====================
 #%% 2.c y d)
 # =====================
-# Vamos a entrenar un modelo KNN para distintas cantidades reducidas de atributos para determinar la mejor
+# Vamos a entrenar un modelo KNN para distintas cantidades reducidas de atributos para determinar la mejor.
 # Para esto vamos a buscar los atributos mas distintivos entre ambas clases. Para hacer esto calculamos en promedio
 # cuánto se pinta cada pixel en cada clase y tomamos los que mayor diferencia tengan entre ambas clases.
 
@@ -126,77 +146,84 @@ promedios = promedios.sort_values(by = "diferencia", ascending=False)
 promedios.reset_index(inplace=True)
 
 #%%
-# Ahora que tenemos los promedios ordenado por mayor diferencia creamos una funcion que tome los i atributos con mayor diferencia
-# separados por n atributos entre ellos en el grafico. Es decir si el siguiente de mayor diferencia esta en un "radio"
-# menor o igual a n se prueba con el siguiente en terminos de diferencia.
-# Con radio nos referimos a que si tenemos el pixel en la posicion (x1,y1) en la lista res, no aceptamos pixeles cuya
-# coordenada x este en el rango [x1-n,x1+n] ni su coordenada y en [y1-n,y1+n]. (ver figura 4 del informe)!!
-# Hay que tener en cuenta que cada fila mide 28 pixeles por lo que el pixel n esta encima del pixel n+28
+"""
+Ahora que tenemos los promedios ordenados por mayor diferencia creamos una funcion que tome los i atributos con mayor diferencia
+separados por n atributos entre ellos en el grafico. Es decir, si el siguiente de mayor diferencia esta en un "radio"
+menor o igual a n, se prueba con el siguiente en terminos de diferencia.
+Con radio nos referimos a que si tenemos el pixel en la posicion (x1,y1) en la lista res, no aceptamos pixeles cuya
+coordenada x este en el rango [x1-n,x1+n] ni su coordenada y en [y1-n,y1+n]. (Ver figura 4 del informe!).
+Hay que tener en cuenta que cada fila mide 28 pixeles por lo que el pixel n esta encima del pixel n+28.
+"""
 
 def enRango  (res,indice,n):
-    #lo pienso como un grafico cartesiano. le asigno coordenadas en x e y tomando como (0,0) el punto superior izquierdo
-    #creciendo hacia abajo y a la derecha (la division entera // redondea hacia abajo)
+    # lo piensamos como un grafico cartesiano. le asignamos coordenadas en x e y tomando como (0,0) el punto superior izquierdo
+    # creciendo hacia abajo y a la derecha (la division entera // redondea hacia abajo)
     y = indice // 28
     x = indice%28
     for i in res:
         yi = i//28
         xi = i%28
-        #si la distancia es menor a n en ambos ejes entonces devuelvo True
+        # si la distancia es menor a n en ambos ejes entonces devuelvemos True
         if (abs(x-xi) <= n) and (abs(y-yi) <=n):
             return True
     return False
 
 def maximosConSeparacion (df,n,i):
     res = []
-    #indice lo voy a usar para ir recorriendo df
+    # indice lo vamos a usar para ir recorriendo df
     indice = 0
     while len(res) < i:
         if indice >= 784:
             print("//////////////////////////////////////////////////////////////////////////////")
             print("fuera de rango, separacion o cantidad de atributos muy alto")
             break
-        #si esta dentro del radio n entonces no lo agrego y paso al siguiente con mayor diferencia
+        # si esta dentro del radio n entonces no lo agregamos y pasamos al siguiente con mayor diferencia
         elif enRango(res,df.loc[indice,"index"],n):
             indice +=1
-        #si no esta dentro del radio lo agrego y paso al siguiente con mayor diferencia
+        # si no esta dentro del radio lo agregamos y pasamos al siguiente con mayor diferencia
         else:
             res.append(df.loc[indice,"index"])
             indice+=1
     return res
 
-# ========================================
-#%% Modelos con distintos hiperparámetros
-# ========================================
+# ============================================
+#%% Modelos KNN con distintos hiperparámetros
+# ============================================
+
+"""
+Hiperparámetros a probar:
+ -K = 3, 10, 15
+ -Cantidad de atributos = 3, 10, 20, 41, 50, 71, 100
+ -Separación = 0, 1, 2, 3
+"""
+
 # Creamos un dataframe con unicamente las columnas vacias para ir rellenando
 ModelosPorAccuracy = pd.DataFrame({"Valor de K": [] ,"cant_atributos": [], "Separación": [],"Accuracy": [],"Recall clase 4": [], "Recall clase 5": []})
-# Probamos para varios valores de k como pide el punto 2.d)
+
+
 valoresDeK = [3,10,15]
 for k in valoresDeK:
-    #Vamos a probar con varias separaciones entre atributos ya que creemos que 2 pixeles que estan al lado seguramente
-    #tengan una diferencia parecida. Lo que podría causar que los i atributos de mayor diferencia esten todos pegados en
-    #el grafico y resulte redundante tomarlos.
-    #Por lo que tomarlos de mayor diferencia pero separados podria mejorar el algoritmo. 
-    #Separacion 0 es sin separacion, tomo el inmediatamente siguiente si este fuera el mas grande
+    # Separacion 0 es sin separacion, se toma el inmediatamente siguiente si este fuera el mas grande
     separaciones = [0,1,2,3]
     for n in separaciones:
-        #voy a quedarme con los i atributos con mayor diferencia entre ellos. Variando ese i voy a probar irme quedando
-        #con distintas cantidades de atributos. Para cada uno voy a medir el accuracy para quedarme con el que de maximo
+        # Nos quedamos con los i atributos con mayor diferencia entre ellos. Variando ese i probamos
+        # con distintas cantidades de atributos. Para cada uno medimos el accuracy.
         cant_atributos = [3,10,20,41,50,71,100] 
         for i in cant_atributos:
-            #tomo los i atributos con mayor diferencia y una separacion n
+            # Se toman los i atributos con mayor diferencia y una separacion n:
             indices = maximosConSeparacion(promedios, n,i)
-            #En caso de que no se hayan podido juntar i atributos con separacion n no devuelvo nada, paso a la siguiente iteración
+            # En caso de que no se hayan podido juntar i atributos con separacion n no devuelve nada, se pasa a la siguiente iteración:
             if len(indices) != i:
                 continue
-            #lo paso a una lista de str porque esta en tipo int64 de numpy
+            # lo pasamos a una lista de str porque esta en tipo int64 de numpy
             atributos = []
             for j in indices:
                 atributos.append(str(int(j)))
-            #Creo X45acotado una tabla que para cada fila de X_train conserva solo los valores de los atributos de interes
+            # Creamos X45acotado, una tabla que para cada fila de X_train conserva solo los valores de los atributos de interés.
             X45_train_acotado = X45_train[atributos]
-            #tambien voy a acotar mi X45_test a solo estos atributos
+            # También vamos a acotar X45_test a solo estos atributos
             X45_test_acotado = X45_test[atributos]
-            #hago el modelo de KNN para 5 vecinos (despues lo voy a cambiar)
+            # Hacemos el modelo de KNN para 5 vecinos (despues lo voy a cambiar)
             clasificador = KNeighborsClassifier(n_neighbors=k)
             clasificador.fit(X45_train_acotado, y45_train)
             # Calculamos predicciones
@@ -204,18 +231,18 @@ for k in valoresDeK:
             # Accuracy comparando y con y_pred
             accuracyscore = accuracy_score(y45_test, y_pred)
             
-            
             #Usamos recall. Al tener, dentro de cada clase, grupos de dibujos similares entre si pero distintos al resto
             #de su clase nos podria pasar que alguno de estos dibujos en particular sea mas suseptible a ser mal
             #categorizado. recall nos dice que porcentaje de cada clase fue categorizada correctamente (en su clase)
             #si el recall de una clase es notoriamente mas bajo que el de la otra podria estar ocurriendo que uno de los
             #grupos de dibujos de la clase con menor recall este siendo categorizado en la otra clase
+
             recall = recall_score(y45_test, y_pred, average=None)
-            #agrego los valores al dataframe
+            # Agregamos los valores al dataframe
             nuevaFila = pd.DataFrame({"Valor de K": [k] ,"cant_atributos": [i], "Separación": [n],"Accuracy": [accuracyscore],"Recall clase 4": [recall[0]], "Recall clase 5": [recall[1]]})
             ModelosPorAccuracy = pd.concat([ModelosPorAccuracy,nuevaFila])
             
-            #printeamos para controlar
+            # Printeamos para ir viendo
             print("//////////////////////////////////////////////////////////////////////////////")
             print("Valor de K: " + str(k))
             print("Separación: " + str(n))
@@ -251,7 +278,7 @@ LIMIT 10
 """
 dftop10 = dd.query(n10ModelosPorAccuracy).df()
 
-# A graficar la tabla:
+# Graficamos la tabla:
 fig, ax = plt.subplots(figsize=(10, 3))
 ax.axis('off')  #para oclutar los ejes
 
@@ -279,8 +306,6 @@ X_dev, X_held, y_dev, y_held = train_test_split(x, y,test_size=0.2,stratify=y,ra
 # Ahora dejamos de lado el conjunto held-out y separamos los datos de desarrollo (80/20)
 X_entrenamiento, X_evaluacion, y_entrenamiento, y_evaluacion = train_test_split(X_dev, y_dev,test_size=0.2,stratify=y_dev,random_state=42)
 
-#%% Probamos con todas las profundidades entre 1 y 10
-
 alturas = [1,2,3,4,5,6,7,8,9,10]
 scores = [] # para el grafico
 
@@ -293,7 +318,7 @@ for i in alturas:
     scores.append(score)
     print("score del arbol con altura",i,"=",score)
 
-#%% Grafico:
+#%% Gráfico:
 plt.subplots(figsize=(5, 5))
 plt.plot(alturas, scores, marker='o')
 plt.xlabel("Altura Árbol")
@@ -308,13 +333,14 @@ plt.show()
 # =====================
 #%% 3.c
 # =====================
-# HIPERPARAMETROS EN ARBOLES: (lo saqué de la clase)
-# -Criterio de elección de atributos -> (Gini, entropy)
-# -Profundidad -> (1,...,10)
-# -Estrategia de poda (no se si esto seria el k-fold?)
+"""
+Hiperparámetros en árbol:
+ -Criterio de elección de atributos -> (Gini, entropy)
+ -Profundidad -> (1,...,10)
+ -Estrategia de poda (no se si esto seria el k-fold?)
+"""
 
 # Hacemos el K-fold
-
 alturas = [1,2,3,4,5,6,7,8,9,10] # (mismas que inciso anterior)
 nsplits = 5
 kf = KFold(n_splits=nsplits)
@@ -397,49 +423,18 @@ y_pred = mejor_modelo.predict(X_held)
 acc_final = accuracy_score(y_held, y_pred)
 print(f"Accuracy final en held-out: {acc_final:.4f}")
 
-#%% Generamos la matriz de confusion del modelo
-# Matriz de confusion:
+#%% Generamos la matriz de confusión del modelo
+# Matriz de confusión:
 cm = confusion_matrix(y_held, y_pred)
 print("Matriz de confusión:\n", cm)
 
-# Grafico de matriz de confusión para el informe:
+# Gráfico de matriz de confusión para el informe:
 plt.figure()
 ConfusionMatrixDisplay(confusion_matrix=cm).plot(cmap="Blues", values_format='d')
 plt.xlabel("Clase predecida")
 plt.ylabel("Clase real")
-plt.title("Matriz de Confusión – Held-Out (Entropy, depth=10)")
+plt.title("Matriz de Confusión - Held-Out (Entropy, profundidad=10)")
 plt.tight_layout()
 plt.show()
 
-
-
-
-#%%
-
-"""
-##########################################################
-# kNN with neighbors=4 benchmark for Kuzushiji-MNIST
-# Acheives 92.10% test accuracy
-##########################################################
-def load(f):
-    return np.load(f)['arr_0']
-
-# Load the data
-x_train = load('kmnist-train-imgs.npz')
-x_test = load('kmnist-test-imgs.npz')
-y_train = load('kmnist-train-labels.npz')
-y_test = load('kmnist-test-labels.npz')
-
-# Flatten images
-x_train = x_train.reshape(-1, 784)
-x_test = x_test.reshape(-1, 784)
-
-clf = KNeighborsClassifier(n_neighbors=4, weights='distance', n_jobs=-1)
-print('Fitting', clf)
-clf.fit(x_train, y_train)
-print('Evaluating', clf)
-
-test_score = clf.score(x_test, y_test)
-print('Test accuracy:', test_score)
-"""
 #%%
