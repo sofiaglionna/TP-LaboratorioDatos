@@ -330,6 +330,15 @@ dfLos350_pixeles_mas_pintados = dd.query(Los350_pixeles_mas_pintados).df()
 # Obtenemos la lista de los 350 pixeles más pintados
 pixeles_top350 = dfLos350_pixeles_mas_pintados['pixel'].tolist()
 
+#Tambien voy a crear una para los 100 pixeles mas pintados
+Los100_pixeles_mas_pintados = """
+                SELECT *
+                FROM df_sumas
+                ORDER BY suma DESC
+                LIMIT 100
+"""
+dfLos100_pixeles_mas_pintados = dd.query(Los100_pixeles_mas_pintados).df()
+pixeles_top100 = dfLos100_pixeles_mas_pintados['pixel'].tolist()
 # =====================
 #%% 3.a
 # =====================
@@ -344,18 +353,36 @@ X_dev, X_held, y_dev, y_held = train_test_split(x, y,test_size=0.2,stratify=y,ra
 X_dev350 = X_dev[pixeles_top350]
 X_held350 = X_held[pixeles_top350]
 
+# Usamos solo los 100 atributos que seleccionamos
+X_dev100 = X_dev[pixeles_top100]
+X_held100 = X_held[pixeles_top100]
+
+
+
+
+
 # =====================
 #%% 3.b
 # =====================
 # Ahora dejamos de lado el conjunto held-out y separamos los datos de desarrollo (80/20)
 X_entrenamiento, X_evaluacion, y_entrenamiento, y_evaluacion = train_test_split(X_dev, y_dev,test_size=0.2,stratify=y_dev,random_state=42)
 X_entrenamiento_350, X_evaluacion_350, y_entrenamiento, y_evaluacion = train_test_split(X_dev350, y_dev,test_size=0.2,stratify=y_dev,random_state=42)
-
+X_entrenamiento_100, X_evaluacion_100, y_entrenamiento, y_evaluacion = train_test_split(X_dev100, y_dev,test_size=0.2,stratify=y_dev,random_state=42)
 alturas = [1,2,3,4,5,6,7,8,9,10]
 # para el grafico:
 scores = [] 
 scores350 = []
+scores100 = []
+#%% Creo arbol para los 100 atributos
+for i in alturas: 
+    arbol = DecisionTreeClassifier(max_depth=i,criterion="entropy") 
+    arbol.fit(X_entrenamiento_100, y_entrenamiento)
 
+    prediction = arbol.predict(X_evaluacion_100) 
+    score100 = accuracy_score(y_evaluacion, prediction)
+    scores100.append(score100)
+    print("score del arbol (100 atributos) con altura",i,"=",score100)
+#%%Creo arbol para los 350 atributos
 for i in alturas: 
     arbol = DecisionTreeClassifier(max_depth=i,criterion="entropy") 
     arbol.fit(X_entrenamiento_350, y_entrenamiento)
@@ -364,7 +391,7 @@ for i in alturas:
     score350 = accuracy_score(y_evaluacion, prediction)
     scores350.append(score350)
     print("score del arbol (350 atributos) con altura",i,"=",score350)
-#%%
+#%%Creo arbol para todos los atributos
 for i in alturas: 
     arbol = DecisionTreeClassifier(max_depth=i,criterion="entropy") 
     arbol.fit(X_entrenamiento, y_entrenamiento)
@@ -374,14 +401,31 @@ for i in alturas:
     scores.append(score)
     print("score del arbol (todos los atributos) con altura",i,"=",score)
 
-#%% Gráfico:
-plt.plot(alturas, scores, marker='o', label = "780 atributos",  color = "blue")
-plt.plot(alturas, scores350, marker='o',label = "350 atributos", color = "red")
+#%% 
+#grafico (100 vs 784)
+plt.subplots(figsize=(5, 4))
+plt.plot(alturas, scores, marker='o', label = "784 atributos",  color = "blue")
+plt.plot(alturas, scores100, marker='o',label = "100 atributos", color = "green")
 plt.legend()
-plt.tight_layout()
 plt.xlabel("Altura Árbol")
 plt.ylabel("accuracy en evaluación")
-plt.title("Entropy 350 vs 780 atributos - altura vs accuracy")
+plt.title("Entropy 100 vs 784 atributos - altura vs accuracy")
+plt.xlim(1, 10)
+plt.ylim(0, 1)  
+plt.grid(True)
+plt.show()
+
+#%%
+#Gráfico (350 vs 784):
+plt.subplots(figsize=(5, 4))
+plt.plot(alturas, scores, marker='o', label = "784 atributos",  color = "blue")
+plt.plot(alturas, scores350, marker='o',label = "350 atributos", color = "red")
+plt.legend()
+plt.xlabel("Altura Árbol")
+plt.ylabel("accuracy en evaluación")
+plt.title("Entropy 350 vs 784 atributos - altura vs accuracy")
+plt.xlim(1, 10)
+plt.ylim(0, 1)  
 plt.grid(True)
 plt.show()
 
@@ -451,14 +495,16 @@ for i,e in enumerate(alturas):
 # =====================
 #%% Grafico de ambos (Gini y Entropy) superpuestos:
 # =====================
+plt.subplots(figsize=(5, 4))
 plt.plot(alturas, scores_promedio_ENTROPY, marker='o', label='Entropy', color='blue')
 plt.plot(alturas, scores_promedio_GINY, marker='o', label='Gini', color='green')
 plt.xlabel("Altura Árbol")
 plt.ylabel("accuracy promedio (k-folding)")
 plt.title("Comparación Entropy vs Gini - altura vs accuracy")
+plt.xlim(1, 10)
+plt.ylim(0, 1)  
 plt.legend()
 plt.grid(True)
-plt.tight_layout()
 plt.show()
 
 # =====================
