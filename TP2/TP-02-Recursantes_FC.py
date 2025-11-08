@@ -389,7 +389,7 @@ scores350 = []
 scores100 = []
 #%% Creamos árbol para los 100 atributos
 for i in alturas: 
-    arbol = DecisionTreeClassifier(max_depth=i,criterion="entropy") 
+    arbol = DecisionTreeClassifier(max_depth=i,criterion="entropy", random_state = 42) 
     arbol.fit(X_entrenamiento_100, y_entrenamiento)
 
     prediction = arbol.predict(X_evaluacion_100) 
@@ -398,7 +398,7 @@ for i in alturas:
     print("score del arbol (100 atributos) con altura",i,"=",score100)
 #%%Creo arbol para los 350 atributos
 for i in alturas: 
-    arbol = DecisionTreeClassifier(max_depth=i,criterion="entropy") 
+    arbol = DecisionTreeClassifier(max_depth=i,criterion="entropy", random_state = 42) 
     arbol.fit(X_entrenamiento_350, y_entrenamiento)
 
     prediction = arbol.predict(X_evaluacion_350) 
@@ -407,7 +407,7 @@ for i in alturas:
     print("score del arbol (350 atributos) con altura",i,"=",score350)
 #%%Creo arbol para todos los atributos
 for i in alturas: 
-    arbol = DecisionTreeClassifier(max_depth=i,criterion="entropy") 
+    arbol = DecisionTreeClassifier(max_depth=i,criterion="entropy", random_state = 42) 
     arbol.fit(X_entrenamiento, y_entrenamiento)
 
     prediction = arbol.predict(X_evaluacion) 
@@ -470,7 +470,7 @@ for i, (train_index, test_index) in enumerate(kf.split(X_dev350)):
     
     for j, hmax in enumerate(alturas):
         
-        arbol = tree.DecisionTreeClassifier(max_depth = hmax, criterion="entropy")
+        arbol = tree.DecisionTreeClassifier(max_depth = hmax, criterion="entropy", random_state = 42) 
         arbol.fit(kf_X_train, kf_y_train)
         pred = arbol.predict(kf_X_test)
         score = accuracy_score(kf_y_test,pred)
@@ -494,7 +494,7 @@ for i, (train_index, test_index) in enumerate(kf.split(X_dev350)):
     
     for j, hmax in enumerate(alturas):
         
-        arbol = tree.DecisionTreeClassifier(max_depth = hmax, criterion="gini")
+        arbol = tree.DecisionTreeClassifier(max_depth = hmax, criterion="gini", random_state = 42) 
         arbol.fit(kf_X_train, kf_y_train)
         pred = arbol.predict(kf_X_test)
         score = accuracy_score(kf_y_test,pred)
