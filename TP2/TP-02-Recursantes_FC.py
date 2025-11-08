@@ -60,9 +60,9 @@ dfcaracteres_distintos = dd.query(caracteres_distintos).df()
 # Hay exactamente 7000 imagenes por cada clase.
 # 7000 imagenes x 10 clases = 70000 (numero de filas)
 
-##########################
+#=========================
 #%% Gráfico de caracteres
-##########################
+#=========================
 
 # Sleccionamos solo una clase
 kuzushiji_clase = """
@@ -80,7 +80,21 @@ for i in range(100,110):
     img = np.array(XC.iloc[i]).reshape((28,28))
     plt.imshow(img, cmap='gray')
     plt.show()
-#print(dfkuzushiji_clase.loc[i,"label"]) # para ver la clase
+
+#=========================
+#%% Gráfico promedio de píxeles
+#=========================
+
+# Se calculan los promedios de atributo de todo el dataset original
+caracter_prom = kuzushiji.mean(axis=0).apply(np.floor).astype(int)
+img_nbr = caracter_prom
+img = np.array(img_nbr.iloc[1:785]).reshape(28,28)
+# Proyección de la imagen promedio
+plt.plot()
+plt.imshow(img, cmap="hot")
+plt.title("Imagen promedio - Todas las clases")
+plt.axis("on")
+plt.show()
 
 ##########################################################
 #%% 2. Clasificación Binaria
@@ -369,11 +383,11 @@ X_entrenamiento, X_evaluacion, y_entrenamiento, y_evaluacion = train_test_split(
 X_entrenamiento_350, X_evaluacion_350, y_entrenamiento, y_evaluacion = train_test_split(X_dev350, y_dev,test_size=0.2,stratify=y_dev,random_state=42)
 X_entrenamiento_100, X_evaluacion_100, y_entrenamiento, y_evaluacion = train_test_split(X_dev100, y_dev,test_size=0.2,stratify=y_dev,random_state=42)
 alturas = [1,2,3,4,5,6,7,8,9,10]
-# para el grafico:
+# para el gráfico:
 scores = [] 
 scores350 = []
 scores100 = []
-#%% Creo arbol para los 100 atributos
+#%% Creamos árbol para los 100 atributos
 for i in alturas: 
     arbol = DecisionTreeClassifier(max_depth=i,criterion="entropy") 
     arbol.fit(X_entrenamiento_100, y_entrenamiento)
@@ -493,7 +507,7 @@ for i,e in enumerate(alturas):
     print(f'Score promedio del modelo con criterio GINI con hmax = {e}: {scores_promedio_GINY[i]:.4f}')
 
 # =====================
-#%% Grafico de ambos (Gini y Entropy) superpuestos:
+#%% (Figura 6) Grafico de Gini y Entropy superpuestos:
 # =====================
 plt.subplots(figsize=(5, 4))
 plt.plot(alturas, scores_promedio_ENTROPY, marker='o', label='Entropy', color='blue')
@@ -514,7 +528,7 @@ plt.show()
 # Gini con profundidad 10 no estuvo muy lejos ya que dio un score del 70.00%.
 
 # Entrenamos el modelo ahora en todo el conjunto de desarrollo
-mejor_modelo = DecisionTreeClassifier(criterion="entropy", max_depth=10)
+mejor_modelo = DecisionTreeClassifier(criterion="entropy", max_depth=10, random_state=42)
 mejor_modelo.fit(X_dev350, y_dev)
 
 # Predecimos sobre el held-out
