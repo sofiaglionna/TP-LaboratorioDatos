@@ -91,7 +91,7 @@ img_nbr = caracter_prom
 img = np.array(img_nbr.iloc[1:785]).reshape(28,28)
 # Proyección de la imagen promedio
 plt.plot()
-plt.imshow(img, cmap="hot")
+plt.imshow(img, cmap="gray")
 plt.title("Imagen promedio - Todas las clases")
 plt.axis("on")
 plt.show()
