@@ -43,7 +43,7 @@ kuzushiji = pd.read_csv("datos\originales\kuzushiji_full.csv")
 ##########################################################
 
 # Veamos cuántas columnas tiene el archivo:
-print(kuzushiji.shape)
+#print(kuzushiji.shape)
 # (70000,785)
 # El archivo kuzushiji cuenta con 70000 imagenes de caracteres.
 # 785 columnas, de las cuales 784 pixeles (imágenes de 28x28) y 1 columna "label" con el caracter al que corresponde. 
@@ -71,7 +71,7 @@ kuzushiji_clase = """
         WHERE "label" = 6 
 """
 dfkuzushiji_clase = dd.query(kuzushiji_clase).df()
-print(dfkuzushiji_clase.shape)
+#print(dfkuzushiji_clase.shape)
 XC = dfkuzushiji_clase.drop('label', axis=1)
 
 #%% Viasualizamos varias imagenes para tener una idea de que aparece en cada clase:
@@ -111,7 +111,8 @@ clases4y5 = """
 """
 dfclases4y5 = dd.query(clases4y5).df()
 
-print(dfclases4y5.shape) # Total = 14000 imágenes.
+#print para ver la cantidad de filas (caracteres). Tambien se puede ver en el tamaño del dataFrame
+#print(dfclases4y5.shape) # Total = 14000 imágenes.
 # Veamos de esas 14000 imágenes cuántas pertenecen a las clase 4.
 clase4 = """
         SELECT *
@@ -120,7 +121,8 @@ clase4 = """
 """
 dfclase4 = dd.query(clase4).df()
 
-print(dfclase4.shape) # Total = 7000 imágenes.
+#print para ver la cantidad de filas (caracteres). Tambien se puede ver en el tamaño del dataFrame
+#print(dfclase4.shape) # Total = 7000 imágenes.
 # En dfclases4y5 hay 7000 caracteres de la clase 4; exactamente la mitad.
 # Por lo tanto el dfclase4y5 está perfectamente balanceado entre las clases 4 y 5.
 
@@ -201,9 +203,11 @@ def maximosConSeparacion (df,n,i):
     # indice lo vamos a usar para ir recorriendo df
     indice = 0
     while len(res) < i:
+        #Casos donde es imposible elegir esa cantidad de datos con esa separacion. Devuelve la lista incompleta que luego es descartada
         if indice >= 784:
-            print("//////////////////////////////////////////////////////////////////////////////")
-            print("fuera de rango, separacion o cantidad de atributos muy alto")
+            #prints de control:
+            #print("//////////////////////////////////////////////////////////////////////////////")
+            #print("fuera de rango, separacion o cantidad de atributos muy alto")
             break
         # si esta dentro del radio n entonces no lo agregamos y pasamos al siguiente con mayor diferencia
         elif enRango(res,df.loc[indice,"index"],n):
@@ -270,14 +274,14 @@ for k in valoresDeK:
             nuevaFila = pd.DataFrame({"Valor de K": [k] ,"cant_atributos": [i], "Separación": [n],"Accuracy": [accuracyscore],"Recall clase 4": [recall[0]], "Recall clase 5": [recall[1]]})
             ModelosPorAccuracy = pd.concat([ModelosPorAccuracy,nuevaFila])
             
-            # Printeamos para ir viendo
-            print("//////////////////////////////////////////////////////////////////////////////")
-            print("Valor de K: " + str(k))
-            print("Separación: " + str(n))
-            print(str(i)+ " atributos"  +":")
-            print("cantidad de atributos tomados realmente:" + str(len(indices)))
-            print("Accuracy: " + str(accuracyscore))
-            print("Recall clase 4: " + str(recall[0]) + "\n" + "recall clase 5: " + str(recall[1]))
+            # Prints de control:
+            #print("//////////////////////////////////////////////////////////////////////////////")
+            #print("Valor de K: " + str(k))
+            #print("Separación: " + str(n))
+            #print(str(i)+ " atributos"  +":")
+            #print("cantidad de atributos tomados realmente:" + str(len(indices)))
+            #print("Accuracy: " + str(accuracyscore))
+            #print("Recall clase 4: " + str(recall[0]) + "\n" + "recall clase 5: " + str(recall[1]))
             
 
 # Ordenamos el DataFrame para cada valor de k y cantidad de atributos pongo el de mayor accuracy mas arriba
@@ -391,7 +395,8 @@ for i in alturas:
     prediction = arbol.predict(X_evaluacion_100) 
     score100 = accuracy_score(y_evaluacion, prediction)
     scores100.append(score100)
-    print("score del arbol (100 atributos) con altura",i,"=",score100)
+    #printeamos los scores para analizar:
+    #print("score del arbol (100 atributos) con altura",i,"=",score100)
 #%%Creo arbol para los 350 atributos
 for i in alturas: 
     arbol = DecisionTreeClassifier(max_depth=i,criterion="entropy", random_state = 42) 
@@ -400,7 +405,8 @@ for i in alturas:
     prediction = arbol.predict(X_evaluacion_350) 
     score350 = accuracy_score(y_evaluacion, prediction)
     scores350.append(score350)
-    print("score del arbol (350 atributos) con altura",i,"=",score350)
+    #printeamos los scores para analizar:
+    #print("score del arbol (350 atributos) con altura",i,"=",score350)
 #%%Creo arbol para todos los atributos
 for i in alturas: 
     arbol = DecisionTreeClassifier(max_depth=i,criterion="entropy", random_state = 42) 
@@ -409,7 +415,8 @@ for i in alturas:
     prediction = arbol.predict(X_evaluacion) 
     score = accuracy_score(y_evaluacion, prediction)
     scores.append(score)
-    print("score del arbol (todos los atributos) con altura",i,"=",score)
+    #printeamos los scores para analizar:
+    #print("score del arbol (todos los atributos) con altura",i,"=",score)
 
 #%% 
 #grafico (100 vs 784)
@@ -457,6 +464,7 @@ kf = KFold(n_splits=nsplits)
 # =====================
 #%% ENTROPY CON KFOLDING
 # =====================
+# DataFrame con los resultados
 resultadosENTROPY = np.zeros((nsplits, len(alturas))) # una fila por cada fold, una columna por cada modelo
 
 for i, (train_index, test_index) in enumerate(kf.split(X_dev350)):
@@ -475,12 +483,14 @@ for i, (train_index, test_index) in enumerate(kf.split(X_dev350)):
 # promedio scores sobre los folds
 scores_promedio_ENTROPY = resultadosENTROPY.mean(axis = 0)
 #%%
-for i,e in enumerate(alturas):
-    print(f'Score promedio del modelo con criterio ENTROPY con hmax = {e}: {scores_promedio_ENTROPY[i]:.4f}')
+#printeamos los scores para facilitar el analisis:
+#for i,e in enumerate(alturas):
+    #print(f'Score promedio del modelo con criterio ENTROPY con hmax = {e}: {scores_promedio_ENTROPY[i]:.4f}')
 
 # =====================
 #%% GINI CON KFOLDING
 # =====================
+# DataFrame con los resultados
 resultadosGINI = np.zeros((nsplits, len(alturas))) # una fila por cada fold, una columna por cada modelo
 
 for i, (train_index, test_index) in enumerate(kf.split(X_dev350)):
@@ -499,8 +509,9 @@ for i, (train_index, test_index) in enumerate(kf.split(X_dev350)):
 # promedio scores sobre los folds
 scores_promedio_GINY = resultadosGINI.mean(axis = 0)
 #%%
-for i,e in enumerate(alturas):
-    print(f'Score promedio del modelo con criterio GINI con hmax = {e}: {scores_promedio_GINY[i]:.4f}')
+#printeamos los scores para facilitar el analisis:
+#for i,e in enumerate(alturas):
+    #print(f'Score promedio del modelo con criterio GINI con hmax = {e}: {scores_promedio_GINY[i]:.4f}')
 
 # =====================
 #%% (Figura 7) Grafico de Gini y Entropy superpuestos:
@@ -537,7 +548,8 @@ print(f"Accuracy final en held-out: {acc_final:.4f}")
 #%% Generamos la matriz de confusión del modelo
 # Matriz de confusión:
 cm = confusion_matrix(y_held, y_pred)
-print("Matriz de confusión:\n", cm)
+#Printeamos la matriz para facilitar su visualizacion y analisis
+#print("Matriz de confusión:\n", cm)
 
 # Gráfico de matriz de confusión para el informe:
 plt.figure()
