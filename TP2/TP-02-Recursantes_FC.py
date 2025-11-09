@@ -88,7 +88,7 @@ for i in range(100,110):
 # Se calculan los promedios de atributo de todo el dataset original
 caracter_prom = kuzushiji.mean(axis=0).apply(np.floor).astype(int)
 img_nbr = caracter_prom
-img = np.array(img_nbr.iloc[1:785]).reshape(28,28)
+img = np.array(img_nbr.iloc[0:784]).reshape(28,28)
 # Proyección de la imagen promedio
 plt.plot()
 plt.imshow(img, cmap="gray")
@@ -306,7 +306,7 @@ dftop10 = dd.query(n10ModelosPorAccuracy).df()
 
 # Graficamos la tabla:
 fig, ax = plt.subplots(figsize=(10, 3))
-ax.axis('off')  #para oclutar los ejes
+ax.axis('off') 
 
 tablaDeAccuracy = ax.table(
     cellText=dftop10.values,
@@ -507,7 +507,7 @@ for i,e in enumerate(alturas):
     print(f'Score promedio del modelo con criterio GINI con hmax = {e}: {scores_promedio_GINY[i]:.4f}')
 
 # =====================
-#%% (Figura 6) Grafico de Gini y Entropy superpuestos:
+#%% (Figura 7) Grafico de Gini y Entropy superpuestos:
 # =====================
 plt.subplots(figsize=(5, 4))
 plt.plot(alturas, scores_promedio_ENTROPY, marker='o', label='Entropy', color='blue')
