@@ -86,9 +86,11 @@ for i in range(100,110):
 #=========================
 
 # Se calculan los promedios de atributo de todo el dataset original
-caracter_prom = kuzushiji.mean(axis=0).apply(np.floor).astype(int)
-img_nbr = caracter_prom
-img = np.array(img_nbr.iloc[0:784]).reshape(28,28)
+caracter_prom = kuzushiji.drop("label",axis=1).mean(axis=0)
+#Redondeo el promedio para el grafico
+caracter_prom_redondeado = caracter_prom.apply(np.floor).astype(int)
+#Los reordeno en una matriz 28x28
+img = np.array(caracter_prom_redondeado.iloc[0:784]).reshape(28,28)
 # Proyección de la imagen promedio
 plt.plot()
 plt.imshow(img, cmap="gray")
@@ -324,19 +326,17 @@ plt.tight_layout()
 #%% Se separan atributos relevantes
 # =====================
 
-# Hacemos la suma de cada fila por columna. Es decir, sin distinguir entre clases,
-# se suman todas las filas por pixeles (columnas). Esto para luego poder ver cuales son
+# Uso la tabla con el promedio de cuanto se pinta cada pixel que calculamos antes. Para luego poder ver cuales son
 # los pixeles más utilizados.
 
-X = kuzushiji.drop("label", axis=1)
-suma_columnas = X.sum(axis=0)
-df_sumas = suma_columnas.reset_index()
-df_sumas.columns = ['pixel', 'suma']
-
+#Hago reset_index para obtener una columna con los indices (pixel con su promedio)
+df_pixelesPorProm = caracter_prom.reset_index()
+df_pixelesPorProm.columns = ['pixel', 'promedio']
+#%% Creo una lista con los 350 pixeles más relevantes
 Los350_pixeles_mas_pintados = """
                 SELECT *
-                FROM df_sumas
-                ORDER BY suma DESC
+                FROM df_pixelesPorProm
+                ORDER BY promedio DESC
                 LIMIT 350
 """
 dfLos350_pixeles_mas_pintados = dd.query(Los350_pixeles_mas_pintados).df()
@@ -344,11 +344,11 @@ dfLos350_pixeles_mas_pintados = dd.query(Los350_pixeles_mas_pintados).df()
 # Obtenemos la lista de los 350 pixeles más pintados
 pixeles_top350 = dfLos350_pixeles_mas_pintados['pixel'].tolist()
 
-#Tambien voy a crear una para los 100 pixeles mas pintados
+#Tambien voy a crear una para los 100 pixeles más relevantes
 Los100_pixeles_mas_pintados = """
                 SELECT *
-                FROM df_sumas
-                ORDER BY suma DESC
+                FROM df_pixelesPorProm
+                ORDER BY promedio DESC
                 LIMIT 100
 """
 dfLos100_pixeles_mas_pintados = dd.query(Los100_pixeles_mas_pintados).df()
@@ -370,10 +370,6 @@ X_held350 = X_held[pixeles_top350]
 # Usamos solo los 100 atributos que seleccionamos
 X_dev100 = X_dev[pixeles_top100]
 X_held100 = X_held[pixeles_top100]
-
-
-
-
 
 # =====================
 #%% 3.b
